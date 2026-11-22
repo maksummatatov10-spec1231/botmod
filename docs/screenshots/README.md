@@ -17,6 +17,13 @@ context.takeScreenshot("botmod-bot");   // Fabric Client GameTest API
 ```
 → `build/run/clientGameTest/screenshots/` → CI коммитит в `docs/screenshots/`.
 
+## Скин бота
+
+Бот использует скин, присланный пользователем (`docs/skins/training_bot_source.png`,
+репозиторий `main`, файл `f25cda07d206d319.png`) — крипер-скин: чёрная база, зелёные глаза,
+надпись CREEPER. Формат — стандартный скин игрока 64×64, поэтому он ложится на
+`HumanoidModel` без правок UV.
+
 ## О чём говорят эти кадры
 
 - Мод **загружается в настоящем клиенте** 26.3 и не роняет игру.

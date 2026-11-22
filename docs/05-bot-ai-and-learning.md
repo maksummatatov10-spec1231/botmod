@@ -45,6 +45,12 @@
 - сбив щита: бот бьёт по блоку, когда цель поднимает щит;
 - зелья и золотые яблоки при низком HP.
 
+## Внешний вид
+
+Скин бота — `src/main/resources/assets/botmod/textures/entity/training_bot.png`
+(копия `docs/skins/training_bot_rgba.png`, присланный пользователем крипер-скин 64×64).
+Броня и предмет в руке рисуются слоями `HumanoidMobRenderer`.
+
 ## Где код
 
 | Что | Файл |
