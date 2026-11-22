@@ -1,6 +1,7 @@
 package com.botmod.entity;
 
 import com.botmod.config.BotModConfig;
+import com.botmod.lab.BotLabBridge;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -185,6 +186,7 @@ public class TrainingBotEntity extends PathfinderMob {
 		boolean hurt = super.hurtServer(level, source, amount);
 
 		if (hurt && !level.isClientSide()) {
+			BotLabBridge.event("hurt", getName().getString() + " −" + amount);
 			Entity attacker = source.getEntity();
 			// В режиме IDLE бот отвечает только на удар — это «мешок», который не провоцирует.
 			if (attacker instanceof LivingEntity living && this.duelTarget == null) {
@@ -221,7 +223,11 @@ public class TrainingBotEntity extends PathfinderMob {
 
 		DamageSource source = this.damageSources().mobAttack(this);
 		// Отдачу применяет сам LivingEntity#hurtServer через dealDefaultKnockback.
-		target.hurtServer(serverLevel, source, damage);
+		boolean hurt = target.hurtServer(serverLevel, source, damage);
+		if (hurt) {
+			BotLabBridge.event("damage", getName().getString() + " → "
+					+ target.getName().getString() + " −" + String.format(java.util.Locale.ROOT, "%.1f", damage));
+		}
 	}
 
 	/** Обработка щита: поднимаем его в ближнем бою, опускаем на дистанции. */
