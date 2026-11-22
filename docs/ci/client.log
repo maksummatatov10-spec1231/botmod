@@ -21,39 +21,563 @@ Fabric Loom: 1.19.4
 > Task :processClientResources NO-SOURCE
 > Task :processIncludeJars
 > Task :processResources
+> Task :downloadAssets
 > Task :compileJava
 > Task :classes
+> Task :compileClientJava
+> Task :jar
 
-> Task :compileClientJava FAILED
-/home/runner/work/botmod/botmod/src/client/java/com/botmod/client/keymap/BotModKeyMappings.java:35: error: cannot find symbol
-			BotLabFrameSender.tick(client);
-			^
-  symbol:   variable BotLabFrameSender
-  location: class BotModKeyMappings
-1 error
+> Task :runProductionClientGameTest
+[22:21:30] [main/INFO]: Loading Minecraft 26.3 with Fabric Loader 0.20.1
+[22:21:30] [main/INFO]: Mappings not present!
+[22:21:30] [main/INFO]: Loading 52 mods:
+	- botmod 0.1.0
+	- fabric-advancement-api-v1 1.0.1+38c7a2d55d
+	- fabric-api 0.166.2+26.3
+	- fabric-api-base 2.0.6+fcdff87f5d
+	- fabric-api-lookup-api-v1 2.0.24+3434d6d95d
+	- fabric-biome-api-v1 20.2.0+423307765d
+	- fabric-block-api-v1 3.1.0+0ae6f9115d
+	- fabric-block-getter-api-v2 2.0.9+3434d6d95d
+	- fabric-client-gametest-api-v1 6.0.12+131f8d475d
+	- fabric-command-api-v2 3.1.2+fcdff87f5d
+	- fabric-content-registries-v0 15.0.7+74ed1ea55d
+	- fabric-convention-tags-v2 4.10.5+187b64905d
+	- fabric-crash-report-info-v1 1.0.7+fcdff87f5d
+	- fabric-creative-tab-api-v1 5.0.22+fcdff87f5d
+	- fabric-data-attachment-api-v1 2.2.35+af2d4d095d
+	- fabric-data-generation-api-v1 27.4.3+187b64905d
+	- fabric-debug-api-v1 1.0.5+5af7744b5d
+	- fabric-dimensions-v1 5.1.20+5af7744b5d
+	- fabric-entity-events-v1 6.0.4+3434d6d95d
+	- fabric-events-interaction-v0 5.3.10+b9b88df45d
+	- fabric-game-rule-api-v1 4.0.10+3434d6d95d
+	- fabric-gametest-api-v1 4.0.36+3434d6d95d
+	- fabric-item-api-v1 14.8.1+8f511c9f5d
+	- fabric-key-mapping-api-v1 2.0.8+3434d6d95d
+	- fabric-lifecycle-events-v1 4.1.9+ffef5f675d
+	- fabric-loot-api-v3 4.0.9+4068fd645d
+	- fabric-menu-api-v1 2.0.31+ed66f0a35d
+	- fabric-message-api-v1 7.1.0+3e5b46335d
+	- fabric-model-loading-api-v1 8.1.1+54bb04825d
+	- fabric-networking-api-v1 6.4.1+c58129785d
+	- fabric-object-builder-api-v1 24.1.13+e2f63d3e5d
+	- fabric-particles-v1 5.0.28+3434d6d95d
+	- fabric-permission-api-v1 1.0.8+fcdff87f5d
+	- fabric-recipe-api-v1 10.0.12+b9b88df45d
+	- fabric-registry-sync-v0 8.0.5+1ca9f6365d
+	- fabric-renderer-api-v1 17.0.19+79385d0b5d
+	- fabric-renderer-indigo 9.1.27+b9d63e335d
+	- fabric-rendering-fluids-v1 6.0.6+3434d6d95d
+	- fabric-rendering-v1 27.3.1+28694c565d
+	- fabric-resource-conditions-api-v1 6.2.1+fd3b1d565d
+	- fabric-resource-loader-v0 3.3.27+4fc5413f5d
+	- fabric-resource-loader-v1 3.1.0+5af7744b5d
+	- fabric-screen-api-v1 5.2.4+48607d035d
+	- fabric-serialization-api-v1 2.0.8+bb0d41e65d
+	- fabric-sound-api-v1 2.0.7+3434d6d95d
+	- fabric-tag-api-v1 2.1.11+fcdff87f5d
+	- fabric-transfer-api-v1 8.0.27+c8357e785d
+	- fabric-transitive-access-wideners-v1 8.1.17+e2f63d3e5d
+	- fabricloader 0.20.1
+	   \-- mixinextras 0.5.5
+	- java 25
+	- minecraft 26.3
+[22:21:30] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/runner/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.17.5+mixin.0.8.7/cef8519a91129d0c21fa03bb9378f0e8ca810e5/sponge-mixin-0.17.5+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.lwjgl.system.Library$$Lambda/0x000000000929f440 in an unnamed module (file:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.4.3/7ab5265a73d8a959ed62332d546536ae6be2f0d5/lwjgl-3.4.3.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
 
-> Task :downloadAssets
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.lwjgl.system.MemoryBackendUnsafeLegacy (file:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.4.3/7ab5265a73d8a959ed62332d546536ae6be2f0d5/lwjgl-3.4.3.jar)
+WARNING: Please consider reporting this to the maintainers of class org.lwjgl.system.MemoryBackendUnsafeLegacy
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[22:21:31] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[22:21:32] [Datafixer Bootstrap #0/INFO]: 307 Datafixer optimizations took 359 milliseconds
+[22:21:35] [Render thread/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[22:21:35] [Render thread/INFO]: Setting user: Player351
+[22:21:35] [Render thread/INFO]: BotLab telemetry on http://127.0.0.1:17777
+[22:21:35] [Render thread/INFO]: BotMod 0.1.0 initialized
+[22:21:36] [Download-2/ERROR]: Failed to fetch user properties
+com.mojang.authlib.exceptions.InvalidCredentialsException: Status: 401
+	at knot//com.mojang.authlib.exceptions.MinecraftClientHttpException.toAuthenticationException(MinecraftClientHttpException.java:70)
+	at knot//com.mojang.authlib.services.MinecraftServicesUserApiService.fetchProperties(MinecraftServicesUserApiService.java:168)
+	at knot//net.minecraft.client.Minecraft.lambda$new$1(Minecraft.java:451)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1789)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+Caused by: MinecraftClientHttpException[type=HTTP_ERROR, status=401, response=ErrorResponse[path=/player/attributes, error=null, errorMessage=null, details=null]]
+	at knot//com.mojang.authlib.minecraft.client.MinecraftClient.buildHttpException(MinecraftClient.java:170)
+	at knot//com.mojang.authlib.minecraft.client.MinecraftClient.readServiceResponse(MinecraftClient.java:147)
+	at knot//com.mojang.authlib.minecraft.client.MinecraftClient.getWithEtag(MinecraftClient.java:81)
+	at knot//com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:65)
+	at knot//com.mojang.authlib.services.MinecraftServicesUserApiService.fetchProperties(MinecraftServicesUserApiService.java:118)
+	... 5 more
+[22:21:36] [Render thread/INFO]: [Indigo] Registering Indigo renderer!
+[22:21:36] [Render thread/ERROR]: Illegal option value 0 for Anisotropic Filtering
+[22:21:36] [Render thread/INFO]: Backend library: LWJGL version 3.4.3-snapshot
+[22:21:36] [Render thread/INFO]: SDL [SYSTEM]: App name: Minecraft
+[22:21:36] [Render thread/INFO]: SDL [SYSTEM]: App version: 26.3
+[22:21:36] [Render thread/INFO]: SDL [SYSTEM]: App ID: com.mojang.minecraft
+[22:21:36] [Render thread/INFO]: SDL [SYSTEM]: SDL revision: SDL-3.4.14--128-NOTFOUND
+[22:21:36] [Render thread/ERROR]: Failed to create backend OpenGL
+com.mojang.renderpearl.api.device.BackendCreationException: Failed to create window for OpenGL context: Couldn't find matching GLX visual
+	at knot//com.mojang.renderpearl.backend.opengl.GlDevice.<init>(GlDevice.java:83)
+	at knot//com.mojang.renderpearl.backend.opengl.GlBackend.createDevice(GlBackend.java:68)
+	at knot//net.minecraft.client.Minecraft.<init>(Minecraft.java:533)
+	at knot//net.minecraft.client.main.Main.main(Main.java:278)
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72)
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
+[22:21:36] [Render thread/INFO]: Optional FeatureSet [AMD Buffer Marker] not supported
+[22:21:36] [Render thread/INFO]: Optional FeatureSet [NV Diagnostic Checkpoint] not supported
+[22:21:36] [Render thread/INFO]: Enabling optional FeatureSet [EXT MultiDraw]
+[22:21:36] [Render thread/INFO]: Enabling optional FeatureSet [Calibrated Timestamps]
+[22:21:36] [Render thread/INFO]: Enabling optional FeatureSet [Wireframe]
+[22:21:36] [Render thread/INFO]: Using graphics backend Vulkan, using drivers: 1.4.318 llvmpipe Mesa 25.2.8-0ubuntu0.24.04.5 (LLVM 20.1.2)
+[22:21:36] [Render thread/INFO]: Using graphics device: llvmpipe (LLVM 20.1.2, 256 bits) (0x10005)
+[22:21:36] [Render thread/INFO]: Using graphics device extensions: VK_EXT_calibrated_timestamps (D), VK_KHR_synchronization2 (D), VK_EXT_multi_draw (D), VK_EXT_vertex_attribute_divisor (D), VK_KHR_swapchain (D), VK_KHR_surface (I), VK_KHR_push_descriptor (D), VK_KHR_xlib_surface (I), VK_EXT_debug_utils (I), VK_KHR_dynamic_rendering (D)
+[22:21:36] [Render thread/INFO]: Created window using SDL video driver: x11
+[22:21:37] [Download-2/INFO]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: FabricMC
+[22:21:37] [Download-2/ERROR]: Failed to fetch Realms feature flags
+com.mojang.realmsclient.exception.RealmsServiceException: Realms authentication error with message 'java.lang.RuntimeException: Failed to parse into SignedJWT: FabricMC'
+	at knot//com.mojang.realmsclient.client.RealmsClient.execute(RealmsClient.java:625)
+	at knot//com.mojang.realmsclient.client.RealmsClient.fetchFeatureFlags(RealmsClient.java:204)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1789)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+[22:21:37] [Render thread/INFO]: Reloading ResourceManager: vanilla, vanilla, botmod, fabric-advancement-api-v1, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-getter-api-v2, fabric-client-gametest-api-v1, fabric-command-api-v2, fabric-content-registries-v0, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-creative-tab-api-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-debug-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-gametest-api-v1, fabric-item-api-v1, fabric-key-mapping-api-v1, fabric-lifecycle-events-v1, fabric-loot-api-v3, fabric-menu-api-v1, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-permission-api-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-rendering-fluids-v1, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-resource-loader-v1, fabric-screen-api-v1, fabric-serialization-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader
+[22:21:37] [Worker-Main-3/INFO]: Found unifont_all_no_pua-17.0.01.hex, loading
+[22:21:37] [Worker-Main-2/INFO]: Found unifont_pua-17.0.01.hex, loading
+[22:21:37] [Worker-Main-3/INFO]: Found unifont_jp_patch-17.0.01.hex, loading
+ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+ALSA lib confmisc.c:422:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1342:(snd_func_refer) error evaluating name
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2721:(snd_pcm_open_noupdate) Unknown PCM default
+ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
+ALSA lib confmisc.c:422:(snd_func_concat) error evaluating strings
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_concat returned error: No such file or directory
+ALSA lib confmisc.c:1342:(snd_func_refer) error evaluating name
+ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
+ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
+ALSA lib pcm.c:2721:(snd_pcm_open_noupdate) Unknown PCM default
+[22:21:39] [Render thread/ERROR]: Error starting SoundSystem. Turning off sounds & music
+java.lang.IllegalStateException: Failed to open OpenAL device
+	at knot//com.mojang.blaze3d.audio.Library.openDeviceOrFallback(Library.java:274)
+	at knot//com.mojang.blaze3d.audio.Library.init(Library.java:149)
+	at knot//net.minecraft.client.sounds.SoundEngine.loadLibrary(SoundEngine.java:121)
+	at knot//net.minecraft.client.sounds.SoundEngine.reload(SoundEngine.java:110)
+	at knot//net.minecraft.client.sounds.SoundManager.apply(SoundManager.java:122)
+	at knot//net.minecraft.client.sounds.SoundManager.apply(SoundManager.java:41)
+	at knot//net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$1(SimplePreparableReloadListener.java:15)
+	at java.base/java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:739)
+	at java.base/java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:503)
+	at knot//net.minecraft.server.packs.resources.SimpleReloadInstance.lambda$prepareTasks$3(SimpleReloadInstance.java:59)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.doRunTask(BlockableEventLoop.java:173)
+	at knot//net.minecraft.util.thread.ReentrantBlockableEventLoop.doRunTask(ReentrantBlockableEventLoop.java:23)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.pollTask(BlockableEventLoop.java:147)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.runAllTasks(BlockableEventLoop.java:127)
+	at knot//net.minecraft.client.Minecraft.runTick(Minecraft.java:1240)
+	at knot//net.minecraft.client.Minecraft.run$mixinextras$wrapped$270(Minecraft.java:967)
+	at knot//net.minecraft.client.Minecraft.mixinextras$bridge$run$mixinextras$wrapped$270$271(Minecraft.java)
+	at knot//net.minecraft.client.Minecraft.wrapMethod$zbl000$fabric-client-gametest-api-v1$onRun(Minecraft.java:3728)
+	at knot//net.minecraft.client.Minecraft.run(Minecraft.java)
+	at knot//net.minecraft.client.main.Main.main(Main.java:292)
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72)
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
+[22:21:39] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[22:21:39] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/celestials.png-atlas
+[22:21:39] [Render thread/INFO]: Created: 128x128x0 minecraft:textures/atlas/decorated_pot.png-atlas
+[22:21:39] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[22:21:39] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
+[22:21:39] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
+[22:21:39] [Render thread/INFO]: Created: 2048x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[22:21:39] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/items.png-atlas
+[22:21:39] [Render thread/INFO]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
+[22:21:39] [Render thread/INFO]: Created: 128x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[22:21:39] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/chest.png-atlas
+[22:21:39] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/shulker_boxes.png-atlas
+[22:21:39] [Download-2/INFO]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: FabricMC
+[22:21:39] [Download-2/ERROR]: Couldn't connect to realms
+com.mojang.realmsclient.exception.RealmsServiceException: Realms authentication error with message 'java.lang.RuntimeException: Failed to parse into SignedJWT: FabricMC'
+	at knot//com.mojang.realmsclient.client.RealmsClient.execute(RealmsClient.java:625)
+	at knot//com.mojang.realmsclient.client.RealmsClient.clientCompatible(RealmsClient.java:354)
+	at knot//com.mojang.realmsclient.RealmsAvailability.lambda$check$0(RealmsAvailability.java:48)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1789)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+[22:21:42] [Render thread/INFO]: Stopping!
+---- Minecraft Crash Report ----
+// Quite honestly, I wouldn't worry myself about that.
 
-[Incubating] Problems report is available at: file:///home/runner/work/botmod/botmod/build/reports/problems/problems-report.html
+Time: 2026-11-22 22:21:57
+Description: Client shutdown from post-main
+
+java.lang.Error: Watchdog (Client shutdown from post-main)
+	at knot//net.minecraft.server.dedicated.ServerWatchdog.createWatchdogCrashReport(ServerWatchdog.java:83)
+	at knot//com.mojang.blaze3d.platform.ClientShutdownWatchdog.lambda$startShutdownWatchdog$0(ClientShutdownWatchdog.java:44)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client shutdown watchdog #1
+Stacktrace:
+	at knot//net.minecraft.server.dedicated.ServerWatchdog.createWatchdogCrashReport(ServerWatchdog.java:83)
+
+-- Thread Dump --
+Details:
+	Threads: 
+"DestroyJavaVM" prio=5 Id=61 RUNNABLE
+
+
+"HTTP-Dispatcher" prio=5 Id=43 RUNNABLE (in native)
+	at java.base@25.0.5.0.2/sun.nio.ch.EPoll.wait(Native Method)
+	at java.base@25.0.5.0.2/sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:117)
+	at java.base@25.0.5.0.2/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:130)
+	-  locked sun.nio.ch.Util$2@5cac87a3
+	-  locked sun.nio.ch.EPollSelectorImpl@6421b70e
+	at java.base@25.0.5.0.2/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:142)
+	at platform/jdk.httpserver@25.0.5.0.2/sun.net.httpserver.ServerImpl$Dispatcher.run(ServerImpl.java:518)
+	at java.base@25.0.5.0.2/java.lang.Thread.runWith(Thread.java:1487)
+	at java.base@25.0.5.0.2/java.lang.Thread.run(Thread.java:1474)
+
+
+"Client shutdown watchdog #1" daemon prio=5 Id=59 RUNNABLE
+	at java.management@25.0.5.0.2/sun.management.ThreadImpl.dumpThreads0(Native Method)
+	at java.management@25.0.5.0.2/sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:505)
+	at java.management@25.0.5.0.2/sun.management.ThreadImpl.dumpAllThreads(ThreadImpl.java:493)
+	at knot//net.minecraft.util.Util.dumpThreadInfo(Util.java:500)
+	at knot//net.minecraft.server.dedicated.ServerWatchdog.createWatchdogCrashReport(ServerWatchdog.java:79)
+	at knot//com.mojang.blaze3d.platform.ClientShutdownWatchdog.lambda$startShutdownWatchdog$0(ClientShutdownWatchdog.java:44)
+	at knot//com.mojang.blaze3d.platform.ClientShutdownWatchdog$$Lambda/0x000000000a44b388.run(Unknown Source)
+	at java.base@25.0.5.0.2/java.lang.Thread.runWith(Thread.java:1487)
+	at java.base@25.0.5.0.2/java.lang.Thread.run(Thread.java:1474)
+
+
+"HttpClient-1-SelectorManager" daemon prio=5 Id=49 RUNNABLE (in native)
+	at java.base@25.0.5.0.2/sun.nio.ch.EPoll.wait(Native Method)
+	at java.base@25.0.5.0.2/sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:117)
+	at java.base@25.0.5.0.2/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:130)
+	-  locked sun.nio.ch.Util$2@adfb607
+	-  locked sun.nio.ch.EPollSelectorImpl@32f6b960
+	at java.base@25.0.5.0.2/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:142)
+	at platform/java.net.http@25.0.5.0.2/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1338)
+
+
+"Notification Thread" daemon prio=9 Id=21 RUNNABLE
+
+
+"Reference Handler" daemon prio=10 Id=13 RUNNABLE
+	at java.base@25.0.5.0.2/java.lang.ref.Reference.waitForReferencePendingList(Native Method)
+	at java.base@25.0.5.0.2/java.lang.ref.Reference.processPendingReferences(Reference.java:246)
+	at java.base@25.0.5.0.2/java.lang.ref.Reference$ReferenceHandler.run(Reference.java:208)
+
+
+"Signal Dispatcher" daemon prio=9 Id=15 RUNNABLE
+
+
+"BotLab-FrameSender" daemon prio=5 Id=50 WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@720f5679
+	at java.base@25.0.5.0.2/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@720f5679
+	at java.base@25.0.5.0.2/java.util.concurrent.locks.LockSupport.park(LockSupport.java:369)
+	at java.base@25.0.5.0.2/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:520)
+	at java.base@25.0.5.0.2/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:4364)
+	at java.base@25.0.5.0.2/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:4310)
+	at java.base@25.0.5.0.2/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1752)
+	at java.base@25.0.5.0.2/java.util.concurrent.ArrayBlockingQueue.take(ArrayBlockingQueue.java:421)
+	at knot//com.botmod.client.lab.BotLabFrameSender.uploadLoop(BotLabFrameSender.java:111)
+	at knot//com.botmod.client.lab.BotLabFrameSender$$Lambda/0x000000000a080660.run(Unknown Source)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base@25.0.5.0.2/java.lang.Thread.runWith(Thread.java:1487)
+	at java.base@25.0.5.0.2/java.lang.Thread.run(Thread.java:1474)
+
+	Number of locked synchronizers = 1
+	- java.util.concurrent.ThreadPoolExecutor$Worker@3669f19b
+
+
+"Finalizer" daemon prio=8 Id=14 WAITING on java.lang.ref.ReferenceQueue$Lock@53a7a699
+	at java.base@25.0.5.0.2/java.lang.Object.wait0(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@53a7a699
+	at java.base@25.0.5.0.2/java.lang.Object.wait(Object.java:389)
+	at java.base@25.0.5.0.2/java.lang.Object.wait(Object.java:351)
+	at java.base@25.0.5.0.2/java.lang.ref.ReferenceQueue.remove0(ReferenceQueue.java:137)
+	at java.base@25.0.5.0.2/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:215)
+	at java.base@25.0.5.0.2/java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:165)
+
+
+"Sound engine" daemon prio=5 Id=51 WAITING on java.lang.String@1bff06f1
+	at java.base@25.0.5.0.2/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.lang.String@1bff06f1
+	at java.base@25.0.5.0.2/java.util.concurrent.locks.LockSupport.park(LockSupport.java:223)
+	at knot//net.minecraft.client.sounds.SoundEngineExecutor.waitForTasks(SoundEngineExecutor.java:58)
+	at knot//net.minecraft.util.thread.BlockableEventLoop.managedBlock(BlockableEventLoop.java:158)
+	at knot//net.minecraft.client.sounds.SoundEngineExecutor.run(SoundEngineExecutor.java:51)
+	at knot//net.minecraft.client.sounds.SoundEngineExecutor$$Lambda/0x000000000a1b6000.run(Unknown Source)
+	at java.base@25.0.5.0.2/java.lang.Thread.runWith(Thread.java:1487)
+	at java.base@25.0.5.0.2/java.lang.Thread.run(Thread.java:1474)
+
+
+"Common-Cleaner" daemon prio=8 Id=22 TIMED_WAITING on java.lang.ref.ReferenceQueue$Lock@b4d882e
+	at java.base@25.0.5.0.2/java.lang.Object.wait0(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@b4d882e
+	at java.base@25.0.5.0.2/java.lang.Object.wait(Object.java:389)
+	at java.base@25.0.5.0.2/java.lang.ref.ReferenceQueue.remove0(ReferenceQueue.java:123)
+	at java.base@25.0.5.0.2/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:201)
+	at java.base@25.0.5.0.2/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:146)
+	at java.base@25.0.5.0.2/java.lang.Thread.runWith(Thread.java:1487)
+	at java.base@25.0.5.0.2/java.lang.Thread.run(Thread.java:1474)
+	at java.base@25.0.5.0.2/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+
+
+"Download-1" daemon prio=5 Id=40 TIMED_WAITING on java.util.concurrent.SynchronousQueue$Transferer@1fba85ab
+	at java.base@25.0.5.0.2/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.SynchronousQueue$Transferer@1fba85ab
+	at java.base@25.0.5.0.2/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:408)
+	at java.base@25.0.5.0.2/java.util.concurrent.LinkedTransferQueue$DualNode.await(LinkedTransferQueue.java:452)
+	at java.base@25.0.5.0.2/java.util.concurrent.SynchronousQueue$Transferer.xferLifo(SynchronousQueue.java:194)
+	at java.base@25.0.5.0.2/java.util.concurrent.SynchronousQueue.xfer(SynchronousQueue.java:235)
+	at java.base@25.0.5.0.2/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:338)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1015)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1076)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base@25.0.5.0.2/java.lang.Thread.runWith(Thread.java:1487)
+	at java.base@25.0.5.0.2/java.lang.Thread.run(Thread.java:1474)
+
+
+"Download-2" daemon prio=5 Id=41 TIMED_WAITING on java.util.concurrent.SynchronousQueue$Transferer@1fba85ab
+	at java.base@25.0.5.0.2/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.SynchronousQueue$Transferer@1fba85ab
+	at java.base@25.0.5.0.2/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:408)
+	at java.base@25.0.5.0.2/java.util.concurrent.LinkedTransferQueue$DualNode.await(LinkedTransferQueue.java:452)
+	at java.base@25.0.5.0.2/java.util.concurrent.SynchronousQueue$Transferer.xferLifo(SynchronousQueue.java:194)
+	at java.base@25.0.5.0.2/java.util.concurrent.SynchronousQueue.xfer(SynchronousQueue.java:235)
+	at java.base@25.0.5.0.2/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:338)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1015)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1076)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base@25.0.5.0.2/java.lang.Thread.runWith(Thread.java:1487)
+	at java.base@25.0.5.0.2/java.lang.Thread.run(Thread.java:1474)
+
+
+"ForkJoinPool.commonPool-worker-1" daemon prio=5 Id=57 TIMED_WAITING on java.util.concurrent.ForkJoinPool@6c67e407
+	at java.base@25.0.5.0.2/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.ForkJoinPool@6c67e407
+	at java.base@25.0.5.0.2/java.util.concurrent.ForkJoinPool.awaitWork(ForkJoinPool.java:2109)
+	at java.base@25.0.5.0.2/java.util.concurrent.ForkJoinPool.deactivate(ForkJoinPool.java:2063)
+	at java.base@25.0.5.0.2/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:2027)
+	at java.base@25.0.5.0.2/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:187)
+
+
+"JNA Cleaner" daemon prio=5 Id=36 TIMED_WAITING on java.lang.ref.ReferenceQueue$Lock@16ac8155
+	at java.base@25.0.5.0.2/java.lang.Object.wait0(Native Method)
+	-  waiting on java.lang.ref.ReferenceQueue$Lock@16ac8155
+	at java.base@25.0.5.0.2/java.lang.Object.wait(Object.java:389)
+	at java.base@25.0.5.0.2/java.lang.ref.ReferenceQueue.remove0(ReferenceQueue.java:123)
+	at java.base@25.0.5.0.2/java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:201)
+	at knot//com.sun.jna.internal.Cleaner$CleanerThread.run(Cleaner.java:154)
+
+
+"Minecraft Services Discovery" daemon prio=5 Id=39 TIMED_WAITING on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@78517e77
+	at java.base@25.0.5.0.2/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject@78517e77
+	at java.base@25.0.5.0.2/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:271)
+	at java.base@25.0.5.0.2/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1803)
+	at java.base@25.0.5.0.2/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1166)
+	at java.base@25.0.5.0.2/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:883)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1016)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1076)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base@25.0.5.0.2/java.lang.Thread.runWith(Thread.java:1487)
+	at java.base@25.0.5.0.2/java.lang.Thread.run(Thread.java:1474)
+
+
+"Timer hack thread" daemon prio=5 Id=37 TIMED_WAITING
+	at java.base@25.0.5.0.2/java.lang.Thread.sleepNanos0(Native Method)
+	at java.base@25.0.5.0.2/java.lang.Thread.sleepNanos(Thread.java:509)
+	at java.base@25.0.5.0.2/java.lang.Thread.sleep(Thread.java:540)
+	at knot//net.minecraft.util.Util$9.run(Util.java:1009)
+
+
+"idle-timeout-task" daemon prio=5 Id=42 TIMED_WAITING on java.util.TaskQueue@2e781d10
+	at java.base@25.0.5.0.2/java.lang.Object.wait0(Native Method)
+	-  waiting on java.util.TaskQueue@2e781d10
+	at java.base@25.0.5.0.2/java.lang.Object.wait(Object.java:389)
+	at java.base@25.0.5.0.2/java.util.TimerThread.mainLoop(Timer.java:569)
+	at java.base@25.0.5.0.2/java.util.TimerThread.run(Timer.java:522)
+
+
+"process reaper" daemon prio=10 Id=35 TIMED_WAITING on java.util.concurrent.SynchronousQueue$Transferer@2732d834
+	at java.base@25.0.5.0.2/jdk.internal.misc.Unsafe.park(Native Method)
+	-  waiting on java.util.concurrent.SynchronousQueue$Transferer@2732d834
+	at java.base@25.0.5.0.2/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:408)
+	at java.base@25.0.5.0.2/java.util.concurrent.LinkedTransferQueue$DualNode.await(LinkedTransferQueue.java:452)
+	at java.base@25.0.5.0.2/java.util.concurrent.SynchronousQueue$Transferer.xferLifo(SynchronousQueue.java:194)
+	at java.base@25.0.5.0.2/java.util.concurrent.SynchronousQueue.xfer(SynchronousQueue.java:235)
+	at java.base@25.0.5.0.2/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:338)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1015)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1076)
+	at java.base@25.0.5.0.2/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base@25.0.5.0.2/java.lang.Thread.runWith(Thread.java:1487)
+	at java.base@25.0.5.0.2/java.lang.Thread.run(Thread.java:1474)
+	at java.base@25.0.5.0.2/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+
+
+Stacktrace:
+	at knot//net.minecraft.server.dedicated.ServerWatchdog.createWatchdogCrashReport(ServerWatchdog.java:83)
+	at knot//com.mojang.blaze3d.platform.ClientShutdownWatchdog.lambda$startShutdownWatchdog$0(ClientShutdownWatchdog.java:44)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+
+-- Client watchdog shutdown details --
+Details:
+	Modules: 
+Stacktrace:
+	at knot//com.mojang.blaze3d.platform.ClientShutdownWatchdog.lambda$startShutdownWatchdog$0(ClientShutdownWatchdog.java:44)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+
+-- System Details --
+Details:
+	Minecraft Version: 26.3
+	Minecraft Version ID: 26.3
+	Operating System: Linux (amd64) version 7.0.0-1017-azure
+	Java Version: 25.0.5.0.2, Microsoft
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Microsoft
+	Memory: 376303056 bytes (358 MiB) / 710934528 bytes (678 MiB) up to 4190109696 bytes (3996 MiB)
+	Memory (heap): init: 250MiB, used: 318MiB, committed: 678MiB, max: 3996MiB
+	Memory (non-heap): init: 007MiB, used: 170MiB, committed: 174MiB, max: 000MiB
+	CPUs: 4
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD EPYC 9V45 96-Core Processor
+	Identifier: AuthenticAMD Family 26 Model 2 Stepping 1
+	Microarchitecture: unknown
+	Frequency (GHz): -0.00
+	Number of physical packages: 1
+	Number of physical CPUs: 2
+	Number of logical CPUs: 4
+	Graphics card #0 name: hyperv_drmdrmfb
+	Graphics card #0 vendor: unknown
+	Graphics card #0 VRAM (MiB): 0.00
+	Graphics card #0 deviceId: unknown
+	Graphics card #0 versionInfo: unknown
+	Virtual memory max (MiB): 11063.95
+	Virtual memory used (MiB): 3613.94
+	Swap memory total (MiB): 3072.00
+	Swap memory used (MiB): 0.00
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 84752.16, total: 147718.61
+	Space in storage for workdir (MiB): available: 84752.16, total: 147718.61
+	Operating System Version: GNU/Linux Ubuntu 24.04.5 LTS (Noble Numbat) build 7.0.0-1017-azure
+	Process Elevated: false
+	Process Loads: Uptime: 28s, user: 31s (109.59%), kernel: 1s (4.90%), total: 32s (114.49%)
+	Process Virtual Size (MiB): 8683.70
+	Process Resident Size (MiB): 1425.00
+	JVM Flags: 0 total; 
+	Debug Flags: 0 total; 
+	Fabric Mods: 
+		botmod: BotMod 0.1.0
+		fabric-advancement-api-v1: Fabric Advancement API (v1) 1.0.1+38c7a2d55d
+		fabric-api: Fabric API 0.166.2+26.3
+		fabric-api-base: Fabric API Base 2.0.6+fcdff87f5d
+		fabric-api-lookup-api-v1: Fabric API Lookup API (v1) 2.0.24+3434d6d95d
+		fabric-biome-api-v1: Fabric Biome API (v1) 20.2.0+423307765d
+		fabric-block-api-v1: Fabric Block API (v1) 3.1.0+0ae6f9115d
+		fabric-block-getter-api-v2: Fabric BlockGetter API (v2) 2.0.9+3434d6d95d
+		fabric-client-gametest-api-v1: Fabric Client Game Test API (v1) 6.0.12+131f8d475d
+		fabric-command-api-v2: Fabric Command API (v2) 3.1.2+fcdff87f5d
+		fabric-content-registries-v0: Fabric Content Registries (v0) 15.0.7+74ed1ea55d
+		fabric-convention-tags-v2: Fabric Convention Tags (v2) 4.10.5+187b64905d
+		fabric-crash-report-info-v1: Fabric Crash Report Info (v1) 1.0.7+fcdff87f5d
+		fabric-creative-tab-api-v1: Fabric Creative Tab API (v1) 5.0.22+fcdff87f5d
+		fabric-data-attachment-api-v1: Fabric Data Attachment API (v1) 2.2.35+af2d4d095d
+		fabric-data-generation-api-v1: Fabric Data Generation API (v1) 27.4.3+187b64905d
+		fabric-debug-api-v1: Fabric Debug API (v1) 1.0.5+5af7744b5d
+		fabric-dimensions-v1: Fabric Dimensions API (v1) 5.1.20+5af7744b5d
+		fabric-entity-events-v1: Fabric Entity Events (v1) 6.0.4+3434d6d95d
+		fabric-events-interaction-v0: Fabric Events Interaction (v0) 5.3.10+b9b88df45d
+		fabric-game-rule-api-v1: Fabric Game Rule API (v1) 4.0.10+3434d6d95d
+		fabric-gametest-api-v1: Fabric Game Test API (v1) 4.0.36+3434d6d95d
+		fabric-item-api-v1: Fabric Item API (v1) 14.8.1+8f511c9f5d
+		fabric-key-mapping-api-v1: Fabric Key Mapping API (v1) 2.0.8+3434d6d95d
+		fabric-lifecycle-events-v1: Fabric Lifecycle Events (v1) 4.1.9+ffef5f675d
+		fabric-loot-api-v3: Fabric Loot API (v3) 4.0.9+4068fd645d
+		fabric-menu-api-v1: Fabric Menu API (v1) 2.0.31+ed66f0a35d
+		fabric-message-api-v1: Fabric Message API (v1) 7.1.0+3e5b46335d
+		fabric-model-loading-api-v1: Fabric Model Loading API (v1) 8.1.1+54bb04825d
+		fabric-networking-api-v1: Fabric Networking API (v1) 6.4.1+c58129785d
+		fabric-object-builder-api-v1: Fabric Object Builder API (v1) 24.1.13+e2f63d3e5d
+		fabric-particles-v1: Fabric Particles (v1) 5.0.28+3434d6d95d
+		fabric-permission-api-v1: Fabric Permission API (v1) 1.0.8+fcdff87f5d
+		fabric-recipe-api-v1: Fabric Recipe API (v1) 10.0.12+b9b88df45d
+		fabric-registry-sync-v0: Fabric Registry Sync (v0) 8.0.5+1ca9f6365d
+		fabric-renderer-api-v1: Fabric Renderer API (v1) 17.0.19+79385d0b5d
+		fabric-renderer-indigo: Fabric Renderer - Indigo 9.1.27+b9d63e335d
+		fabric-rendering-fluids-v1: Fabric Rendering Fluids (v1) 6.0.6+3434d6d95d
+		fabric-rendering-v1: Fabric Rendering (v1) 27.3.1+28694c565d
+		fabric-resource-conditions-api-v1: Fabric Resource Conditions API (v1) 6.2.1+fd3b1d565d
+		fabric-resource-loader-v0: Fabric Resource Loader (v0) 3.3.27+4fc5413f5d
+		fabric-resource-loader-v1: Fabric Resource Loader (v1) 3.1.0+5af7744b5d
+		fabric-screen-api-v1: Fabric Screen API (v1) 5.2.4+48607d035d
+		fabric-serialization-api-v1: Fabric Serialization API (v1) 2.0.8+bb0d41e65d
+		fabric-sound-api-v1: Fabric Sound API (v1) 2.0.7+3434d6d95d
+		fabric-tag-api-v1: Fabric Tag API (v1) 2.1.11+fcdff87f5d
+		fabric-transfer-api-v1: Fabric Transfer API (v1) 8.0.27+c8357e785d
+		fabric-transitive-access-wideners-v1: Fabric Transitive Access Wideners (v1) 8.1.17+e2f63d3e5d
+		fabricloader: Fabric Loader 0.20.1
+			mixinextras: MixinExtras 0.5.5
+		java: OpenJDK 64-Bit Server VM 25
+		minecraft: Minecraft 26.3
+	Launched Version: Fabric
+	Backend library: LWJGL version 3.4.3-snapshot
+	Window size: <not initialized>
+	Surface Info: <no surface>
+	SDL Platform: Linux
+	Graphics Device: llvmpipe (LLVM 20.1.2, 256 bits)
+	Graphics Backend: Vulkan
+	Graphics Vendor: 0x10005
+	Graphics Drivers: 1.4.318 llvmpipe Mesa 25.2.8-0ubuntu0.24.04.5 (LLVM 20.1.2)
+	Graphics Device Extensions: VK_EXT_calibrated_timestamps (D), VK_KHR_synchronization2 (D), VK_EXT_multi_draw (D), VK_EXT_vertex_attribute_divisor (D), VK_KHR_swapchain (D), VK_KHR_surface (I), VK_KHR_push_descriptor (D), VK_KHR_xlib_surface (I), VK_EXT_debug_utils (I), VK_KHR_dynamic_rendering (D)
+	Graphics Device Type: CPU
+	Graphics Device Features: DeviceFeatures[wireframeFillMode=true, shaderDrawParameters=true, multiDrawDirectInterleaved=true, multiDrawDirectSeparate=false, multiDrawIndirect=true, drawIndirect=true, nonZeroFirstInstance=true, persistentMapping=true]
+	GL debug messages: 
+	Is Modded: Definitely; Client brand changed to 'fabric'
+	Universe: 404
+	Type: Client
+	Locale: en
+	System encoding: UTF-8
+	File encoding: UTF-8
+	CPU: 4x AMD EPYC 9V45 96-Core Processor
+#@!@# Game crashed! Crash report saved to: #@!@# /home/runner/work/botmod/botmod/run/crash-reports/crash-2026-11-22_22.21.57-client.txt
+
+> Task :runProductionClientGameTest FAILED
 
 FAILURE: Build failed with an exception.
 
 * What went wrong:
-Execution failed for task ':compileClientJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
-> Compilation failed; see the compiler output below.
-  /home/runner/work/botmod/botmod/src/client/java/com/botmod/client/keymap/BotModKeyMappings.java:35: error: cannot find symbol
-  			BotLabFrameSender.tick(client);
-  			^
-    symbol:   variable BotLabFrameSender
-    location: class BotModKeyMappings
-  1 error
+Execution failed for task ':runProductionClientGameTest' (registered in build file 'build.gradle').
+> Process 'command '/opt/hostedtoolcache/Java_Microsoft_jdk/25.0.5-0.2/x64/bin/java'' finished with non-zero exit value 248
 
 * Try:
-> Check your code and dependencies to fix the compilation error(s)
+> Run with --info or --debug option to get more log output.
 > Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
 
 * Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compileClientJava' (registered by plugin class 'org.gradle.api.plugins.JavaBasePlugin').
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':runProductionClientGameTest' (registered in build file 'build.gradle').
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.lambda$doExecute$1(DefaultTaskNodeExecutor.java:367)
 	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:365)
@@ -80,79 +604,18 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':compile
 	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:475)
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:392)
-	at org.gradle.execution.plan.DefaultPlanExecutor.process(DefaultPlanExecutor.java:118)
-	at org.gradle.execution.DefaultBuildWorkExecutor.executePlan(DefaultBuildWorkExecutor.java:143)
-	at org.gradle.execution.DefaultBuildWorkExecutor.displayOrExecutePlan(DefaultBuildWorkExecutor.java:128)
-	at org.gradle.execution.DefaultBuildWorkExecutor$1.call(DefaultBuildWorkExecutor.java:79)
-	at org.gradle.execution.DefaultBuildWorkExecutor$1.call(DefaultBuildWorkExecutor.java:75)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
-	at org.gradle.execution.DefaultBuildWorkExecutor.execute(DefaultBuildWorkExecutor.java:75)
-	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$0(DefaultBuildLifecycleController.java:323)
-	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:324)
-	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$0(StateTransitionController.java:235)
-	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:45)
-	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:235)
-	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:314)
-	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:207)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$runAndReleaseLocks$0(DefaultWorkerLeaseService.java:296)
-	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:43)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.runAndReleaseLocks(DefaultWorkerLeaseService.java:294)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocksAcquired(DefaultWorkerLeaseService.java:290)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:282)
-	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:132)
-	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:182)
-	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.lambda$run$0(DefaultBuildController.java:199)
-	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
-	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:199)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:65)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-/home/runner/work/botmod/botmod/src/client/java/com/botmod/client/keymap/BotModKeyMappings.java:35: error: cannot find symbol
-			BotLabFrameSender.tick(client);
-			^
-  symbol:   variable BotLabFrameSender
-  location: class BotModKeyMappings
-1 error
-	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:88)
-	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:49)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:38)
-	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:38)
-	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:46)
-	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:36)
-	at org.gradle.jvm.toolchain.internal.DefaultToolchainJavaCompiler.execute(DefaultToolchainJavaCompiler.java:57)
-	at org.gradle.api.tasks.compile.JavaCompile.lambda$createToolchainCompiler$0(JavaCompile.java:213)
-	at org.gradle.api.internal.tasks.compile.CleaningJavaCompiler.execute(CleaningJavaCompiler.java:53)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalCompilerFactory.lambda$createRebuildAllCompiler$0(IncrementalCompilerFactory.java:55)
-	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:70)
-	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:44)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:66)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$CompileOperation.call(CompileJavaBuildOperationReportingCompiler.java:78)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$CompileOperation.call(CompileJavaBuildOperationReportingCompiler.java:52)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler.execute(CompileJavaBuildOperationReportingCompiler.java:49)
-	at org.gradle.api.tasks.compile.JavaCompile.performCompilation(JavaCompile.java:231)
-	at org.gradle.api.tasks.compile.JavaCompile.performIncrementalCompilation(JavaCompile.java:172)
-	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:157)
+Caused by: org.gradle.process.ProcessExecutionException: Process 'command '/opt/hostedtoolcache/Java_Microsoft_jdk/25.0.5-0.2/x64/bin/java'' finished with non-zero exit value 248
+	at org.gradle.process.internal.DefaultExecHandle$ExecResultImpl.assertNormalExitValue(DefaultExecHandle.java:461)
+	at org.gradle.process.internal.DefaultExecAction.execute(DefaultExecAction.java:57)
+	at org.gradle.process.internal.DefaultExecActionFactory.exec(DefaultExecActionFactory.java:228)
+	at org.gradle.process.internal.DefaultExecOperations.exec(DefaultExecOperations.java:37)
+	at net.fabricmc.loom.task.prod.AbstractProductionRunTask.run(AbstractProductionRunTask.java:148)
+	at net.fabricmc.loom.task.prod.ClientProductionRunTask.run(ClientProductionRunTask.java:218)
 	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
-	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
+	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.doExecute(StandardTaskAction.java:58)
 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
-	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.execute(IncrementalTaskAction.java:26)
 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
 	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:268)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
@@ -224,7 +687,7 @@ Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Com
 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:65)
 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:45)
 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeWithNonEmptySources(SkipEmptyMutableWorkStep.java:210)
-	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:90)
+	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:85)
 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:53)
 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
@@ -250,9 +713,9 @@ Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Com
 	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:38)
 	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:364)
-	... 55 more
+	... 25 more
 
 
-BUILD FAILED in 43s
-5 actionable tasks: 5 executed
+BUILD FAILED in 1m 2s
+7 actionable tasks: 7 executed
 Configuration cache entry stored.
