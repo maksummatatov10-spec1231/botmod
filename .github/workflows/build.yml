@@ -82,10 +82,18 @@ jobs:
       - name: Install Xvfb and Mesa software rendering
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb mesa-vulkan-drivers libgl1 libegl1 libglx-mesa0 libgl1-mesa-dri
+          sudo apt-get install -y xvfb mesa-vulkan-drivers libgl1 libegl1 libglx-mesa0 libgl1-mesa-dri libopenal1
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
+
+      - name: Start Xvfb with 24-bit screen and GLX
+        run: |
+          # 24-битный экран обязателен: иначе Mesa не находит GLX visual.
+          Xvfb :99 -screen 0 1600x900x24 +extension GLX +render -noreset -nolisten tcp &
+          sleep 3
+          echo "DISPLAY=:99" >> "$GITHUB_ENV"
+          echo "LIBGL_ALWAYS_SOFTWARE=1" >> "$GITHUB_ENV"
 
       - name: Run client GameTest and capture screenshots
         run: |

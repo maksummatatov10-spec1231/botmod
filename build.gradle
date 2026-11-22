@@ -56,9 +56,11 @@ fabricApi {
 }
 
 // Прогон настоящего клиента в виртуальном фреймбуфере (Xvfb) — для скриншотов в CI.
+// Xvfb поднимается workflow'ом с 24-битным экраном и GLX: xvfb-run из Loom
+// стартует с 8-битным экраном, и клиент падает с "Couldn't find matching GLX visual".
 tasks.register("runProductionClientGameTest", net.fabricmc.loom.task.prod.ClientProductionRunTask) {
 	jvmArgs.add("-Dfabric.client.gametest")
-	useXVFB = true
+	useXVFB = false
 }
 
 processResources {
