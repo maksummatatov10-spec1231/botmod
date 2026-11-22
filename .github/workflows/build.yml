@@ -77,8 +77,12 @@ jobs:
           java-version: '25'
           distribution: 'microsoft'
 
-      - name: Install Xvfb
-        run: sudo apt-get update && sudo apt-get install -y xvfb
+      # Клиенту нужен программный рендерер (Mesa/llvmpipe) и виртуальный дисплей,
+      # иначе он висит на создании окна.
+      - name: Install Xvfb and Mesa software rendering
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb mesa-vulkan-drivers libgl1 libegl1 libglx-mesa0 libgl1-mesa-dri
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
@@ -86,17 +90,21 @@ jobs:
       - name: Run client GameTest and capture screenshots
         run: |
           set -o pipefail
-          ./gradlew runProductionClientGameTest --stacktrace --no-daemon 2>&1 | tee /tmp/client.log
+          # timeout гарантирует, что job не зависнет навсегда: 25 минут максимум.
+          timeout 25m ./gradlew runProductionClientGameTest --stacktrace --no-daemon \
+            -Dfabric.client.gametest.disableNetworkSynchronizer=true 2>&1 | tee /tmp/client.log
+          echo "client exit code: ${PIPESTATUS[0]}"
 
       - name: Collect screenshots
         if: always()
         run: |
           mkdir -p docs/screenshots
-          find . -path ./src -prune -o -name "*.png" -print 2>/dev/null \
-            | grep -viE "src/main/resources|icon.png|textures/entity" \
-            | while read -r file; do
-                cp "$file" "docs/screenshots/$(basename "$file")" 2>/dev/null || true
-              done
+          # Loom складывает скриншоты клиентских GameTest сюда.
+          SRC="build/run/clientGameTest/screenshots"
+          if [ -d "$SRC" ]; then
+            cp "$SRC"/*.png docs/screenshots/ 2>/dev/null || true
+          fi
+          find build/run -name "*.png" 2>/dev/null | head -20 || true
           ls -la docs/screenshots || true
 
       - name: Commit screenshots
