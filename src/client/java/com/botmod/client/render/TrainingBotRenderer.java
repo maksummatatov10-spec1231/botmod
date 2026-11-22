@@ -4,7 +4,7 @@ import com.botmod.BotMod;
 import com.botmod.entity.TrainingBotEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.resources.Identifier;
 
 /**
@@ -12,7 +12,7 @@ import net.minecraft.resources.Identifier;
  * брони и предмета в руке — поэтому надетый на бота kit виден игроку.
  */
 public class TrainingBotRenderer
-		extends HumanoidMobRenderer<TrainingBotEntity, LivingEntityRenderState, TrainingBotModel> {
+		extends HumanoidMobRenderer<TrainingBotEntity, HumanoidRenderState, TrainingBotModel> {
 
 	private static final Identifier TEXTURE = BotMod.id("textures/entity/training_bot.png");
 
@@ -21,12 +21,12 @@ public class TrainingBotRenderer
 	}
 
 	@Override
-	public LivingEntityRenderState createRenderState() {
-		return new LivingEntityRenderState();
+	public HumanoidRenderState createRenderState() {
+		return new HumanoidRenderState();
 	}
 
 	@Override
-	public Identifier getTextureLocation(LivingEntityRenderState state) {
+	public Identifier getTextureLocation(HumanoidRenderState state) {
 		return TEXTURE;
 	}
 }
