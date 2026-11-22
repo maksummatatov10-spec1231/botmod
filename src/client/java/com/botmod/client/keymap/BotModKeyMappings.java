@@ -37,11 +37,11 @@ public final class BotModKeyMappings {
 				config.hudEnabled = !config.hudEnabled;
 
 				if (client.player != null) {
-					client.player.displayClientMessage(
+					// 26.3: displayClientMessage(Component, boolean) заменён на sendOverlayMessage.
+					client.player.sendOverlayMessage(
 							Component.translatable(config.hudEnabled
 									? "botmod.message.hud_shown"
-									: "botmod.message.hud_hidden"),
-							true
+									: "botmod.message.hud_hidden")
 					);
 				}
 			}
