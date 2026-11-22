@@ -334,7 +334,8 @@ def project_plan() -> dict:
 
     for line in text.splitlines():
         if line.startswith("## Текущий этап"):
-            plan["current"] = line.split(":", 1)[1].strip().strip("* ")
+            plan["current"] = (line.split(":", 1)[1]
+                                  .replace("**", "").replace("*", "").replace("`", "").strip())
             break
 
     for line in text.splitlines():
