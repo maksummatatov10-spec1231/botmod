@@ -1,0 +1,314 @@
+package com.botmod.command;
+
+import com.botmod.config.BotModConfig;
+import com.botmod.entity.BotKit;
+import com.botmod.entity.BotMode;
+import com.botmod.entity.ModEntities;
+import com.botmod.entity.TrainingBotEntity;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
+
+/**
+ * Команды мода: {@code /bot spawn|mode|kit|duel|stop|remove|list}.
+ *
+ * <p>Специально без проверки прав: мод тренировочный, команды нужны в одиночке
+ * и на тренировочном сервере. При необходимости оберните вызов в
+ * {@code source.permissions().hasPermission(...)}.</p>
+ */
+public final class BotModCommands {
+	private static final SuggestionProvider<CommandSourceStack> MODE_SUGGESTIONS =
+			SharedSuggestionProvider.suggest(BotMode.names());
+	private static final SuggestionProvider<CommandSourceStack> KIT_SUGGESTIONS =
+			SharedSuggestionProvider.suggest(BotKit.names());
+
+	private BotModCommands() {
+	}
+
+	public static void register() {
+		CommandRegistrationCallback.EVENT.register(BotModCommands::registerCommands);
+	}
+
+	private static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher,
+										 net.minecraft.core.RegistryAccess registryAccess,
+										 net.minecraft.commands.CommandBuildContext environment) {
+		LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal("bot");
+
+		root.then(Commands.literal("spawn")
+				.executes(context -> spawn(context, null, null))
+				.then(Commands.argument("mode", StringArgumentType.word())
+						.suggests(MODE_SUGGESTIONS)
+						.executes(context -> spawn(context, StringArgumentType.getString(context, "mode"), null))
+						.then(Commands.argument("kit", StringArgumentType.word())
+								.suggests(KIT_SUGGESTIONS)
+								.executes(context -> spawn(context,
+										StringArgumentType.getString(context, "mode"),
+										StringArgumentType.getString(context, "kit"))))));
+
+		root.then(Commands.literal("mode")
+				.then(Commands.argument("mode", StringArgumentType.word())
+						.suggests(MODE_SUGGESTIONS)
+						.executes(context -> changeMode(context, StringArgumentType.getString(context, "mode")))));
+
+		root.then(Commands.literal("kit")
+				.then(Commands.argument("kit", StringArgumentType.word())
+						.suggests(KIT_SUGGESTIONS)
+						.executes(context -> changeKit(context, StringArgumentType.getString(context, "kit")))));
+
+		root.then(Commands.literal("duel").executes(BotModCommands::startDuel));
+		root.then(Commands.literal("stop").executes(BotModCommands::stopDuel));
+		root.then(Commands.literal("remove").executes(BotModCommands::removeNearest));
+		root.then(Commands.literal("list").executes(BotModCommands::listBots));
+
+		dispatcher.register(root);
+	}
+
+	// ------------------------------------------------------------------
+	// spawn
+	// ------------------------------------------------------------------
+
+	private static int spawn(CommandContext<CommandSourceStack> context, String modeName, String kitName) {
+		ServerLevel level = context.getSource().getLevel();
+		Vec3 position = context.getSource().getPosition();
+		float yaw = context.getSource().getRotation().y;
+
+		BotMode mode = parseMode(modeName, BotMode.SPARRING);
+		BotKit kit = parseKit(kitName, BotKit.IRON_SWORD);
+
+		if (!canSpawnMore(context.getSource(), kit)) {
+			return 0;
+		}
+
+		double offsetX = -Mth.sin(yaw * Mth.DEG_TO_RAD) * 2.5D;
+		double offsetZ = Mth.cos(yaw * Mth.DEG_TO_RAD) * 2.5D;
+
+		TrainingBotEntity bot = ModEntities.TRAINING_BOT.create(level, EntitySpawnReason.COMMAND);
+		if (bot == null) {
+			context.getSource().sendFailure(Component.translatable("botmod.message.spawn_failed"));
+			return 0;
+		}
+
+		bot.setPos(position.x + offsetX, position.y, position.z + offsetZ);
+		bot.setYRot(yaw + 180.0F);
+		bot.setMode(mode);
+		bot.setKit(kit);
+
+		Entity executor = context.getSource().getEntity();
+		if (executor instanceof LivingEntity living) {
+			bot.setOwnerId(living.getUUID());
+		}
+
+		level.addFreshEntity(bot);
+
+		context.getSource().sendSuccess(
+				() -> Component.translatable("botmod.message.spawned", mode.displayName(), bot.getName()),
+				false
+		);
+		return 1;
+	}
+
+	private static boolean canSpawnMore(CommandSourceStack source, BotKit kit) {
+		int limit = BotModConfig.get().maxBotsPerPlayer;
+		if (limit <= 0) {
+			return true;
+		}
+
+		UUID owner = source.getEntity() instanceof LivingEntity living ? living.getUUID() : null;
+		int count = 0;
+
+		for (TrainingBotEntity bot : source.getLevel().getEntitiesOfClass(TrainingBotEntity.class,
+				new AABB(source.getPosition(), source.getPosition()).inflate(64.0D), entity -> true)) {
+			if (owner != null && owner.equals(bot.getOwnerId())) {
+				count++;
+			}
+		}
+
+		if (count >= limit) {
+			source.sendFailure(Component.translatable("botmod.message.limit_reached", limit));
+			return false;
+		}
+		return true;
+	}
+
+	// ------------------------------------------------------------------
+	// mode / kit
+	// ------------------------------------------------------------------
+
+	private static int changeMode(CommandContext<CommandSourceStack> context, String modeName) {
+		BotMode mode = parseMode(modeName, null);
+		if (mode == null) {
+			context.getSource().sendFailure(Component.translatable("botmod.message.unknown_mode", modeName));
+			return 0;
+		}
+
+		TrainingBotEntity bot = findNearest(context.getSource());
+		if (bot == null) {
+			return 0;
+		}
+
+		bot.setMode(mode);
+		context.getSource().sendSuccess(
+				() -> Component.translatable("botmod.message.mode_set", mode.displayName()), false);
+		return 1;
+	}
+
+	private static int changeKit(CommandContext<CommandSourceStack> context, String kitName) {
+		BotKit kit = parseKit(kitName, null);
+		if (kit == null) {
+			context.getSource().sendFailure(Component.translatable("botmod.message.unknown_kit", kitName));
+			return 0;
+		}
+
+		TrainingBotEntity bot = findNearest(context.getSource());
+		if (bot == null) {
+			return 0;
+		}
+
+		bot.setKit(kit);
+		context.getSource().sendSuccess(
+				() -> Component.translatable("botmod.message.kit_set", kit.name().toLowerCase(Locale.ROOT)), false);
+		return 1;
+	}
+
+	// ------------------------------------------------------------------
+	// duel / stop / remove / list
+	// ------------------------------------------------------------------
+
+	private static int startDuel(CommandContext<CommandSourceStack> context) {
+		if (!(context.getSource().getEntity() instanceof LivingEntity player)) {
+			context.getSource().sendFailure(Component.translatable("botmod.message.players_only"));
+			return 0;
+		}
+
+		TrainingBotEntity bot = findNearest(context.getSource());
+		if (bot == null) {
+			return 0;
+		}
+
+		if (!bot.getMode().fights()) {
+			bot.setMode(BotMode.SPARRING);
+		}
+
+		bot.setDuelTarget(player);
+		context.getSource().sendSuccess(
+				() -> Component.translatable("botmod.message.duel_started", bot.getName()), false);
+		return 1;
+	}
+
+	private static int stopDuel(CommandContext<CommandSourceStack> context) {
+		TrainingBotEntity bot = findNearest(context.getSource());
+		if (bot == null) {
+			return 0;
+		}
+
+		bot.setDuelTarget(null);
+		context.getSource().sendSuccess(
+				() -> Component.translatable("botmod.message.duel_stopped", bot.getName()), false);
+		return 1;
+	}
+
+	private static int removeNearest(CommandContext<CommandSourceStack> context) {
+		TrainingBotEntity bot = findNearest(context.getSource());
+		if (bot == null) {
+			return 0;
+		}
+
+		bot.discard();
+		context.getSource().sendSuccess(
+				() -> Component.translatable("botmod.message.removed", bot.getName()), false);
+		return 1;
+	}
+
+	private static int listBots(CommandContext<CommandSourceStack> context) {
+		List<TrainingBotEntity> bots = context.getSource().getLevel()
+				.getEntitiesOfClass(TrainingBotEntity.class,
+						new AABB(context.getSource().getPosition(), context.getSource().getPosition()).inflate(64.0D),
+						entity -> true);
+
+		if (bots.isEmpty()) {
+			context.getSource().sendSuccess(
+					() -> Component.translatable("botmod.message.list_empty"), false);
+			return 0;
+		}
+
+		context.getSource().sendSuccess(
+				() -> Component.translatable("botmod.message.list_header", bots.size()), false);
+
+		for (TrainingBotEntity bot : bots) {
+			String mode = bot.getMode().name().toLowerCase(Locale.ROOT);
+			String kit = bot.getKit().name().toLowerCase(Locale.ROOT);
+			context.getSource().sendSuccess(
+					() -> Component.translatable("botmod.message.list_entry",
+							bot.getName(), mode, kit, (int) bot.getHealth()),
+					false);
+		}
+		return bots.size();
+	}
+
+	// ------------------------------------------------------------------
+	// Утилиты
+	// ------------------------------------------------------------------
+
+	private static TrainingBotEntity findNearest(CommandSourceStack source) {
+		Vec3 position = source.getPosition();
+		AABB box = new AABB(position, position).inflate(32.0D);
+
+		TrainingBotEntity nearest = null;
+		double best = Double.MAX_VALUE;
+
+		for (TrainingBotEntity bot : source.getLevel().getEntitiesOfClass(TrainingBotEntity.class, box, entity -> true)) {
+			double distance = bot.distanceToSqr(position);
+			if (distance < best) {
+				best = distance;
+				nearest = bot;
+			}
+		}
+
+		if (nearest == null) {
+			source.sendFailure(Component.translatable("botmod.message.no_bot"));
+		}
+		return nearest;
+	}
+
+	private static BotMode parseMode(String name, BotMode fallback) {
+		if (name == null) {
+			return fallback;
+		}
+		for (BotMode mode : BotMode.values()) {
+			if (mode.name().equalsIgnoreCase(name)) {
+				return mode;
+			}
+		}
+		return fallback;
+	}
+
+	private static BotKit parseKit(String name, BotKit fallback) {
+		if (name == null) {
+			return fallback;
+		}
+		for (BotKit kit : BotKit.values()) {
+			if (kit.name().equalsIgnoreCase(name)) {
+				return kit;
+			}
+		}
+		return fallback;
+	}
+}

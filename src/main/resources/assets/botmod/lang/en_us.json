@@ -1,0 +1,32 @@
+{
+	"entity.botmod.training_bot": "Training Bot",
+	"key.botmod.toggle_hud": "Toggle Bot HUD",
+	"key.category.botmod.botmod": "BotMod",
+	"key.categories.botmod": "BotMod",
+
+	"botmod.mode.idle": "Idle",
+	"botmod.mode.spar": "Sparring",
+	"botmod.mode.rush": "Rush",
+	"botmod.mode.defender": "Defender",
+
+	"botmod.hud.health": "%s / %s HP",
+
+	"botmod.message.mode_set": "Bot mode: %s",
+	"botmod.message.bot_mode": "%s is now in %s mode",
+	"botmod.message.spawned": "Spawned a %s bot (%s)",
+	"botmod.message.spawn_failed": "Could not spawn the bot",
+	"botmod.message.limit_reached": "Bot limit reached (%s per player)",
+	"botmod.message.unknown_mode": "Unknown mode: %s",
+	"botmod.message.unknown_kit": "Unknown kit: %s",
+	"botmod.message.kit_set": "Bot kit: %s",
+	"botmod.message.players_only": "Only players can use this command",
+	"botmod.message.duel_started": "%s starts fighting you. Good luck!",
+	"botmod.message.duel_stopped": "%s stands down",
+	"botmod.message.removed": "Removed %s",
+	"botmod.message.list_header": "Bots nearby: %s",
+	"botmod.message.list_entry": "%s - %s / %s - %s HP",
+	"botmod.message.list_empty": "No bots nearby",
+	"botmod.message.no_bot": "No bot within 32 blocks",
+	"botmod.message.hud_shown": "Bot HUD: shown",
+	"botmod.message.hud_hidden": "Bot HUD: hidden"
+}

@@ -1,0 +1,32 @@
+{
+	"entity.botmod.training_bot": "Тренировочный бот",
+	"key.botmod.toggle_hud": "Показать/скрыть HUD бота",
+	"key.category.botmod.botmod": "BotMod",
+	"key.categories.botmod": "BotMod",
+
+	"botmod.mode.idle": "Ожидание",
+	"botmod.mode.spar": "Спарринг",
+	"botmod.mode.rush": "Натиск",
+	"botmod.mode.defender": "Защитник",
+
+	"botmod.hud.health": "%s / %s HP",
+
+	"botmod.message.mode_set": "Режим бота: %s",
+	"botmod.message.bot_mode": "%s теперь в режиме «%s»",
+	"botmod.message.spawned": "Заспавнен бот в режиме «%s» (%s)",
+	"botmod.message.spawn_failed": "Не удалось заспавнить бота",
+	"botmod.message.limit_reached": "Достигнут лимит ботов (%s на игрока)",
+	"botmod.message.unknown_mode": "Неизвестный режим: %s",
+	"botmod.message.unknown_kit": "Неизвестный набор: %s",
+	"botmod.message.kit_set": "Набор бота: %s",
+	"botmod.message.players_only": "Эта команда доступна только игрокам",
+	"botmod.message.duel_started": "%s начинает драться с тобой. Удачи!",
+	"botmod.message.duel_stopped": "%s прекращает бой",
+	"botmod.message.removed": "Удалён: %s",
+	"botmod.message.list_header": "Ботов рядом: %s",
+	"botmod.message.list_entry": "%s — %s / %s — %s HP",
+	"botmod.message.list_empty": "Рядом нет ботов",
+	"botmod.message.no_bot": "В радиусе 32 блоков нет ботов",
+	"botmod.message.hud_shown": "HUD бота: включён",
+	"botmod.message.hud_hidden": "HUD бота: выключен"
+}

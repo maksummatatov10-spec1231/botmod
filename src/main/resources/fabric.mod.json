@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "botmod",
+	"version": "${version}",
+	"name": "BotMod",
+	"description": "PvP training bot with combat modes, kits and a fight HUD. Learn to combo, crit and shield-break against a bot that actually fights back.",
+	"authors": [
+		"botmod contributors"
+	],
+	"contact": {
+		"homepage": "https://github.com/maksummatatov10-spec1231/botmod",
+		"sources": "https://github.com/maksummatatov10-spec1231/botmod",
+		"issues": "https://github.com/maksummatatov10-spec1231/botmod/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/botmod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.botmod.BotMod"
+		],
+		"client": [
+			"com.botmod.client.BotModClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
