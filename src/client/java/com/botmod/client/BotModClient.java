@@ -1,6 +1,7 @@
 package com.botmod.client;
 
 import com.botmod.client.hud.BotHud;
+import com.botmod.client.lab.BotLabFrameSender;
 import com.botmod.client.keymap.BotModKeyMappings;
 import com.botmod.client.render.ModModelLayers;
 import com.botmod.client.render.TrainingBotRenderer;
@@ -22,5 +23,6 @@ public class BotModClient implements ClientModInitializer {
 
 		BotHud.register();
 		BotModKeyMappings.register();
+		BotLabFrameSender.init();
 	}
 }

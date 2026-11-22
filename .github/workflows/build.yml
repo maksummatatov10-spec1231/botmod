@@ -82,7 +82,8 @@ jobs:
       - name: Install Xvfb and Mesa software rendering
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb mesa-vulkan-drivers libgl1 libegl1 libglx-mesa0 libgl1-mesa-dri libopenal1
+          sudo apt-get install -y xvfb xserver-xorg-core mesa-utils mesa-vulkan-drivers \
+            libgl1 libegl1 libgles2 libglx-mesa0 libgl1-mesa-dri libopenal1 libflite1
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
@@ -90,10 +91,22 @@ jobs:
       - name: Start Xvfb with 24-bit screen and GLX
         run: |
           # 24-битный экран обязателен: иначе Mesa не находит GLX visual.
-          Xvfb :99 -screen 0 1600x900x24 +extension GLX +render -noreset -nolisten tcp &
+          Xvfb :99 -screen 0 1600x900x24 +extension GLX +extension RANDR +render -noreset -nolisten tcp &
           sleep 3
           echo "DISPLAY=:99" >> "$GITHUB_ENV"
           echo "LIBGL_ALWAYS_SOFTWARE=1" >> "$GITHUB_ENV"
+          echo "MESA_GL_VERSION_OVERRIDE=4.6" >> "$GITHUB_ENV"
+
+      - name: Diagnose graphics stack
+        run: |
+          {
+            echo "== xdpyinfo =="
+            xdpyinfo 2>&1 | grep -iE "dimensions|GLX|extensions" | head -20
+            echo "== glxinfo =="
+            glxinfo -B 2>&1 | head -40
+            echo "== vulkan =="
+            vulkaninfo --summary 2>&1 | head -20
+          } | tee /tmp/diag.log
 
       - name: Run client GameTest and capture screenshots
         run: |
@@ -115,17 +128,27 @@ jobs:
           find build/run -name "*.png" 2>/dev/null | head -20 || true
           ls -la docs/screenshots || true
 
-      - name: Commit screenshots
+      - name: Store CI logs in repo
+        if: always()
+        run: |
+          mkdir -p docs/ci
+          [ -f /tmp/diag.log ] && cp /tmp/diag.log docs/ci/graphics-diag.log || true
+          if [ -f /tmp/client.log ]; then
+            tail -n 1500 /tmp/client.log > docs/ci/client.log
+          fi
+          ls -la docs/ci || true
+
+      - name: Commit screenshots and logs
         if: always()
         run: |
           git config user.name "BotLab CI"
           git config user.email "actions@github.com"
-          git add docs/screenshots || true
+          git add docs/screenshots docs/ci || true
           if ! git diff --staged --quiet; then
-            git commit -m "ci: client screenshots [skip ci]"
+            git commit -m "ci: client screenshots and logs [skip ci]"
             git push
           else
-            echo "no new screenshots"
+            echo "nothing new to commit"
           fi
 
       - name: Report client errors

@@ -38,6 +38,20 @@ public final class BotModConfig {
 	/** Бот получает отдачу (нужно для тренировки комбо). */
 	public boolean botTakesKnockback = true;
 
+	// --- Лаборатория -------------------------------------------------
+
+	/** Отправлять готовые кадры игры в BotLab (POST /api/frame). */
+	public boolean labFramesEnabled = true;
+
+	/** Адрес BotLab. */
+	public String labUrl = "http://127.0.0.1:8099";
+
+	/** Кадров в секунду (целое, 1..10). */
+	public int labFramesPerSecond = 1;
+
+	/** Даунскейл кадра (1 = без уменьшения, 2 = в два раза меньше). */
+	public int labFrameDownscale = 2;
+
 	private static BotModConfig instance = new BotModConfig();
 
 	private BotModConfig() {

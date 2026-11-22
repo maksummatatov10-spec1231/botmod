@@ -32,6 +32,7 @@ public final class BotModKeyMappings {
 		));
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			BotLabFrameSender.tick(client);
 			while (toggleHud.consumeClick()) {
 				BotModConfig config = BotModConfig.get();
 				config.hudEnabled = !config.hudEnabled;

@@ -49,6 +49,7 @@ RUNTIME = {
     "capture_thread": None,
     "frame_count": 0,
     "last_frame": None,
+    "last_frame_time": 0.0,
     "fps": 0.0,
     "frame_ms": 0.0,
     "fps_history": [],
@@ -196,6 +197,32 @@ def capture_frame(state: dict) -> dict:
             old.unlink(missing_ok=True)
 
     return {"name": name, "method": method, "ms": round(elapsed_ms, 2)}
+
+
+def store_frame(data: bytes, method: str) -> dict:
+    """Сохраняет готовый PNG (пришёл от мода) и обновляет счётчики."""
+    started = time.time()
+    name = time.strftime("frame_%Y%m%d_%H%M%S") + f"_{int(time.time() * 1000) % 1000:03d}.png"
+
+    with FRAME_LOCK:
+        FRAMES_DIR.mkdir(parents=True, exist_ok=True)
+        (FRAMES_DIR / name).write_bytes(data)
+        RUNTIME["last_frame"] = name
+        RUNTIME["frame_count"] += 1
+        RUNTIME["frame_ms"] = (time.time() - started) * 1000.0
+        RUNTIME["source"] = "mod"
+
+        now = time.time()
+        RUNTIME["fps_history"].append(1.0 / max(1e-6, now - RUNTIME.get("last_frame_time", now - 1.0)))
+        RUNTIME["fps_history"] = RUNTIME["fps_history"][-120:]
+        RUNTIME["fps"] = sum(RUNTIME["fps_history"]) / len(RUNTIME["fps_history"])
+        RUNTIME["last_frame_time"] = now
+
+        files = sorted(FRAMES_DIR.glob("*.png"))
+        for old in files[:-CONFIG["max_frames"]]:
+            old.unlink(missing_ok=True)
+
+    return {"name": name, "method": method, "ms": round(RUNTIME["frame_ms"], 2)}
 
 
 def capture_loop(state_provider):
@@ -463,13 +490,23 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         length = int(self.headers.get("Content-Length", "0") or 0)
         raw = self.rfile.read(length) if length else b"{}"
+        path = self.path.split("?")[0]
+
+        # Кадр от мода: тело — готовый PNG (image/png), без JSON.
+        if path == "/api/frame":
+            if not raw.startswith(b"\x89PNG"):
+                self._json({"ok": False, "error": "not a png"}, 400)
+                return
+            result = store_frame(raw, "mod")
+            record_event("frame", f"кадр от мода {result['name']}")
+            self._json({"ok": True, **result})
+            return
+
         try:
             payload = json.loads(raw.decode("utf-8") or "{}")
         except json.JSONDecodeError:
             self._json({"error": "bad json"}, 400)
             return
-
-        path = self.path.split("?")[0]
 
         if path == "/api/command":
             self._json(forward_command(payload))
