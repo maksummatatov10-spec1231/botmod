@@ -31,6 +31,10 @@ public class BotCombatGoal extends Goal {
 	private int strafeTimer;
 	private int strafeDirection = 1;
 	private int pathRecalcTimer;
+	/** Сколько тиков назад бот попал по цели (W-tap: короткий отход после удара). */
+	private int wTapTicks;
+	/** Счётчик попаданий на прошлом тике — чтобы заметить новый удар. */
+	private int lastLandedHits;
 
 	public BotCombatGoal(TrainingBotEntity bot) {
 		this.bot = bot;
@@ -57,6 +61,8 @@ public class BotCombatGoal extends Goal {
 	public void start() {
 		this.strafeTimer = 0;
 		this.pathRecalcTimer = 0;
+		this.wTapTicks = 0;
+		this.lastLandedHits = this.bot.getLandedHits();
 	}
 
 	@Override
@@ -85,6 +91,15 @@ public class BotCombatGoal extends Goal {
 			this.tickApproach(target, distanceSqr, mode);
 		} else {
 			this.tickOrbit(target, distanceSqr, reach, mode);
+		}
+
+		// W-tap: сразу после попадания бот на миг отходит — так сбрасывают спринт-отдачу.
+		if (this.bot.getLandedHits() != this.lastLandedHits) {
+			this.lastLandedHits = this.bot.getLandedHits();
+			this.wTapTicks = 8;
+		}
+		if (this.wTapTicks > 0) {
+			this.wTapTicks--;
 		}
 
 		// Адаптация: после пропущенного удара бот резко уходит в сторону.
@@ -137,6 +152,10 @@ public class BotCombatGoal extends Goal {
 		// При низком HP бот отходит и пытается разорвать дистанцию (кайт).
 		if (lowHealth) {
 			forward = -0.65F;
+		}
+		// W-tap: короткий отход сразу после попадания (комбо-движение).
+		if (this.wTapTicks > 0) {
+			forward = -0.85F;
 		}
 
 		float strafeBase = mode == BotMode.RUSH ? 0.55F : 0.40F;
