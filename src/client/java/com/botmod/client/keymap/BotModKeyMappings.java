@@ -1,6 +1,7 @@
 package com.botmod.client.keymap;
 
 import com.botmod.BotMod;
+import com.botmod.client.lab.BotLabFrameSender;
 import com.botmod.config.BotModConfig;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;

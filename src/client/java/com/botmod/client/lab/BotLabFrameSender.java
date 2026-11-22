@@ -129,7 +129,7 @@ public final class BotLabFrameSender {
 					warned = true;
 					com.botmod.BotMod.LOGGER.warn("BotLab frame rejected: HTTP {}", response.statusCode());
 				}
-			} catch (IOException | RuntimeException e) {
+			} catch (IOException | InterruptedException | RuntimeException e) {
 				if (!warned) {
 					warned = true;
 					com.botmod.BotMod.LOGGER.info("BotLab недоступна ({}): {}", e.getMessage(), e.getClass().getSimpleName());
