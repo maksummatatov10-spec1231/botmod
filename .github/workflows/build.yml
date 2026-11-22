@@ -80,6 +80,7 @@ jobs:
           ls -la releases
 
       - name: Commit jar
+        continue-on-error: true
         run: |
           git config user.name "BotLab CI"
           git config user.email "actions@github.com"
@@ -195,6 +196,7 @@ jobs:
 
       - name: Commit screenshots and logs
         if: always()
+        continue-on-error: true
         run: |
           git config user.name "BotLab CI"
           git config user.email "actions@github.com"
