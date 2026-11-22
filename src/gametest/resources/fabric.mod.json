@@ -1,0 +1,15 @@
+{
+	"schemaVersion": 1,
+	"id": "botmod-test",
+	"version": "1.0.0",
+	"name": "BotMod tests",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-gametest": [
+			"com.botmod.gametest.BotModGameTest"
+		],
+		"fabric-client-gametest": [
+			"com.botmod.gametest.BotModClientGameTest"
+		]
+	}
+}

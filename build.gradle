@@ -39,6 +39,26 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	// Нужен для production-прогона клиента в GameTest (реальный рендер + скриншоты).
+	productionRuntimeMods "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+}
+
+// Серверные GameTest выполняются задачей `build`, клиентские — runClientGameTest.
+fabricApi {
+	configureTests {
+		createSourceSet = true
+		modId = "botmod-test"
+		enableGameTests = true
+		enableClientGameTests = true
+		eula = true
+	}
+}
+
+// Прогон настоящего клиента в виртуальном фреймбуфере (Xvfb) — для скриншотов в CI.
+tasks.register("runProductionClientGameTest", net.fabricmc.loom.task.prod.ClientProductionRunTask) {
+	jvmArgs.add("-Dfabric.client.gametest")
+	useXVFB = true
 }
 
 processResources {

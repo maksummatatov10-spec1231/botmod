@@ -1,9 +1,9 @@
-# Сборка мода и автотесты на каждый push.
+# Сборка мода, серверные GameTest и скриншоты настоящего клиента в Xvfb.
 #
-# В песочнице нет Java-инструментария и доступа к maven.fabricmc.net,
-# поэтому единственный способ реально скомпилировать мод — GitHub Actions.
-# Логи джобов лежат на blob.core.windows.net (недоступен из песочницы),
-# поэтому ошибки публикуются комментарием к коммиту через gh api.
+# В песочнице нет GPU и доступа к maven.fabricmc.net / серверам Mojang,
+# поэтому вся реальная проверка идёт здесь. Логи джобов лежат на
+# blob.core.windows.net (недоступен из песочницы), поэтому ошибки
+# публикуются комментарием к коммиту через gh api.
 name: build
 
 on:
@@ -33,7 +33,7 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
-      - name: Build
+      - name: Build (includes server GameTests)
         run: |
           set -o pipefail
           ./gradlew build --stacktrace --no-daemon 2>&1 | tee /tmp/build.log
@@ -48,7 +48,7 @@ jobs:
             echo "### ❌ Build failed"
             echo ""
             echo '```'
-            grep -E "error:|warning:|\.java:[0-9]+|What went wrong|Caused by:|Could not|Execution failed" /tmp/build.log | sed 's/^[[:space:]]*//' | uniq | head -80
+            grep -E "error:|warning:|\.java:[0-9]+|What went wrong|Caused by:|Could not|Execution failed|GameTest" /tmp/build.log | sed 's/^[[:space:]]*//' | uniq | head -80
             echo '```'
           } > /tmp/report.md
           gh api "repos/${{ github.repository }}/commits/${COMMIT_SHA}/comments" -F body=@/tmp/report.md
@@ -59,3 +59,70 @@ jobs:
           name: botmod-jar
           path: build/libs/
           if-no-files-found: warn
+
+  screenshots:
+    runs-on: ubuntu-24.04
+    continue-on-error: true
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK 25
+        uses: actions/setup-java@v5
+        with:
+          java-version: '25'
+          distribution: 'microsoft'
+
+      - name: Install Xvfb
+        run: sudo apt-get update && sudo apt-get install -y xvfb
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Run client GameTest and capture screenshots
+        run: |
+          set -o pipefail
+          ./gradlew runProductionClientGameTest --stacktrace --no-daemon 2>&1 | tee /tmp/client.log
+
+      - name: Collect screenshots
+        if: always()
+        run: |
+          mkdir -p docs/screenshots
+          find . -path ./src -prune -o -name "*.png" -print 2>/dev/null \
+            | grep -viE "src/main/resources|icon.png|textures/entity" \
+            | while read -r file; do
+                cp "$file" "docs/screenshots/$(basename "$file")" 2>/dev/null || true
+              done
+          ls -la docs/screenshots || true
+
+      - name: Commit screenshots
+        if: always()
+        run: |
+          git config user.name "BotLab CI"
+          git config user.email "actions@github.com"
+          git add docs/screenshots || true
+          if ! git diff --staged --quiet; then
+            git commit -m "ci: client screenshots [skip ci]"
+            git push
+          else
+            echo "no new screenshots"
+          fi
+
+      - name: Report client errors
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          {
+            echo "### ❌ Client GameTest failed"
+            echo ""
+            echo '```'
+            grep -E "error|Exception|FAILED|Caused by|GameTest" /tmp/client.log | sed 's/^[[:space:]]*//' | uniq | head -60
+            echo '```'
+          } > /tmp/client-report.md
+          gh api "repos/${{ github.repository }}/commits/${COMMIT_SHA}/comments" -F body=@/tmp/client-report.md
