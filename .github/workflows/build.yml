@@ -135,11 +135,11 @@ jobs:
           # Что вообще лежит в build/run: скриншоты, миры, логи.
           {
             echo "== build/run tree =="
-            find build/run -maxdepth 3 -type d 2>/dev/null | head -30
+            find run build/run -maxdepth 3 -type d 2>/dev/null | head -40
             echo "== png files =="
-            find build/run -name "*.png" 2>/dev/null | head -30
+            find run build/run -name "*.png" 2>/dev/null | head -40
             echo "== all logs =="
-            find build/run -name "*.log" 2>/dev/null | head -10
+            find run build/run -name "*.log" 2>/dev/null | head -10
           } > docs/ci/artifacts.txt 2>&1 || true
           # Лог самой игры и краш-репорты — там причина падения окна.
           find build/run -type f \( -name "latest.log" -o -name "*.log" -o -name "crash-*.txt" \) 2>/dev/null \
@@ -156,7 +156,7 @@ jobs:
           if [ -d "$SRC" ]; then
             cp "$SRC"/*.png docs/screenshots/ 2>/dev/null || true
           fi
-          find build/run -name "*.png" 2>/dev/null | head -20 || true
+          find run build/run -name "*.png" 2>/dev/null | head -20 || true
           ls -la docs/screenshots || true
 
       - name: Commit screenshots and logs

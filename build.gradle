@@ -67,6 +67,9 @@ tasks.register("gametestJar", Jar) {
 // стартует с 8-битным экраном, и клиент падает с "Couldn't find matching GLX visual".
 tasks.register("runProductionClientGameTest", net.fabricmc.loom.task.prod.ClientProductionRunTask) {
 	mods.from tasks.named("gametestJar")
+	// Loom по умолчанию пишет в <project>/run; держим всё в build/,
+	// чтобы CI не тащил артефакты в репозиторий.
+	runDir = layout.projectDirectory.dir("build/run/clientGameTest")
 	jvmArgs.add("-Dfabric.client.gametest")
 	useXVFB = false
 }
