@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>BotLab — лаборатория BotMod</title>
+	<link rel="stylesheet" href="/style.css"/>
+</head>
+<body>
+<header>
+	<div class="brand">
+		<span class="logo">▣</span>
+		<div>
+			<h1>BotLab</h1>
+			<p class="sub">лаборатория тестирования <b>BotMod</b> · Minecraft 26.3 Fabric</p>
+		</div>
+	</div>
+
+	<div class="pills">
+		<span id="sourcePill" class="pill">…</span>
+		<span id="recPill" class="pill"> запись </span>
+		<span id="fpsPill" class="pill">FPS —</span>
+		<span id="tpsPill" class="pill">TPS —</span>
+	</div>
+
+	<div class="controls">
+		<button id="btnRecord" class="btn warn">● Запись</button>
+		<button id="btnCapture" class="btn">📷 Кадр</button>
+		<select id="scenario">
+			<option value="smoke">smoke · спарринг 8с</option>
+			<option value="combo">combo · натиск 15с</option>
+			<option value="defense">defense · щит 12с</option>
+		</select>
+		<button id="btnScenario" class="btn primary">▶ Сценарий</button>
+	</div>
+</header>
+
+<main>
+	<section class="col-left">
+		<div class="card">
+			<div class="card-head">
+				<h2>Производительность</h2>
+				<span class="hint">кадры/тик в реальном времени</span>
+			</div>
+			<div class="charts">
+				<div class="chart-wrap">
+					<canvas id="chartFps" width="520" height="120"></canvas>
+					<span class="chart-label">FPS</span>
+				</div>
+				<div class="chart-wrap">
+					<canvas id="chartTps" width="520" height="120"></canvas>
+					<span class="chart-label">TPS / тик, мс</span>
+				</div>
+			</div>
+			<div class="stats">
+				<div class="stat"><b id="statFrames">0</b><span>кадров</span></div>
+				<div class="stat"><b id="statFrameMs">—</b><span>мс/кадр</span></div>
+				<div class="stat"><b id="statTickMs">—</b><span>мс/тик</span></div>
+				<div class="stat"><b id="statBots">0</b><span>ботов</span></div>
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-head">
+				<h2>Состояние ботов</h2>
+				<span class="hint" id="worldInfo">—</span>
+			</div>
+			<div id="bots" class="bots">
+				<div class="empty">ботов нет — заспавнь через команду ниже</div>
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-head">
+				<h2>Команды</h2>
+				<span class="hint">POST /api/command</span>
+			</div>
+			<div class="cmd">
+				<select id="cmdAction">
+					<option value="spawn">spawn</option>
+					<option value="mode">mode</option>
+					<option value="kit">kit</option>
+					<option value="duel">duel</option>
+					<option value="stop">stop</option>
+					<option value="remove">remove</option>
+				</select>
+				<select id="cmdMode">
+					<option value="">—</option>
+					<option value="idle">idle</option>
+					<option value="spar">spar</option>
+					<option value="rush">rush</option>
+					<option value="defender">defender</option>
+				</select>
+				<select id="cmdKit">
+					<option value="">—</option>
+					<option value="unarmed">unarmed</option>
+					<option value="iron_sword">iron_sword</option>
+					<option value="stone_axe">stone_axe</option>
+					<option value="diamond_sword">diamond_sword</option>
+				</select>
+				<button id="btnSend" class="btn primary">Отправить</button>
+			</div>
+			<pre id="cmdOut" class="out">—</pre>
+		</div>
+	</section>
+
+	<section class="col-right">
+		<div class="card frames">
+			<div class="card-head">
+				<h2>Кадры</h2>
+				<span class="hint" id="frameHint">1 кадр / сек</span>
+			</div>
+			<div class="frame-view">
+				<img id="frame" alt="latest frame" src="/frames/none.png"/>
+				<div id="frameOverlay" class="overlay">нет кадра</div>
+			</div>
+			<div id="frameStrip" class="strip"></div>
+		</div>
+
+		<div class="card">
+			<div class="card-head">
+				<h2>Журнал</h2>
+				<span class="hint" id="eventCount">0</span>
+			</div>
+			<div id="events" class="events">
+				<div class="empty">событий пока нет</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+<footer>
+	BotLab 0.1 · телеметрия <code id="mcUrl">—</code> · отчёты в <code>lab/reports/</code>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>

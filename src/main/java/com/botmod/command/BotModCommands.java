@@ -49,9 +49,10 @@ public final class BotModCommands {
 		CommandRegistrationCallback.EVENT.register(BotModCommands::registerCommands);
 	}
 
+	// 26.3: (dispatcher, CommandBuildContext, Commands.CommandSelection)
 	private static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher,
-										 net.minecraft.core.RegistryAccess registryAccess,
-										 net.minecraft.commands.CommandBuildContext environment) {
+										 net.minecraft.commands.CommandBuildContext buildContext,
+										 net.minecraft.commands.Commands.CommandSelection selection) {
 		LiteralArgumentBuilder<CommandSourceStack> root = Commands.literal("bot");
 
 		root.then(Commands.literal("spawn")
