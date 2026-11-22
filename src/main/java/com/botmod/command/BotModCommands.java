@@ -77,6 +77,13 @@ public final class BotModCommands {
 						.suggests(KIT_SUGGESTIONS)
 						.executes(context -> changeKit(context, StringArgumentType.getString(context, "kit")))));
 
+		root.then(Commands.literal("lab")
+				.executes(context -> labInfo(context))
+				.then(Commands.literal("on").executes(context -> labToggle(context, true)))
+				.then(Commands.literal("off").executes(context -> labToggle(context, false)))
+				.then(Commands.argument("url", StringArgumentType.greedyString())
+						.executes(context -> labUrl(context, StringArgumentType.getString(context, "url")))));
+
 		root.then(Commands.literal("duel").executes(BotModCommands::startDuel));
 		root.then(Commands.literal("stop").executes(BotModCommands::stopDuel));
 		root.then(Commands.literal("remove").executes(BotModCommands::removeNearest));
@@ -201,6 +208,44 @@ public final class BotModCommands {
 		bot.setKit(kit);
 		context.getSource().sendSuccess(
 				() -> Component.translatable("botmod.message.kit_set", kit.name().toLowerCase(Locale.ROOT)), false);
+		return 1;
+	}
+
+	// ------------------------------------------------------------------
+	// лаборатория
+	// ------------------------------------------------------------------
+
+	private static int labInfo(CommandContext<CommandSourceStack> context) {
+		BotModConfig config = BotModConfig.get();
+		context.getSource().sendSuccess(() -> Component.literal(
+				"BotLab: " + (config.labFramesEnabled ? "вкл" : "выкл")
+						+ " · " + config.labUrl
+						+ " · " + config.labFramesPerSecond + " кадр/сек"), false);
+		return 1;
+	}
+
+	private static int labToggle(CommandContext<CommandSourceStack> context, boolean enabled) {
+		BotModConfig config = BotModConfig.get();
+		config.labFramesEnabled = enabled;
+		BotModConfig.save();
+		context.getSource().sendSuccess(() -> Component.literal(
+				"Кадры в BotLab " + (enabled ? "включены" : "выключены")), false);
+		return 1;
+	}
+
+	private static int labUrl(CommandContext<CommandSourceStack> context, String url) {
+		if (!url.startsWith("http://") && !url.startsWith("https://")) {
+			context.getSource().sendFailure(Component.literal("URL должен начинаться с http:// или https://"));
+			return 0;
+		}
+
+		BotModConfig config = BotModConfig.get();
+		config.labUrl = url.trim();
+		config.labFramesEnabled = true;
+		BotModConfig.save();
+
+		context.getSource().sendSuccess(() -> Component.literal(
+				"BotLab: кадры и телеметрия пойдут на " + config.labUrl), false);
 		return 1;
 	}
 
