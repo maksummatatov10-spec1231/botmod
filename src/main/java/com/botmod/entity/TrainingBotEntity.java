@@ -263,8 +263,7 @@ public class TrainingBotEntity extends PathfinderMob {
 			// 26.3: displayClientMessage(Component, boolean) заменён на sendOverlayMessage.
 			player.sendOverlayMessage(
 					net.minecraft.network.chat.Component.translatable(
-							"botmod.message.bot_mode", this.getName(), next.displayName()),
-					true
+							"botmod.message.bot_mode", this.getName(), next.displayName())
 			);
 		}
 
