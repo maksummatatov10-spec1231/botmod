@@ -87,6 +87,13 @@ public class BotCombatGoal extends Goal {
 			this.tickOrbit(target, distanceSqr, reach, mode);
 		}
 
+		// Адаптация: после пропущенного удара бот резко уходит в сторону.
+		if (this.bot.getReactTicks() > 0) {
+			this.bot.tickReact();
+			this.strafeTimer = Math.max(this.strafeTimer, 8);
+			this.strafeDirection = -this.strafeDirection;
+		}
+
 		// Атака — только в дистанции и при прямой видимости.
 		if (distanceSqr <= reachSqr && this.bot.getSensing().hasLineOfSight(target)) {
 			this.bot.tryAttack(target);
@@ -121,14 +128,24 @@ public class BotCombatGoal extends Goal {
 			this.strafeDirection = this.bot.getRandom().nextInt(4) == 0 ? 0 : direction;
 		}
 
+		// Агрессия растёт, когда бот попадает, и падает, когда его бьют.
+		float aggression = this.bot.getAggression();
+		boolean lowHealth = this.bot.getHealth() < this.bot.getMaxHealth() * 0.30F;
+
 		// Держим дистанцию: если цель слишком близко — чуть отходим.
 		float forward = distanceSqr < (reach * 0.55D) * (reach * 0.55D) ? -0.35F : 0.25F;
-		float strafe = this.strafeDirection * (mode == BotMode.RUSH ? 0.55F : 0.40F);
+		// При низком HP бот отходит и пытается разорвать дистанцию (кайт).
+		if (lowHealth) {
+			forward = -0.65F;
+		}
+
+		float strafeBase = mode == BotMode.RUSH ? 0.55F : 0.40F;
+		float strafe = this.strafeDirection * strafeBase * (0.7F + aggression * 0.3F);
 
 		this.bot.getMoveControl().strafe(forward, strafe);
 
 		// Крит-прыжок: в RUSH — часто, в остальных режимах — иногда.
-		int jumpChance = mode == BotMode.RUSH ? 14 : 60;
+		int jumpChance = mode == BotMode.RUSH ? Math.max(6, (int) (14 / aggression)) : Math.max(24, (int) (60 / aggression));
 		if (this.bot.onGround() && this.bot.getRandom().nextInt(jumpChance) == 0) {
 			this.bot.getJumpControl().jump();
 		}

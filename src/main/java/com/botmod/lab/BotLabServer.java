@@ -105,6 +105,9 @@ public final class BotLabServer {
 			entry.put("distance", round(bot.distance()));
 			entry.put("target", bot.target());
 			entry.put("attacking", bot.attacking());
+			entry.put("aggression", round(bot.aggression()));
+			entry.put("landedHits", bot.landedHits());
+			entry.put("takenHits", bot.takenHits());
 			bots.add(entry);
 		}
 

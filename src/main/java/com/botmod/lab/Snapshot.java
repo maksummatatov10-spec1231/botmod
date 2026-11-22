@@ -50,7 +50,10 @@ public record Snapshot(double tps, double tickMs, int players, String dimension,
 						bot.getX(), bot.getY(), bot.getZ(),
 						bot.distanceTo(player),
 						bot.getDuelTarget() == null ? null : bot.getDuelTarget().getName().getString(),
-						bot.getDuelTarget() != null
+						bot.getDuelTarget() != null,
+						bot.getAggression(),
+						bot.getLandedHits(),
+						bot.getTakenHits()
 				));
 			}
 		}
@@ -61,6 +64,7 @@ public record Snapshot(double tps, double tickMs, int players, String dimension,
 	}
 
 	public record BotState(int id, String name, String mode, String kit, float health, float maxHealth,
-						   double x, double y, double z, double distance, String target, boolean attacking) {
+						   double x, double y, double z, double distance, String target, boolean attacking,
+						   float aggression, int landedHits, int takenHits) {
 	}
 }

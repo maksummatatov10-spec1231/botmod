@@ -245,3 +245,22 @@ footer code { color: #8ea3bb; }
 .stage.active { border-color: #2f6fd0; color: #cfe2ff; background: #101a26; }
 .stage.active .num { color: #7db4ff; }
 .stage.next { opacity: .75; }
+
+
+/* -------- адаптация бота -------- */
+.learn {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 4px;
+}
+.learn-bar {
+	width: 90px;
+	height: 4px;
+}
+.learn-bar i {
+	display: block;
+	height: 100%;
+	background: linear-gradient(90deg, #3d7bd9, #7db4ff);
+	border-radius: 2px;
+}

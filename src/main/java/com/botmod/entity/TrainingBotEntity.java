@@ -121,6 +121,11 @@ public class TrainingBotEntity extends PathfinderMob {
 	}
 
 	public void setDuelTarget(LivingEntity target) {
+		// Новая дуэль — новая статистика: «обучение» считается с нуля.
+		if (target != null && target != this.duelTarget) {
+			resetCombatStats();
+		}
+
 		this.duelTarget = target;
 		this.setTarget(target);
 		if (target == null) {
@@ -178,6 +183,51 @@ public class TrainingBotEntity extends PathfinderMob {
 	}
 
 	// ------------------------------------------------------------------
+	// Адаптация («обучение» в бою)
+	// ------------------------------------------------------------------
+
+	/** Попадания бота по цели. */
+	private int landedHits;
+	/** Полученный урон (в ударах). */
+	private int takenHits;
+	/** Агрессия 0.5..1.5: растёт при попаданиях, падает при полученном уроне. */
+	private float aggression = 1.0F;
+	/** Тики, которые бот «реагирует» на полученный удар (уклонение). */
+	private int reactTicks;
+
+	public float getAggression() {
+		return this.aggression;
+	}
+
+	public int getLandedHits() {
+		return this.landedHits;
+	}
+
+	public int getTakenHits() {
+		return this.takenHits;
+	}
+
+	/** Тики уклонения после пропущенного удара. */
+	public int getReactTicks() {
+		return this.reactTicks;
+	}
+
+	/** Тик уклонения: уменьшает оставшееся время реакции. */
+	public void tickReact() {
+		if (this.reactTicks > 0) {
+			this.reactTicks--;
+		}
+	}
+
+	/** Сброс статистики боя (новая дуэль). */
+	public void resetCombatStats() {
+		this.landedHits = 0;
+		this.takenHits = 0;
+		this.aggression = 1.0F;
+		this.reactTicks = 0;
+	}
+
+	// ------------------------------------------------------------------
 	// Урон и ответка
 	// ------------------------------------------------------------------
 
@@ -186,6 +236,10 @@ public class TrainingBotEntity extends PathfinderMob {
 		boolean hurt = super.hurtServer(level, source, amount);
 
 		if (hurt && !level.isClientSide()) {
+			this.takenHits++;
+			this.aggression = Math.max(0.5F, this.aggression - 0.03F);
+			// Уклонение: после пропущенного удара бот резко меняет направление стрейфа.
+			this.reactTicks = 12;
 			BotLabBridge.event("hurt", getName().getString() + " −" + amount);
 			Entity attacker = source.getEntity();
 			// В режиме IDLE бот отвечает только на удар — это «мешок», который не провоцирует.
@@ -225,6 +279,8 @@ public class TrainingBotEntity extends PathfinderMob {
 		// Отдачу применяет сам LivingEntity#hurtServer через dealDefaultKnockback.
 		boolean hurt = target.hurtServer(serverLevel, source, damage);
 		if (hurt) {
+			this.landedHits++;
+			this.aggression = Math.min(1.5F, this.aggression + 0.02F);
 			BotLabBridge.event("damage", getName().getString() + " → "
 					+ target.getName().getString() + " −" + String.format(java.util.Locale.ROOT, "%.1f", damage));
 		}

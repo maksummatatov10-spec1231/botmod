@@ -102,6 +102,13 @@ function botCard(bot) {
 				<span class="tag">x ${fmt(bot.x)} y ${fmt(bot.y)} z ${fmt(bot.z)}</span>
 				<span class="tag">${bot.attacking ? "в бою" : "ждёт"}</span>
 			</div>
+			<div class="learn">
+				<span class="hint">агрессия ${fmt(bot.aggression ?? 1)}</span>
+				<div class="bar learn-bar">
+					<i style="width:${Math.round(Math.max(0, Math.min(1.5, bot.aggression ?? 1)) / 1.5 * 100)}%"></i>
+				</div>
+				<span class="hint">попадания ${bot.landedHits || 0} · пропущено ${bot.takenHits || 0}</span>
+			</div>
 		</div>
 		<div class="hp">
 			<div class="bar"><i style="width:${(ratio * 100).toFixed(0)}%;background:${color}"></i></div>
