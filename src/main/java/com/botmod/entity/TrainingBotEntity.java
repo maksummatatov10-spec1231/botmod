@@ -18,6 +18,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -208,7 +209,8 @@ public class TrainingBotEntity extends PathfinderMob {
 		}
 
 		this.attackCooldown = this.kit.attackIntervalTicks();
-		this.swing(InteractionHand.MAIN_HAND);
+		// 26.3: swing(InteractionHand) убран, вместо него SwingAnimation.
+		this.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
 
 		float damage = this.kit.attackDamage() * BotModConfig.get().damageMultiplier;
 
@@ -218,12 +220,8 @@ public class TrainingBotEntity extends PathfinderMob {
 		}
 
 		DamageSource source = this.damageSources().mobAttack(this);
-		boolean hurt = target.hurtServer(serverLevel, source, damage);
-
-		if (hurt) {
-			// Вектор от бота к цели — цель отлетает в сторону удара.
-			target.knockback(0.4D, target.getX() - this.getX(), target.getZ() - this.getZ());
-		}
+		// Отдачу применяет сам LivingEntity#hurtServer через dealDefaultKnockback.
+		target.hurtServer(serverLevel, source, damage);
 	}
 
 	/** Обработка щита: поднимаем его в ближнем бою, опускаем на дистанции. */
@@ -262,11 +260,6 @@ public class TrainingBotEntity extends PathfinderMob {
 		if (!this.level().isClientSide()) {
 			BotMode next = this.getMode().next();
 			this.setMode(next);
-			this.displayClientMessage(
-					net.minecraft.network.chat.Component.translatable(
-							"botmod.message.mode_set", next.displayName()),
-					true
-			);
 			player.displayClientMessage(
 					net.minecraft.network.chat.Component.translatable(
 							"botmod.message.bot_mode", this.getName(), next.displayName()),

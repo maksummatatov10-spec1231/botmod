@@ -10,9 +10,9 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
+import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -35,10 +35,12 @@ import java.util.UUID;
  * {@code source.permissions().hasPermission(...)}.</p>
  */
 public final class BotModCommands {
+	// В 26.3 у SharedSuggestionProvider перегрузки изменились, поэтому
+	// провайдер собирается вручную — это стабильно во всех версиях.
 	private static final SuggestionProvider<CommandSourceStack> MODE_SUGGESTIONS =
-			SharedSuggestionProvider.suggest(BotMode.names());
+			(context, builder) -> suggestNames(builder, BotMode.names());
 	private static final SuggestionProvider<CommandSourceStack> KIT_SUGGESTIONS =
-			SharedSuggestionProvider.suggest(BotKit.names());
+			(context, builder) -> suggestNames(builder, BotKit.names());
 
 	private BotModCommands() {
 	}
@@ -286,6 +288,19 @@ public final class BotModCommands {
 			source.sendFailure(Component.translatable("botmod.message.no_bot"));
 		}
 		return nearest;
+	}
+
+	private static java.util.concurrent.CompletableFuture<com.mojang.brigadier.suggestion.Suggestions> suggestNames(
+			SuggestionsBuilder builder, List<String> names) {
+		String remaining = builder.getRemaining().toLowerCase(Locale.ROOT);
+
+		for (String name : names) {
+			if (name.toLowerCase(Locale.ROOT).startsWith(remaining)) {
+				builder.suggest(name);
+			}
+		}
+
+		return builder.buildFuture();
 	}
 
 	private static BotMode parseMode(String name, BotMode fallback) {
