@@ -18,8 +18,8 @@ import net.minecraft.world.phys.AABB;
  * ничего не рисует.</p>
  */
 public final class BotHud {
-	private static final int PANEL_WIDTH = 132;
-	private static final int PANEL_HEIGHT = 34;
+	private static final int PANEL_WIDTH = 156;
+	private static final int PANEL_HEIGHT = 48;
 	private static final int MARGIN = 8;
 
 	private BotHud() {
@@ -57,12 +57,13 @@ public final class BotHud {
 		graphics.fill(x, y, x + PANEL_WIDTH, y + PANEL_HEIGHT, 0x90000000);
 		graphics.outline(x, y, PANEL_WIDTH, PANEL_HEIGHT, 0x50FFFFFF);
 
-		// Имя и режим
+		// Имя и режим (по строкам, без наложений)
 		String title = bot.getName().getString();
-		String mode = bot.getMode().displayName().getString();
+		String mode = bot.getMode().displayName().getString()
+				+ " · агрессия " + String.format(java.util.Locale.ROOT, "%.2f", bot.getAggression());
 
 		graphics.text(client.font, title, x + 4, y + 4, 0xFFFFFFFF, true);
-		graphics.text(client.font, mode, x + 4, y + 14, 0xFF9AD0FF, true);
+		graphics.text(client.font, mode, x + 4, y + 16, 0xFF9AD0FF, true);
 
 		// Полоска здоровья
 		int barX = x + 4;
@@ -80,7 +81,7 @@ public final class BotHud {
 		graphics.text(client.font,
 				Component.translatable("botmod.hud.health",
 						(int) Math.ceil(bot.getHealth()), (int) bot.getMaxHealth()).getString(),
-				barX, barY - 9, 0xFFDDDDDD, true);
+				barX, barY - 10, 0xFFDDDDDD, true);
 	}
 
 	private static TrainingBotEntity findNearest(Minecraft client, double radius) {
