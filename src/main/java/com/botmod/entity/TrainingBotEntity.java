@@ -11,6 +11,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -373,6 +374,12 @@ public class TrainingBotEntity extends PathfinderMob {
 	/** Плавный поворот к цели — используется целью боя вместо жёсткого setYRot. */
 	public void faceTarget(LivingEntity target) {
 		this.getLookControl().setLookAt(target, 30.0F, 30.0F);
+		// Корпус тоже доворачивается к цели — иначе модель стоит боком/спиной.
+		double dx = target.getX() - this.getX();
+		double dz = target.getZ() - this.getZ();
+		float yaw = (float) (Mth.atan2(dz, dx) * Mth.RAD_TO_DEG) - 90.0F;
+		// 26.3: rotlerp убран, используется Mth.rotLerp.
+		this.setYBodyRot(Mth.rotLerp(0.35F, this.yBodyRot, yaw));
 	}
 
 	public Vec3 getHorizontalVelocity() {

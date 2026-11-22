@@ -52,7 +52,7 @@
 | Задача | Способ |
 |---|---|
 | Скомпилировать мод | **GitHub Actions** (Java 25 + интернет). Пушу ветку → читаю `annotations` |
-| Автотесты логики | серверные GameTest в `build`; клиентские — `runProductionClientGameTest` |
+| Автотесты логики | серверные GameTest в `build`; клиентские — `runProductionClientGameTest` (отчёты в `docs/tests/`) |
 | Настоящий клиент в CI | **SDL offscreen + Mesa EGL** (`SDL_VIDEO_DRIVER=offscreen`, `SDL_VIDEO_FORCE_EGL=1`), см. `docs/04` |
 | Скриншоты | `context.takeScreenshot(...)` → `build/run/clientGameTest/screenshots` → коммит в `docs/screenshots/` |
 | Кадры, FPS, состояние | **BotLab** (`lab/`) — дашборд, кадры 1/сек, сценарии, отчёты |

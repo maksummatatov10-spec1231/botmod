@@ -71,6 +71,27 @@ jobs:
           path: build/libs/
           if-no-files-found: warn
 
+      # Готовый jar — в репозиторий, чтобы его можно было просто скачать.
+      - name: Publish jar to releases/
+        run: |
+          mkdir -p releases
+          rm -f releases/*.jar
+          cp build/libs/*.jar releases/ 2>/dev/null || true
+          ls -la releases
+
+      - name: Commit jar
+        run: |
+          git config user.name "BotLab CI"
+          git config user.email "actions@github.com"
+          git add releases || true
+          if ! git diff --staged --quiet; then
+            git pull --rebase origin "${{ github.ref_name }}" || true
+            git commit -m "ci: build jar [skip ci]"
+            git push || (git pull --rebase origin "${{ github.ref_name }}" && git push)
+          else
+            echo "no jar changes"
+          fi
+
   screenshots:
     runs-on: ubuntu-24.04
     continue-on-error: true
@@ -128,9 +149,10 @@ jobs:
       - name: Store game logs in repo
         if: always()
         run: |
-          mkdir -p docs/ci
+          mkdir -p docs/tests/ci/client-gametest
+          DEST=docs/tests/ci/client-gametest
           if [ -f /tmp/client.log ]; then
-            tail -n 1200 /tmp/client.log > docs/ci/client.log
+            tail -n 1200 /tmp/client.log > "$DEST/client.log"
           fi
           # Что вообще лежит в build/run: скриншоты, миры, логи.
           {
@@ -140,13 +162,13 @@ jobs:
             find run build/run -name "*.png" 2>/dev/null | head -40
             echo "== all logs =="
             find run build/run -name "*.log" 2>/dev/null | head -10
-          } > docs/ci/artifacts.txt 2>&1 || true
+          } > "$DEST/artifacts.txt" 2>&1 || true
           # Лог самой игры и краш-репорты — там причина падения окна.
           find build/run -type f \( -name "latest.log" -o -name "*.log" -o -name "crash-*.txt" \) 2>/dev/null \
             | head -5 | while read -r f; do
-                cp "$f" "docs/ci/game-$(basename "$f")" 2>/dev/null || true
+                cp "$f" "$DEST/game-$(basename "$f")" 2>/dev/null || true
               done
-          ls -la docs/ci || true
+          ls -la "$DEST" || true
 
       - name: Collect screenshots
         if: always()
@@ -164,7 +186,7 @@ jobs:
         run: |
           git config user.name "BotLab CI"
           git config user.email "actions@github.com"
-          git add docs/screenshots docs/ci || true
+          git add docs/screenshots docs/tests || true
           if ! git diff --staged --quiet; then
             git commit -m "ci: client screenshots and logs [skip ci]"
             git push

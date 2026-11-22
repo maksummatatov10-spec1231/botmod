@@ -71,8 +71,11 @@ public final class LabActions {
 			return;
 		}
 
+		// Поворачиваем и голову, и корпус: иначе бот стоит спиной,
+		// а голова не может довернуться на 180° (лимит ±75°).
 		bot.setPos(position.x + offsetX, position.y, position.z + offsetZ);
-		bot.setYRot(yaw + 180.0F);
+		bot.setRot(yaw + 180.0F, 0.0F);
+		bot.setYBodyRot(yaw + 180.0F);
 		bot.setMode(mode);
 		bot.setKit(kit);
 		bot.setOwnerId(player.getUUID());
