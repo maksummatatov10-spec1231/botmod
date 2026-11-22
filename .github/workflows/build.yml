@@ -30,6 +30,17 @@ jobs:
           java-version: '25'
           distribution: 'microsoft'
 
+      - name: Setup Gradle cache
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Cache Minecraft assets
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.gradle/caches/fabric-loom/assets
+            ~/.gradle/caches/fabric-loom/26.3
+          key: mc-assets-26.3-${{ runner.os }}
+
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
@@ -63,6 +74,7 @@ jobs:
   screenshots:
     runs-on: ubuntu-24.04
     continue-on-error: true
+    timeout-minutes: 30
     permissions:
       contents: write
     steps:
@@ -77,66 +89,66 @@ jobs:
           java-version: '25'
           distribution: 'microsoft'
 
-      # Клиенту нужен программный рендерер (Mesa/llvmpipe) и виртуальный дисплей,
-      # иначе он висит на создании окна.
-      - name: Install Xvfb and Mesa software rendering
+      # 26.3 просит у SDL sRGB-фреймбуфер: GLX в Xvfb такого visual не даёт
+      # ("Couldn't find matching GLX visual"), а Vulkan падает без ICD.
+      # Поэтому: Mesa (llvmpipe) + SDL offscreen (EGL, без X-сервера) + lavapipe.
+      - name: Install Mesa software rendering
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb xserver-xorg-core mesa-utils mesa-vulkan-drivers \
-            libgl1 libegl1 libgles2 libglx-mesa0 libgl1-mesa-dri libopenal1 libflite1
+          sudo apt-get install -y xvfb mesa-vulkan-drivers libvulkan1 \
+            libgl1 libegl1 libgles2 libglx-mesa0 libgl1-mesa-dri libopenal1
+
+      - name: Setup Gradle cache
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Cache Minecraft assets
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.gradle/caches/fabric-loom/assets
+            ~/.gradle/caches/fabric-loom/26.3
+          key: mc-assets-26.3-${{ runner.os }}
 
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
-      - name: Start Xvfb with 24-bit screen and GLX
-        run: |
-          # 24-битный экран обязателен: иначе Mesa не находит GLX visual.
-          Xvfb :99 -screen 0 1600x900x24 +extension GLX +extension RANDR +render -noreset -nolisten tcp &
-          sleep 3
-          echo "DISPLAY=:99" >> "$GITHUB_ENV"
-          echo "LIBGL_ALWAYS_SOFTWARE=1" >> "$GITHUB_ENV"
-          echo "MESA_GL_VERSION_OVERRIDE=4.6" >> "$GITHUB_ENV"
-
-      - name: Diagnose graphics stack
-        run: |
-          {
-            echo "== xdpyinfo =="
-            xdpyinfo 2>&1 | grep -iE "dimensions|GLX|extensions" | head -20
-            echo "== glxinfo =="
-            glxinfo -B 2>&1 | head -40
-            echo "== vulkan =="
-            vulkaninfo --summary 2>&1 | head -20
-          } | tee /tmp/diag.log
-
       - name: Run client GameTest and capture screenshots
+        env:
+          # SDL offscreen рендерит через Mesa EGL: клиент стартует за секунды.
+          SDL_VIDEO_DRIVER: offscreen
+          SDL_VIDEO_FORCE_EGL: '1'
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          MESA_GL_VERSION_OVERRIDE: '4.6'
         run: |
           set -o pipefail
-          # timeout гарантирует, что job не зависнет навсегда: 25 минут максимум.
-          timeout 25m ./gradlew runProductionClientGameTest --stacktrace --no-daemon \
+          timeout 20m ./gradlew runProductionClientGameTest --stacktrace --no-daemon \
             -Dfabric.client.gametest.disableNetworkSynchronizer=true 2>&1 | tee /tmp/client.log
           echo "client exit code: ${PIPESTATUS[0]}"
+
+      - name: Store game logs in repo
+        if: always()
+        run: |
+          mkdir -p docs/ci
+          if [ -f /tmp/client.log ]; then
+            tail -n 1200 /tmp/client.log > docs/ci/client.log
+          fi
+          # Лог самой игры и краш-репорты — там причина падения окна.
+          find build/run -type f \( -name "latest.log" -o -name "*.log" -o -name "crash-*.txt" \) 2>/dev/null \
+            | head -5 | while read -r f; do
+                cp "$f" "docs/ci/game-$(basename "$f")" 2>/dev/null || true
+              done
+          ls -la docs/ci || true
 
       - name: Collect screenshots
         if: always()
         run: |
           mkdir -p docs/screenshots
-          # Loom складывает скриншоты клиентских GameTest сюда.
           SRC="build/run/clientGameTest/screenshots"
           if [ -d "$SRC" ]; then
             cp "$SRC"/*.png docs/screenshots/ 2>/dev/null || true
           fi
           find build/run -name "*.png" 2>/dev/null | head -20 || true
           ls -la docs/screenshots || true
-
-      - name: Store CI logs in repo
-        if: always()
-        run: |
-          mkdir -p docs/ci
-          [ -f /tmp/diag.log ] && cp /tmp/diag.log docs/ci/graphics-diag.log || true
-          if [ -f /tmp/client.log ]; then
-            tail -n 1500 /tmp/client.log > docs/ci/client.log
-          fi
-          ls -la docs/ci || true
 
       - name: Commit screenshots and logs
         if: always()
@@ -161,7 +173,8 @@ jobs:
             echo "### ❌ Client GameTest failed"
             echo ""
             echo '```'
-            grep -E "error|Exception|FAILED|Caused by|GameTest" /tmp/client.log | sed 's/^[[:space:]]*//' | uniq | head -60
+            grep -E "error|Exception|FAILED|Caused by|GameTest|SDL|GLX|EGL|OpenGL|Vulkan" /tmp/client.log \
+              | sed 's/^[[:space:]]*//' | uniq | head -60
             echo '```'
           } > /tmp/client-report.md
           gh api "repos/${{ github.repository }}/commits/${COMMIT_SHA}/comments" -F body=@/tmp/client-report.md
