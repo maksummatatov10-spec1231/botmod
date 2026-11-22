@@ -15,6 +15,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -162,7 +163,13 @@ public final class BotModCommands {
 			return 0;
 		}
 
-		TrainingBotEntity bot = findNearest(context.getSource());
+		LivingEntity actor = actor(context.getSource());
+		if (actor == null) {
+			context.getSource().sendFailure(Component.translatable("botmod.message.players_only"));
+			return 0;
+		}
+
+		TrainingBotEntity bot = findNearest(context.getSource(), actor);
 		if (bot == null) {
 			return 0;
 		}
@@ -180,7 +187,13 @@ public final class BotModCommands {
 			return 0;
 		}
 
-		TrainingBotEntity bot = findNearest(context.getSource());
+		LivingEntity actor = actor(context.getSource());
+		if (actor == null) {
+			context.getSource().sendFailure(Component.translatable("botmod.message.players_only"));
+			return 0;
+		}
+
+		TrainingBotEntity bot = findNearest(context.getSource(), actor);
 		if (bot == null) {
 			return 0;
 		}
@@ -196,12 +209,13 @@ public final class BotModCommands {
 	// ------------------------------------------------------------------
 
 	private static int startDuel(CommandContext<CommandSourceStack> context) {
-		if (!(context.getSource().getEntity() instanceof LivingEntity player)) {
+		LivingEntity player = actor(context.getSource());
+		if (player == null) {
 			context.getSource().sendFailure(Component.translatable("botmod.message.players_only"));
 			return 0;
 		}
 
-		TrainingBotEntity bot = findNearest(context.getSource());
+		TrainingBotEntity bot = findNearest(context.getSource(), player);
 		if (bot == null) {
 			return 0;
 		}
@@ -217,7 +231,13 @@ public final class BotModCommands {
 	}
 
 	private static int stopDuel(CommandContext<CommandSourceStack> context) {
-		TrainingBotEntity bot = findNearest(context.getSource());
+		LivingEntity player = actor(context.getSource());
+		if (player == null) {
+			context.getSource().sendFailure(Component.translatable("botmod.message.players_only"));
+			return 0;
+		}
+
+		TrainingBotEntity bot = findNearest(context.getSource(), player);
 		if (bot == null) {
 			return 0;
 		}
@@ -229,7 +249,13 @@ public final class BotModCommands {
 	}
 
 	private static int removeNearest(CommandContext<CommandSourceStack> context) {
-		TrainingBotEntity bot = findNearest(context.getSource());
+		LivingEntity player = actor(context.getSource());
+		if (player == null) {
+			context.getSource().sendFailure(Component.translatable("botmod.message.players_only"));
+			return 0;
+		}
+
+		TrainingBotEntity bot = findNearest(context.getSource(), player);
 		if (bot == null) {
 			return 0;
 		}
@@ -270,14 +296,26 @@ public final class BotModCommands {
 	// Утилиты
 	// ------------------------------------------------------------------
 
-	private static TrainingBotEntity findNearest(CommandSourceStack source) {
-		Vec3 position = source.getPosition();
+	/** Кто действует: игрок из source, а для консоли — первый игрок онлайн. */
+	private static LivingEntity actor(CommandSourceStack source) {
+		if (source.getEntity() instanceof LivingEntity living) {
+			return living;
+		}
+		if (source.getServer() == null) {
+			return null;
+		}
+		List<ServerPlayer> players = source.getServer().getPlayerList().getPlayers();
+		return players.isEmpty() ? null : players.get(0);
+	}
+
+	private static TrainingBotEntity findNearest(CommandSourceStack source, LivingEntity actor) {
+		Vec3 position = actor.position();
 		AABB box = new AABB(position, position).inflate(32.0D);
 
 		TrainingBotEntity nearest = null;
 		double best = Double.MAX_VALUE;
 
-		for (TrainingBotEntity bot : source.getLevel().getEntitiesOfClass(TrainingBotEntity.class, box, entity -> true)) {
+		for (TrainingBotEntity bot : actor.level().getEntitiesOfClass(TrainingBotEntity.class, box, entity -> true)) {
 			double distance = bot.distanceToSqr(position);
 			if (distance < best) {
 				best = distance;

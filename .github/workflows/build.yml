@@ -132,6 +132,15 @@ jobs:
           if [ -f /tmp/client.log ]; then
             tail -n 1200 /tmp/client.log > docs/ci/client.log
           fi
+          # Что вообще лежит в build/run: скриншоты, миры, логи.
+          {
+            echo "== build/run tree =="
+            find build/run -maxdepth 3 -type d 2>/dev/null | head -30
+            echo "== png files =="
+            find build/run -name "*.png" 2>/dev/null | head -30
+            echo "== all logs =="
+            find build/run -name "*.log" 2>/dev/null | head -10
+          } > docs/ci/artifacts.txt 2>&1 || true
           # Лог самой игры и краш-репорты — там причина падения окна.
           find build/run -type f \( -name "latest.log" -o -name "*.log" -o -name "crash-*.txt" \) 2>/dev/null \
             | head -5 | while read -r f; do
