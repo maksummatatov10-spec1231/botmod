@@ -32,6 +32,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 LAB_DIR = Path(__file__).resolve().parent
+ROOT = LAB_DIR.parent  # корень репозитория
 FRAMES_DIR = LAB_DIR / "frames"
 REPORTS_DIR = LAB_DIR / "reports"
 
@@ -321,6 +322,50 @@ def fetch_mod_state() -> dict | None:
         return None
 
 
+def project_plan() -> dict:
+    """Текущая стадия и таблица этапов из docs/03-plan-and-status.md."""
+    plan = {"current": "—", "stages": [], "updated": None}
+    path = ROOT / "docs" / "03-plan-and-status.md"
+    if not path.exists():
+        return plan
+
+    plan["updated"] = path.stat().st_mtime
+    text = path.read_text(encoding="utf-8")
+
+    for line in text.splitlines():
+        if line.startswith("## Текущий этап"):
+            plan["current"] = line.split(":", 1)[1].strip().strip("* ")
+            break
+
+    for line in text.splitlines():
+        line = line.strip()
+        if not (line.startswith("|") and line.count("|") >= 5):
+            continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        if len(cells) < 4 or not cells[0].isdigit():
+            continue
+        plan["stages"].append({
+            "num": int(cells[0]),
+            "name": cells[1],
+            "status": cells[2],
+            "result": cells[3],
+        })
+    return plan
+
+
+def real_screenshots() -> list:
+    """Скриншоты настоящего клиента, снятые в CI (docs/screenshots)."""
+    folder = ROOT / "docs" / "screenshots"
+    if not folder.exists():
+        return []
+    return sorted(
+        ({"name": item.name, "size": item.stat().st_size, "mtime": item.stat().st_mtime}
+         for item in folder.glob("*.png")),
+        key=lambda entry: entry["mtime"],
+        reverse=True,
+    )
+
+
 def current_state() -> dict:
     state = fetch_mod_state()
     if state is None:
@@ -475,6 +520,17 @@ class Handler(BaseHTTPRequestHandler):
                 self._file(target, "image/png")
             else:
                 self._json({"error": "frame not found"}, 404)
+        elif path == "/api/plan":
+            self._json(project_plan())
+        elif path == "/api/screenshots":
+            self._json({"screenshots": real_screenshots()})
+        elif path.startswith("/screenshots/"):
+            name = Path(path[len("/screenshots/"):]).name
+            target = ROOT / "docs" / "screenshots" / name
+            if target.exists():
+                self._file(target, "image/png")
+            else:
+                self._json({"error": "screenshot not found"}, 404)
         elif path == "/api/health":
             self._json({"ok": True, "source": RUNTIME["source"],
                         "mcUrl": CONFIG["mc_url"], "frames": RUNTIME["frame_count"]})

@@ -272,6 +272,69 @@ async function runScenario() {
 	$("cmdOut").textContent = `сценарий «${name}» → ${JSON.stringify(data)}`;
 }
 
+/* ------------------------ стадия проекта ------------------------ */
+
+async function refreshPlan() {
+	try {
+		const response = await fetch("/api/plan", { cache: "no-store" });
+		if (!response.ok) return;
+		const plan = await response.json();
+
+		$("planCurrent").textContent = plan.current || "—";
+		$("planUpdated").textContent = plan.updated
+			? "обновлено " + new Date(plan.updated * 1000).toLocaleTimeString("ru-RU")
+			: "—";
+
+		const holder = $("planStages");
+		holder.innerHTML = "";
+		for (const stage of plan.stages || []) {
+			const chip = document.createElement("div");
+			const status = String(stage.status || "");
+			chip.className = "stage " + (status.includes("✅") ? "done"
+				: (status.includes("🔄") ? "active" : "next"));
+			chip.innerHTML = `<span class="num">${stage.num}</span><span>${escapeHtml(stage.name)}</span>`;
+			chip.title = `${stage.status} · ${stage.result}`;
+			holder.appendChild(chip);
+		}
+	} catch (error) {
+		/* панель стадии не критична */
+	}
+}
+
+async function refreshScreenshots() {
+	try {
+		const response = await fetch("/api/screenshots", { cache: "no-store" });
+		if (!response.ok) return;
+		const payload = await response.json();
+		const shots = payload.screenshots || [];
+
+		$("shotCount").textContent = String(shots.length);
+		const strip = $("shotStrip");
+		strip.innerHTML = "";
+
+		for (const shot of shots.slice(0, 12)) {
+			const link = document.createElement("a");
+			link.href = "/screenshots/" + encodeURIComponent(shot.name);
+			link.target = "_blank";
+			const img = document.createElement("img");
+			img.src = link.href + "?t=" + shot.mtime;
+			img.alt = shot.name;
+			img.title = shot.name;
+			link.appendChild(img);
+			strip.appendChild(link);
+		}
+
+		if (!shots.length) {
+			const empty = document.createElement("div");
+			empty.className = "empty";
+			empty.textContent = "скриншотов из CI пока нет — job ещё не прошёл";
+			strip.appendChild(empty);
+		}
+	} catch (error) {
+		/* галерея не критична */
+	}
+}
+
 /* ----------------------------- утилиты ----------------------------- */
 
 function escapeHtml(value) {
@@ -294,6 +357,10 @@ $("btnScenario").addEventListener("click", runScenario);
 
 poll();
 refreshStrip();
+refreshPlan();
+refreshScreenshots();
 setInterval(poll, 500);
 setInterval(refreshFrame, 1000);
 setInterval(refreshStrip, 2500);
+setInterval(refreshPlan, 15000);
+setInterval(refreshScreenshots, 15000);

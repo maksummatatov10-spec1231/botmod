@@ -1,6 +1,7 @@
 package com.botmod.lab;
 
 import com.botmod.BotMod;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -57,6 +58,9 @@ public final class BotLabServer {
 			}));
 			httpServer.start();
 			started = true;
+			// Не-daemon поток диспетчера JDK HttpServer не даёт JVM завершиться:
+			// при остановке сервера гасим HTTP-сервер явно.
+			ServerLifecycleEvents.SERVER_STOPPING.register(server -> stop());
 			BotMod.LOGGER.info("BotLab telemetry on http://127.0.0.1:{}", PORT);
 		} catch (IOException | RuntimeException e) {
 			BotMod.LOGGER.warn("BotLab telemetry could not start on port {}", PORT, e);
