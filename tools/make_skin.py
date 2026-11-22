@@ -2,7 +2,10 @@
 """Генератор скина тренировочного бота (64x64, стандартная раскладка игрока).
 
 Запуск: python3 tools/make_skin.py
-Результат: src/main/resources/assets/botmod/textures/entity/training_bot.png
+Результат: docs/skins/generated_alternative.png
+
+ВНИМАНИЕ: основной скин бота — docs/skins/training_bot_source.png (прислал пользователь).
+Этот скрипт генерирует только альтернативный вариант и НЕ трогает игровой скин.
 
 Рисует узнаваемого «спарринг-бота»: тёмные волосы, кожа, синяя футболка,
 тёмные штаны, кроссовки. Без внешних зависимостей (только zlib/struct).
@@ -111,7 +114,7 @@ def png_bytes() -> bytes:
 
 def main() -> None:
     target = Path(__file__).resolve().parents[1] / \
-        "src/main/resources/assets/botmod/textures/entity/training_bot.png"
+        "docs/skins/generated_alternative.png"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_bytes(png_bytes())
     print(f"skin written: {target} ({target.stat().st_size} bytes)")
