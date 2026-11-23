@@ -150,9 +150,21 @@ public final class DuelManager {
 			boolean playerLeft = player != null && !isArena(player.level());
 
 			if (playerGone || botGone || playerLeft) {
-				com.botmod.BotMod.LOGGER.info("DuelManager: end duel playerGone={} botGone={} playerLeft={} playerLevel={}",
+				com.botmod.BotMod.LOGGER.info("DuelManager: end duel playerGone={} botGone={} playerLeft={} playerLevel={}"
+								+ " botRemoved={} botHealth={} botY={} botOnGround={} blockBelow={}",
 						playerGone, botGone, playerLeft,
-						player == null ? "null" : player.level().dimension().identifier());
+						player == null ? "null" : player.level().dimension().identifier(),
+						active.bot() == null ? "null" : active.bot().isRemoved(),
+						active.bot() == null ? -1.0F : active.bot().getHealth(),
+						active.bot() == null ? -1.0D : active.bot().getY(),
+						active.bot() != null && active.bot().onGround(),
+						active.bot() == null ? "?" : String.valueOf(active.bot().level().getBlockState(
+								active.bot().blockPosition().below()).getBlock()));
+				if (active.bot() != null) {
+					com.botmod.BotMod.LOGGER.info("DuelManager: bot block at feet={} below2={}",
+							active.bot().level().getBlockState(active.bot().blockPosition()).getBlock(),
+							active.bot().level().getBlockState(active.bot().blockPosition().below(2)).getBlock());
+				}
 				iterator.remove();
 				if (active.bot() != null && !active.bot().isRemoved()) {
 					active.bot().discard();
