@@ -129,6 +129,28 @@ public final class ArenaManager {
 		fill(level, cx + SPAWN_OFFSET - 3, floorY, cz - 3,
 				cx + SPAWN_OFFSET + 3, floorY, cz + 3, accent);
 
+		// --- декор: центральный узор и полосы вдоль длины ---
+		for (int dx = -12; dx <= 12; dx++) {
+			for (int dz = -12; dz <= 12; dz++) {
+				if (dx * dx + dz * dz <= 144) {
+					level.setBlock(new BlockPos(cx + dx, floorY, cz + dz), accent, 2);
+				}
+			}
+		}
+		for (int dx = -12; dx <= 12; dx++) {
+			for (int dz = -12; dz <= 12; dz++) {
+				int d = dx * dx + dz * dz;
+				if (d <= 36) {
+					level.setBlock(new BlockPos(cx + dx, floorY, cz + dz), border, 2);
+				}
+			}
+		}
+		for (int x = cx - halfL + 24; x <= cx + halfL - 24; x += 30) {
+			for (int z = cz - halfW + 2; z <= cz + halfW - 2; z++) {
+				level.setBlock(new BlockPos(x, floorY, z), border, 2);
+			}
+		}
+
 		// --- колонны по углам (внутри арены) ---
 		int inset = 8;
 		int[][] corners = {
