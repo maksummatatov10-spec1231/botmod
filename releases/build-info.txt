@@ -1,8 +1,35 @@
 == build/libs ==
 total 152
-drwxr-xr-x  2 runner runner  4096 Nov 23 00:42 .
-drwxr-xr-x 11 runner runner  4096 Nov 23 00:43 ..
--rw-r--r--  1 runner runner 52128 Nov 23 00:42 botmod-0.1.0-sources.jar
--rw-r--r--  1 runner runner 93295 Nov 23 00:42 botmod-0.1.0.jar
+drwxr-xr-x  2 runner runner  4096 Nov 23 00:49 .
+drwxr-xr-x 11 runner runner  4096 Nov 23 00:49 ..
+-rw-r--r--  1 runner runner 52290 Nov 23 00:48 botmod-0.1.0-sources.jar
+-rw-r--r--  1 runner runner 93788 Nov 23 00:49 botmod-0.1.0.jar
 == kitmod/build/libs ==
 ls: cannot access 'kitmod/build/libs': No such file or directory
+== kitmod jars anywhere ==
+kitmod/.gradle/loom-cache/minecraftMaven/net/minecraft/minecraft-merged-1b0498e74c/26.3/minecraft-merged-1b0498e74c-26.3.jar
+== kitmod log tail ==
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Fabric Loom: 1.19.4
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_4-1795394961293.json
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Build file '/home/runner/work/botmod/botmod/kitmod/build.gradle' line: 30
+
+* What went wrong:
+Could not determine the dependencies of task ':jar'.
+> Could not create task ':compileJava'.
+   > Could not set unknown property 'release' for task ':compileJava' of type org.gradle.api.tasks.compile.JavaCompile.
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 7s
