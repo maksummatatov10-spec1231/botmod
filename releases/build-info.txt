@@ -1,36 +1,36 @@
 == build/libs ==
 total 156
-drwxr-xr-x  2 runner runner  4096 Nov 23 00:54 .
-drwxr-xr-x 11 runner runner  4096 Nov 23 00:55 ..
--rw-r--r--  1 runner runner 52437 Nov 23 00:54 botmod-0.1.0-sources.jar
--rw-r--r--  1 runner runner 94250 Nov 23 00:54 botmod-0.1.0.jar
+drwxr-xr-x  2 runner runner  4096 Nov 23 01:00 .
+drwxr-xr-x 11 runner runner  4096 Nov 23 01:00 ..
+-rw-r--r--  1 runner runner 52726 Nov 23 01:00 botmod-0.1.0-sources.jar
+-rw-r--r--  1 runner runner 94629 Nov 23 01:00 botmod-0.1.0.jar
 == kitmod/build/libs ==
 ls: cannot access 'kitmod/build/libs': No such file or directory
 == kitmod jars anywhere ==
 kitmod/.gradle/loom-cache/minecraftMaven/net/minecraft/minecraft-merged-1b0498e74c/26.3/minecraft-merged-1b0498e74c-26.3.jar
 == kitmod log tail ==
-    symbol:   variable StringArgumentType
-    location: class KitCommands
-  /home/runner/work/botmod/botmod/kitmod/src/main/java/com/kitmod/KitCommands.java:49: error: cannot find symbol
-  											StringArgumentType.getString(ctx, "name"))))));
-  											^
-    symbol:   variable StringArgumentType
-    location: class KitCommands
+    symbol:   variable LIME_DYE
+    location: class Items
+  /home/runner/work/botmod/botmod/kitmod/src/main/java/com/kitmod/gui/KitGuis.java:179: error: cannot find symbol
+  		container.setItem(CFG_SAVE, named(Items.LIME_DYE, "§aСохранить",
+  		                                       ^
+    symbol:   variable LIME_DYE
+    location: class Items
   /home/runner/work/botmod/botmod/kitmod/src/main/java/com/kitmod/KitCommands.java:26: error: method register in interface CommandRegistrationCallback cannot be applied to given types;
   		CommandRegistrationCallback.register((dispatcher, registryAccess, selection) -> {
   		                           ^
     required: CommandDispatcher<CommandSourceStack>,CommandBuildContext,CommandSelection
     found:    (dispatche[...])); }
     reason: actual and formal argument lists differ in length
-  /home/runner/work/botmod/botmod/kitmod/src/main/java/com/kitmod/KitCommands.java:26: error: incompatible types: CommandDispatcher is not a functional interface
-  		CommandRegistrationCallback.register((dispatcher, registryAccess, selection) -> {
-  		                                     ^
+  /home/runner/work/botmod/botmod/kitmod/src/main/java/com/kitmod/KitCommands.java:47: error: incompatible types: LiteralArgumentBuilder<CommandSourceStack> cannot be converted to CommandNode<CommandSourceStack>
+  									.executes(ctx -> delete(
+  									         ^
   Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-  13 errors
+  4 errors
 
 * Try:
 > Check your code and dependencies to fix the compilation error(s)
 > Run with --scan to get full insights from a Build Scan (powered by Develocity).
 
-BUILD FAILED in 14s
+BUILD FAILED in 10s
 1 actionable task: 1 executed
