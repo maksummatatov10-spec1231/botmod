@@ -1,35 +1,36 @@
 == build/libs ==
-total 152
-drwxr-xr-x  2 runner runner  4096 Nov 23 00:49 .
-drwxr-xr-x 11 runner runner  4096 Nov 23 00:49 ..
--rw-r--r--  1 runner runner 52290 Nov 23 00:48 botmod-0.1.0-sources.jar
--rw-r--r--  1 runner runner 93788 Nov 23 00:49 botmod-0.1.0.jar
+total 156
+drwxr-xr-x  2 runner runner  4096 Nov 23 00:54 .
+drwxr-xr-x 11 runner runner  4096 Nov 23 00:55 ..
+-rw-r--r--  1 runner runner 52437 Nov 23 00:54 botmod-0.1.0-sources.jar
+-rw-r--r--  1 runner runner 94250 Nov 23 00:54 botmod-0.1.0.jar
 == kitmod/build/libs ==
 ls: cannot access 'kitmod/build/libs': No such file or directory
 == kitmod jars anywhere ==
 kitmod/.gradle/loom-cache/minecraftMaven/net/minecraft/minecraft-merged-1b0498e74c/26.3/minecraft-merged-1b0498e74c-26.3.jar
 == kitmod log tail ==
-To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
-Daemon will be stopped at the end of the build 
-
-> Configure project :
-Fabric Loom: 1.19.4
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_4-1795394961293.json
-
-FAILURE: Build failed with an exception.
-
-* Where:
-Build file '/home/runner/work/botmod/botmod/kitmod/build.gradle' line: 30
-
-* What went wrong:
-Could not determine the dependencies of task ':jar'.
-> Could not create task ':compileJava'.
-   > Could not set unknown property 'release' for task ':compileJava' of type org.gradle.api.tasks.compile.JavaCompile.
+    symbol:   variable StringArgumentType
+    location: class KitCommands
+  /home/runner/work/botmod/botmod/kitmod/src/main/java/com/kitmod/KitCommands.java:49: error: cannot find symbol
+  											StringArgumentType.getString(ctx, "name"))))));
+  											^
+    symbol:   variable StringArgumentType
+    location: class KitCommands
+  /home/runner/work/botmod/botmod/kitmod/src/main/java/com/kitmod/KitCommands.java:26: error: method register in interface CommandRegistrationCallback cannot be applied to given types;
+  		CommandRegistrationCallback.register((dispatcher, registryAccess, selection) -> {
+  		                           ^
+    required: CommandDispatcher<CommandSourceStack>,CommandBuildContext,CommandSelection
+    found:    (dispatche[...])); }
+    reason: actual and formal argument lists differ in length
+  /home/runner/work/botmod/botmod/kitmod/src/main/java/com/kitmod/KitCommands.java:26: error: incompatible types: CommandDispatcher is not a functional interface
+  		CommandRegistrationCallback.register((dispatcher, registryAccess, selection) -> {
+  		                                     ^
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  13 errors
 
 * Try:
-> Run with --stacktrace option to get the stack trace.
-> Run with --info or --debug option to get more log output.
+> Check your code and dependencies to fix the compilation error(s)
 > Run with --scan to get full insights from a Build Scan (powered by Develocity).
-> Get more help at https://help.gradle.org.
 
-BUILD FAILED in 7s
+BUILD FAILED in 14s
+1 actionable task: 1 executed
