@@ -71,12 +71,17 @@ jobs:
           path: build/libs/
           if-no-files-found: warn
 
-      # Готовый jar — в репозиторий, чтобы его можно было просто скачать.
+      # Отдельный мод Kit Editor (kitmod) — тоже собираем и публикуем.
+      - name: Build KitMod
+        run: ./gradlew -p kitmod build --no-daemon
+
+      # Готовые jar — в репозиторий, чтобы их можно было просто скачать.
       - name: Publish jar to releases/
         run: |
           mkdir -p releases
           rm -f releases/*.jar
           cp build/libs/*.jar releases/ 2>/dev/null || true
+          cp kitmod/build/libs/kitmod-*.jar releases/ 2>/dev/null || true
           ls -la releases
 
       - name: Commit jar
