@@ -1,0 +1,8 @@
+== build/libs ==
+total 152
+drwxr-xr-x  2 runner runner  4096 Nov 23 00:42 .
+drwxr-xr-x 11 runner runner  4096 Nov 23 00:43 ..
+-rw-r--r--  1 runner runner 52128 Nov 23 00:42 botmod-0.1.0-sources.jar
+-rw-r--r--  1 runner runner 93295 Nov 23 00:42 botmod-0.1.0.jar
+== kitmod/build/libs ==
+ls: cannot access 'kitmod/build/libs': No such file or directory
