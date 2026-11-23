@@ -68,7 +68,7 @@ public final class KitCommands {
 		}
 
 		KitData kit = new KitData(id, name);
-		KitMod.storage().save(kit, player.getServer());
+		KitMod.storage().save(kit, player.level().getServer());
 		player.sendSystemMessage(Component.literal("§aКит «" + name + "» создан."));
 		KitGuis.openEditor(player, id);
 		return 1;
@@ -92,7 +92,7 @@ public final class KitCommands {
 			player.sendSystemMessage(Component.literal("§cКит «" + name + "» не найден."));
 			return 0;
 		}
-		KitMod.storage().save(kit, player.getServer());
+		KitMod.storage().save(kit, player.level().getServer());
 		player.sendSystemMessage(Component.literal("§aКит «" + kit.getDisplayName() + "» сохранён: config/kitmod/kits/" + id + ".json"));
 		return 1;
 	}

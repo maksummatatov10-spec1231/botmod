@@ -49,7 +49,7 @@ public class KitChatInput {
 					return false;
 				}
 				KitData kit = new KitData(id, text);
-				KitMod.storage().save(kit, sender.getServer());
+				KitMod.storage().save(kit, sender.level().getServer());
 				sender.sendSystemMessage(Component.literal("§aКит «" + text + "» создан. Настройте его и закройте меню."));
 				KitGuis.openEditor(sender, id);
 				return false;
@@ -60,7 +60,7 @@ public class KitChatInput {
 				return false;
 			}
 			kit.setDisplayName(text);
-			KitMod.storage().save(kit, sender.getServer());
+			KitMod.storage().save(kit, sender.level().getServer());
 			sender.sendSystemMessage(Component.literal("§aНазвание кита: " + text));
 			KitGuis.openConfig(sender, request.kitId());
 			return false;

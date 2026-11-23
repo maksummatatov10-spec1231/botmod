@@ -98,7 +98,7 @@ public final class KitGuis {
 		for (int i = 0; i < KitData.INVENTORY_SIZE; i++) {
 			kit.getInventory()[i] = container.getItem(INV_START + i).copy();
 		}
-		KitMod.storage().save(kit, player.getServer());
+		KitMod.storage().save(kit, player.level().getServer());
 	}
 
 	// ==================================================================
@@ -210,7 +210,7 @@ public final class KitGuis {
 		} else if (slot == CFG_ARMOR) {
 			openArmor(player, kitId);
 		} else if (slot == CFG_SAVE) {
-			KitMod.storage().save(kit, player.getServer());
+			KitMod.storage().save(kit, player.level().getServer());
 			player.sendSystemMessage(Component.literal("§aКит «" + kit.getDisplayName() + "» сохранён."));
 			openConfig(player, kitId);
 		} else if (slot == CFG_DELETE) {
@@ -245,7 +245,7 @@ public final class KitGuis {
 		open(player, Component.literal("Левая рука: " + kit.getDisplayName()), 1, container, locked, null,
 				() -> {
 					kit.setOffhand(container.getItem(4).copy());
-					KitMod.storage().save(kit, player.getServer());
+					KitMod.storage().save(kit, player.level().getServer());
 					openConfig(player, kitId);
 				});
 	}
@@ -276,7 +276,7 @@ public final class KitGuis {
 					for (int i = 0; i < 4; i++) {
 						kit.getArmor()[i] = container.getItem(slots[i]).copy();
 					}
-					KitMod.storage().save(kit, player.getServer());
+					KitMod.storage().save(kit, player.level().getServer());
 					openConfig(player, kitId);
 				});
 	}
@@ -318,7 +318,7 @@ public final class KitGuis {
 						return;
 					}
 					kit.setIcon(chosen);
-					KitMod.storage().save(kit, p.getServer());
+					KitMod.storage().save(kit, p.level().getServer());
 					p.sendSystemMessage(Component.literal("§aИконка: " + itemName(chosen)));
 					openConfig(p, kitId);
 				}, null);

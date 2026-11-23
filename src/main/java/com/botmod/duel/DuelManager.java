@@ -59,7 +59,7 @@ public final class DuelManager {
 	}
 
 	public static void start(ServerPlayer player, DuelSettings settings) {
-		MinecraftServer server = player.getServer();
+		MinecraftServer server = player.level().getServer();
 		if (server == null) {
 			return;
 		}
