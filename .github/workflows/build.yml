@@ -59,7 +59,7 @@ jobs:
             echo "### ❌ Build failed"
             echo ""
             echo '```'
-            grep -E "error:|warning:|\.java:[0-9]+|What went wrong|Caused by:|Could not|Execution failed|GameTest" /tmp/build.log | sed 's/^[[:space:]]*//' | uniq | head -80
+            grep -E "error:|warning:|symbol:|location:|\.java:[0-9]+|What went wrong|Caused by:|Could not|Execution failed|GameTest" /tmp/build.log | sed 's/^[[:space:]]*//' | uniq | head -80
             echo '```'
           } > /tmp/report.md
           gh api "repos/${{ github.repository }}/commits/${COMMIT_SHA}/comments" -F body=@/tmp/report.md
@@ -89,7 +89,7 @@ jobs:
             echo "### ❌ KitMod build failed"
             echo ""
             echo '```'
-            grep -E "error:|\.java:[0-9]+|What went wrong|Caused by:|Execution failed" /tmp/kitmod.log | sed 's/^[[:space:]]*//' | uniq | head -60
+            grep -E "error:|symbol:|location:|\.java:[0-9]+|What went wrong|Caused by:|Execution failed" /tmp/kitmod.log | sed 's/^[[:space:]]*//' | uniq | head -60
             echo '```'
           } > /tmp/kitmod-report.md
           gh api "repos/${{ github.repository }}/commits/${COMMIT_SHA}/comments" -F body=@/tmp/kitmod-report.md

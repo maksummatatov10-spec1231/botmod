@@ -203,6 +203,12 @@ public class TrainingBotEntity extends PathfinderMob {
 	private int landedHits;
 	/** Полученный урон (в ударах). */
 	private int takenHits;
+
+	/** Настройки дуэли (спринт, зелья, криты, щит, W-tap, сложность). */
+	private DuelSettings duelSettings = new DuelSettings();
+	/** Кулдаун «зелья лечения» в тиках. */
+	private int potionCooldown;
+
 	/** Агрессия 0.5..1.5: растёт при попаданиях, падает при полученном уроне. */
 	private float aggression = 1.0F;
 	/** Тики, которые бот «реагирует» на полученный удар (уклонение). */

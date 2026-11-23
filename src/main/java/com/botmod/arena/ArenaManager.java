@@ -53,7 +53,7 @@ public final class ArenaManager {
 	public static void ensureBuilt(MinecraftServer server, ArenaStyle style) {
 		ServerLevel level = level(server);
 		if (level == null) {
-			BotMod.LOGGER.warn("Arena dimension {} is not loaded", ARENA_LEVEL.location());
+			BotMod.LOGGER.warn("Arena dimension {} is not loaded", ARENA_LEVEL.identifier());
 			return;
 		}
 

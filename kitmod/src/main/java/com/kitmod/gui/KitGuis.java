@@ -344,7 +344,7 @@ public final class KitGuis {
 	}
 
 	private static ItemStack glass() {
-		ItemStack stack = new ItemStack(Items.GRAY_STAINED_GLASS_PANE);
+		ItemStack stack = new ItemStack(Items.GLASS_PANE);
 		stack.set(DataComponents.CUSTOM_NAME, Component.literal(" "));
 		return stack;
 	}

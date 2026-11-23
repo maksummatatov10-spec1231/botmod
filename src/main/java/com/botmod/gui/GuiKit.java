@@ -38,7 +38,7 @@ public final class GuiKit {
 	}
 
 	public static ItemStack glass() {
-		ItemStack stack = new ItemStack(Items.GRAY_STAINED_GLASS_PANE);
+		ItemStack stack = new ItemStack(Items.GLASS_PANE);
 		stack.set(DataComponents.CUSTOM_NAME, Component.literal(" "));
 		return stack;
 	}
