@@ -33,7 +33,7 @@ public class BotModClientGameTest implements FabricClientGameTest {
 			context.takeScreenshot("botmod-hud");
 
 			// 5. Арена: строим «Энд» и переносим игрока туда.
-			singleplayer.getServer().runCommand("duel start end");
+			singleplayer.getServer().runCommand("execute as @a run duel start end");
 			context.waitTicks(100);
 			context.takeScreenshot("botmod-arena");
 		}

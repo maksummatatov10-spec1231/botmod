@@ -421,6 +421,9 @@ public final class BotModCommands {
 
 	/** Игрок, от имени которого выполняется команда; из консоли — первый в мире. */
 	private static ServerPlayer playerOrFirst(CommandSourceStack source) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+		if (source.getEntity() instanceof ServerPlayer entityPlayer) {
+			return entityPlayer;
+		}
 		ServerPlayer player = source.getPlayer();
 		if (player != null) {
 			return player;

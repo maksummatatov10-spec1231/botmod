@@ -104,7 +104,13 @@ jobs:
           mkdir -p releases
           rm -f releases/*.jar
           cp build/libs/*.jar releases/ 2>/dev/null || true
-          cp kitmod/build/libs/kitmod-*.jar releases/ 2>/dev/null || true
+          cp kitmod/build/libs/*.jar releases/ 2>/dev/null || true
+          {
+            echo "== build/libs =="
+            ls -la build/libs 2>&1
+            echo "== kitmod/build/libs =="
+            ls -la kitmod/build/libs 2>&1
+          } > releases/build-info.txt 2>&1 || true
           ls -la releases
 
       - name: Commit jar
