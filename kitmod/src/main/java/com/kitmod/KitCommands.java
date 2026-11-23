@@ -23,7 +23,7 @@ public final class KitCommands {
 	}
 
 	public static void register() {
-		CommandRegistrationCallback.register((dispatcher, registryAccess, selection) -> {
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, selection) -> {
 			dispatcher.register(Commands.literal("kit")
 					.then(Commands.literal("create")
 							.then(Commands.argument("name", StringArgumentType.string())

@@ -122,7 +122,7 @@ public final class KitGuis {
 			ids.add(kit.getId());
 			slot++;
 		}
-		container.setItem(49, named(Items.LIME_DYE, "§a＋ Создать кит",
+		container.setItem(49, named(Items.DYE.lime(), "§a＋ Создать кит",
 				"§7Нажмите и напишите название в чат"));
 		for (int i = 0; i < locked.length; i++) {
 			if (container.getItem(i).isEmpty()) {
@@ -176,7 +176,7 @@ public final class KitGuis {
 				"§7Настроить предмет в левой руке"));
 		container.setItem(CFG_ARMOR, named(Items.IRON_CHESTPLATE, "§eБроня",
 				"§7Настроить 4 слота брони"));
-		container.setItem(CFG_SAVE, named(Items.LIME_DYE, "§aСохранить",
+		container.setItem(CFG_SAVE, named(Items.DYE.lime(), "§aСохранить",
 				"§7Записать кит на диск"));
 		container.setItem(CFG_DELETE, named(Items.BARRIER, "§cУдалить",
 				"§7Удалить кит безвозвратно"));
