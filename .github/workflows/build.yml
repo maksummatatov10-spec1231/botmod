@@ -75,9 +75,10 @@ jobs:
       # continue-on-error: ошибка KitMod не должна блокировать проверку арен.
       - name: Build KitMod
         continue-on-error: true
+        working-directory: kitmod
         run: |
           set -o pipefail
-          ./gradlew -p kitmod build --no-daemon 2>&1 | tee /tmp/kitmod.log
+          ../gradlew build --no-daemon 2>&1 | tee /tmp/kitmod.log
 
       - name: Report KitMod errors as commit comment
         if: always()
@@ -110,6 +111,10 @@ jobs:
             ls -la build/libs 2>&1
             echo "== kitmod/build/libs =="
             ls -la kitmod/build/libs 2>&1
+            echo "== kitmod jars anywhere =="
+            find kitmod -name "*.jar" 2>&1 | head -10
+            echo "== kitmod log tail =="
+            tail -n 25 /tmp/kitmod.log 2>&1
           } > releases/build-info.txt 2>&1 || true
           ls -la releases
 

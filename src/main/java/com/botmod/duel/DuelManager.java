@@ -84,8 +84,10 @@ public final class DuelManager {
 		float originalPitch = player.getXRot();
 
 		BlockPos playerSpawn = ArenaManager.playerSpawn(style);
-		player.teleportTo(level, playerSpawn.getX() + 0.5D, playerSpawn.getY(), playerSpawn.getZ() + 0.5D,
-				Set.of(), -90.0F, 0.0F, true);
+		boolean teleported = player.teleportTo(level, playerSpawn.getX() + 0.5D, playerSpawn.getY(),
+				playerSpawn.getZ() + 0.5D, Set.of(), -90.0F, 0.0F, true);
+		com.botmod.BotMod.LOGGER.info("DuelManager: teleported={} playerLevel={} arenaLevel={}",
+				teleported, player.level().dimension().identifier(), level.dimension().identifier());
 
 		BlockPos botSpawn = ArenaManager.botSpawn(style);
 		TrainingBotEntity bot = ModEntities.TRAINING_BOT.create(level, EntitySpawnReason.COMMAND);
@@ -102,8 +104,10 @@ public final class DuelManager {
 		bot.setKit(parseKit(settings.kit()));
 		bot.applyDuelSettings(settings);
 		bot.setOwnerId(player.getUUID());
-		level.addFreshEntity(bot);
+		boolean added = level.addFreshEntity(bot);
 		bot.setDuelTarget(player);
+		com.botmod.BotMod.LOGGER.info("DuelManager: botAdded={} botAlive={} botHealth={} botPos={}",
+				added, bot.isAlive(), bot.getHealth(), bot.position());
 
 		ACTIVE.put(player.getUUID(), new Active(originalLevel, originalPos, originalYaw, originalPitch, bot, style));
 		player.sendSystemMessage(Component.literal(
@@ -146,6 +150,9 @@ public final class DuelManager {
 			boolean playerLeft = player != null && !isArena(player.level());
 
 			if (playerGone || botGone || playerLeft) {
+				com.botmod.BotMod.LOGGER.info("DuelManager: end duel playerGone={} botGone={} playerLeft={} playerLevel={}",
+						playerGone, botGone, playerLeft,
+						player == null ? "null" : player.level().dimension().identifier());
 				iterator.remove();
 				if (active.bot() != null && !active.bot().isRemoved()) {
 					active.bot().discard();
