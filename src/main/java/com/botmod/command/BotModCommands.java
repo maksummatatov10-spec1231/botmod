@@ -1,6 +1,9 @@
 package com.botmod.command;
 
 import com.botmod.config.BotModConfig;
+import com.botmod.duel.DuelGuis;
+import com.botmod.duel.DuelManager;
+import com.botmod.duel.DuelSettings;
 import com.botmod.entity.BotKit;
 import com.botmod.entity.BotMode;
 import com.botmod.entity.ModEntities;
@@ -42,6 +45,8 @@ public final class BotModCommands {
 			(context, builder) -> suggestNames(builder, BotMode.names());
 	private static final SuggestionProvider<CommandSourceStack> KIT_SUGGESTIONS =
 			(context, builder) -> suggestNames(builder, BotKit.names());
+	private static final SuggestionProvider<CommandSourceStack> ARENA_SUGGESTIONS =
+			(context, builder) -> suggestNames(builder, com.botmod.arena.ArenaStyle.ids());
 
 	private BotModCommands() {
 	}
@@ -85,6 +90,27 @@ public final class BotModCommands {
 						.executes(context -> labUrl(context, StringArgumentType.getString(context, "url")))));
 
 		root.then(Commands.literal("duel").executes(BotModCommands::startDuel));
+
+		// /duel — меню выбора арены и настроек бота.
+		dispatcher.register(Commands.literal("duel")
+				.executes(context -> {
+					DuelGuis.open(context.getSource().getPlayerOrException(), new DuelSettings());
+					return 1;
+				})
+				.then(Commands.literal("start")
+						.then(Commands.argument("arena", StringArgumentType.word())
+								.suggests(ARENA_SUGGESTIONS)
+								.executes(context -> {
+									DuelSettings settings = new DuelSettings();
+									settings.setArena(StringArgumentType.getString(context, "arena"));
+									DuelManager.start(context.getSource().getPlayerOrException(), settings);
+									return 1;
+								})))
+				.then(Commands.literal("stop")
+						.executes(context -> {
+							DuelManager.stop(context.getSource().getPlayerOrException(), false);
+							return 1;
+						})));
 		root.then(Commands.literal("stop").executes(BotModCommands::stopDuel));
 		root.then(Commands.literal("remove").executes(BotModCommands::removeNearest));
 		root.then(Commands.literal("list").executes(BotModCommands::listBots));

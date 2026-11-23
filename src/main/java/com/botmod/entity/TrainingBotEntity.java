@@ -1,6 +1,7 @@
 package com.botmod.entity;
 
 import com.botmod.config.BotModConfig;
+import com.botmod.duel.DuelSettings;
 import com.botmod.lab.BotLabBridge;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -161,6 +162,17 @@ public class TrainingBotEntity extends PathfinderMob {
 			this.attackCooldown--;
 		}
 
+		// Зелье лечения: бот пьёт его при низком HP (если разрешено настройками).
+		if (this.potionCooldown > 0) {
+			this.potionCooldown--;
+		}
+		if (this.duelSettings.potions() && this.potionCooldown == 0
+				&& this.getHealth() < this.getMaxHealth() * 0.45F) {
+			this.potionCooldown = 300;
+			this.heal(8.0F);
+			BotLabBridge.event("potion", getName().getString() + " пьёт зелье лечения");
+		}
+
 		LivingEntity target = this.duelTarget;
 		if (target != null && (!target.isAlive() || this.distanceToSqr(target) > DUEL_MAX_DISTANCE_SQR)) {
 			this.setDuelTarget(null);
@@ -195,6 +207,14 @@ public class TrainingBotEntity extends PathfinderMob {
 	private float aggression = 1.0F;
 	/** Тики, которые бот «реагирует» на полученный удар (уклонение). */
 	private int reactTicks;
+
+	public DuelSettings getDuelSettings() {
+		return this.duelSettings;
+	}
+
+	public void applyDuelSettings(DuelSettings settings) {
+		this.duelSettings = settings.copy();
+	}
 
 	public float getAggression() {
 		return this.aggression;
@@ -240,7 +260,7 @@ public class TrainingBotEntity extends PathfinderMob {
 			this.takenHits++;
 			this.aggression = Math.max(0.5F, this.aggression - 0.03F);
 			// Уклонение: после пропущенного удара бот резко меняет направление стрейфа.
-			this.reactTicks = 12;
+			this.reactTicks = this.duelSettings.difficulty().reactTicks();
 			BotLabBridge.event("hurt", getName().getString() + " −" + amount);
 			Entity attacker = source.getEntity();
 			// В режиме IDLE бот отвечает только на удар — это «мешок», который не провоцирует.
@@ -269,10 +289,12 @@ public class TrainingBotEntity extends PathfinderMob {
 		// 26.3: swing(InteractionHand) убран, вместо него SwingAnimation.
 		this.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
 
-		float damage = this.kit.attackDamage() * BotModConfig.get().damageMultiplier;
+		float damage = this.kit.attackDamage() * BotModConfig.get().damageMultiplier
+				* (float) this.duelSettings.difficulty().damage();
 
 		// Крит: бот в воздухе и падает — как у игрока.
-		if (!this.onGround() && this.getDeltaMovement().y < 0.0D && !this.isInWater()) {
+		if (this.duelSettings.crits()
+				&& !this.onGround() && this.getDeltaMovement().y < 0.0D && !this.isInWater()) {
 			damage *= 1.5F;
 		}
 
@@ -289,7 +311,7 @@ public class TrainingBotEntity extends PathfinderMob {
 
 	/** Обработка щита: поднимаем его в ближнем бою, опускаем на дистанции. */
 	public void tickShield() {
-		if (!this.getMode().usesShield()) {
+		if (!this.getMode().usesShield() || !this.duelSettings.shield()) {
 			return;
 		}
 

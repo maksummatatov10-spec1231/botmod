@@ -122,7 +122,7 @@ public class BotCombatGoal extends Goal {
 		}
 
 		boolean shieldUp = this.bot.isUsingItem();
-		this.bot.setSprinting(!shieldUp
+		this.bot.setSprinting(this.bot.getDuelSettings().sprint() && !shieldUp
 				&& distanceSqr > SPRINT_MIN_DISTANCE_SQR
 				&& distanceSqr < SPRINT_MAX_DISTANCE_SQR);
 
@@ -154,7 +154,7 @@ public class BotCombatGoal extends Goal {
 			forward = -0.65F;
 		}
 		// W-tap: короткий отход сразу после попадания (комбо-движение).
-		if (this.wTapTicks > 0) {
+		if (this.wTapTicks > 0 && this.bot.getDuelSettings().wTap()) {
 			forward = -0.85F;
 		}
 
@@ -165,7 +165,8 @@ public class BotCombatGoal extends Goal {
 
 		// Крит-прыжок: в RUSH — часто, в остальных режимах — иногда.
 		int jumpChance = mode == BotMode.RUSH ? Math.max(6, (int) (14 / aggression)) : Math.max(24, (int) (60 / aggression));
-		if (this.bot.onGround() && this.bot.getRandom().nextInt(jumpChance) == 0) {
+		boolean canJump = this.bot.getDuelSettings().crits() || this.bot.getDuelSettings().jumps();
+		if (canJump && this.bot.onGround() && this.bot.getRandom().nextInt(jumpChance) == 0) {
 			this.bot.getJumpControl().jump();
 		}
 	}

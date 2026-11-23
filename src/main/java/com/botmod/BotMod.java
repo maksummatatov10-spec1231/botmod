@@ -2,6 +2,7 @@ package com.botmod;
 
 import com.botmod.command.BotModCommands;
 import com.botmod.config.BotModConfig;
+import com.botmod.duel.DuelManager;
 import com.botmod.entity.ModEntities;
 import com.botmod.lab.BotLabBridge;
 import com.botmod.lab.BotLabServer;
@@ -27,6 +28,7 @@ public class BotMod implements ModInitializer {
 		BotModCommands.register();
 		BotLabBridge.init();
 		BotLabServer.start();
+		DuelManager.init();
 
 		LOGGER.info("BotMod {} initialized", BotModConfig.get().modVersion);
 	}

@@ -31,6 +31,11 @@ public class BotModClientGameTest implements FabricClientGameTest {
 
 			// 4. HUD: панель ближайшего бота уже включена по умолчанию.
 			context.takeScreenshot("botmod-hud");
+
+			// 5. Арена: строим «Энд» и переносим игрока туда.
+			singleplayer.getServer().runCommand("duel start end");
+			context.waitTicks(60);
+			context.takeScreenshot("botmod-arena");
 		}
 	}
 }
