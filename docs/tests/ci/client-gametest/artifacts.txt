@@ -3,24 +3,24 @@ run
 run/resources
 build/run
 build/run/clientGameTest
-build/run/clientGameTest/.fabric
-build/run/clientGameTest/.fabric/processedMods
-build/run/clientGameTest/config
-build/run/clientGameTest/mods
-build/run/clientGameTest/logs
-build/run/clientGameTest/logs/telemetry
 build/run/clientGameTest/data
-build/run/clientGameTest/resourcepacks
+build/run/clientGameTest/mods
 build/run/clientGameTest/downloads
 build/run/clientGameTest/screenshots
+build/run/clientGameTest/.fabric
+build/run/clientGameTest/.fabric/processedMods
+build/run/clientGameTest/logs
+build/run/clientGameTest/logs/telemetry
 build/run/clientGameTest/saves
 build/run/clientGameTest/saves/New World
+build/run/clientGameTest/config
+build/run/clientGameTest/resourcepacks
 == png files ==
-build/run/clientGameTest/screenshots/0004_botmod-arena.png
-build/run/clientGameTest/screenshots/0003_botmod-hud.png
-build/run/clientGameTest/screenshots/0001_botmod-bot.png
 build/run/clientGameTest/screenshots/0000_botmod-world.png
 build/run/clientGameTest/screenshots/0002_botmod-duel.png
+build/run/clientGameTest/screenshots/0004_botmod-arena.png
+build/run/clientGameTest/screenshots/0001_botmod-bot.png
+build/run/clientGameTest/screenshots/0003_botmod-hud.png
 build/run/clientGameTest/saves/New World/icon.png
 == all logs ==
 build/run/clientGameTest/logs/latest.log
