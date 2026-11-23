@@ -83,6 +83,8 @@ public final class DuelManager {
 		float originalYaw = player.getYRot();
 		float originalPitch = player.getXRot();
 
+		ArenaManager.forceChunks(level, style, true);
+
 		BlockPos playerSpawn = ArenaManager.playerSpawn(style);
 		boolean teleported = player.teleportTo(level, playerSpawn.getX() + 0.5D, playerSpawn.getY(),
 				playerSpawn.getZ() + 0.5D, Set.of(), -90.0F, 0.0F, true);
@@ -124,6 +126,12 @@ public final class DuelManager {
 
 		if (active.bot() != null && !active.bot().isRemoved()) {
 			active.bot().discard();
+		}
+		if (active.style() != null) {
+			ServerLevel arenaLevel = ArenaManager.level(player.level().getServer());
+			if (arenaLevel != null) {
+				ArenaManager.forceChunks(arenaLevel, active.style(), false);
+			}
 		}
 
 		player.teleportTo(active.originalLevel(), active.originalPos().x, active.originalPos().y,
@@ -168,6 +176,12 @@ public final class DuelManager {
 				iterator.remove();
 				if (active.bot() != null && !active.bot().isRemoved()) {
 					active.bot().discard();
+				}
+				if (active.style() != null) {
+					ServerLevel arenaLevel = ArenaManager.level(server);
+					if (arenaLevel != null) {
+						ArenaManager.forceChunks(arenaLevel, active.style(), false);
+					}
 				}
 				if (player != null && player.isAlive() && !playerLeft) {
 					player.teleportTo(active.originalLevel(), active.originalPos().x,

@@ -2,7 +2,7 @@ package com.kitmod;
 
 import com.kitmod.data.KitData;
 import com.kitmod.gui.KitGuis;
-import com.mojang.brigade.arguments.StringArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;

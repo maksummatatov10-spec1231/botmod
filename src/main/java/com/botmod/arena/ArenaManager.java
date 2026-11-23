@@ -78,6 +78,23 @@ public final class ArenaManager {
 	// Постройка
 	// ------------------------------------------------------------------
 
+	/**
+	 * Держит чанки арены загруженными: арена 300×180, игрок и бот на концах —
+	 * без этого чанк бота выгружается и сущность удаляется.
+	 */
+	public static void forceChunks(ServerLevel level, ArenaStyle style, boolean forced) {
+		int cz = style.offsetZ();
+		int minX = (-ArenaStyle.LENGTH / 2 - 2) >> 4;
+		int maxX = (ArenaStyle.LENGTH / 2 + 2) >> 4;
+		int minZ = (cz - ArenaStyle.WIDTH / 2 - 2) >> 4;
+		int maxZ = (cz + ArenaStyle.WIDTH / 2 + 2) >> 4;
+		for (int x = minX; x <= maxX; x++) {
+			for (int z = minZ; z <= maxZ; z++) {
+				level.setChunkForced(x, z, forced);
+			}
+		}
+	}
+
 	private static void build(ServerLevel level, ArenaStyle style) {
 		int halfL = ArenaStyle.LENGTH / 2;
 		int halfW = ArenaStyle.WIDTH / 2;
