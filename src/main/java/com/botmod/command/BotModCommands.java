@@ -106,9 +106,10 @@ public final class BotModCommands {
 		root.then(Commands.literal("duel").executes(BotModCommands::startDuel));
 
 		// /duel — меню выбора арены и настроек бота.
+		// Работает и из консоли: тогда берётся первый игрок в мире.
 		dispatcher.register(Commands.literal("duel")
 				.executes(context -> {
-					DuelGuis.open(context.getSource().getPlayerOrException(), new DuelSettings());
+					DuelGuis.open(playerOrFirst(context.getSource()), new DuelSettings());
 					return 1;
 				})
 				.then(Commands.literal("start")
@@ -117,12 +118,12 @@ public final class BotModCommands {
 								.executes(context -> {
 									DuelSettings settings = new DuelSettings();
 									settings.setArena(StringArgumentType.getString(context, "arena"));
-									DuelManager.start(context.getSource().getPlayerOrException(), settings);
+									DuelManager.start(playerOrFirst(context.getSource()), settings);
 									return 1;
 								})))
 				.then(Commands.literal("stop")
 						.executes(context -> {
-							DuelManager.stop(context.getSource().getPlayerOrException(), false);
+							DuelManager.stop(playerOrFirst(context.getSource()), false);
 							return 1;
 						})));
 		root.then(Commands.literal("stop").executes(BotModCommands::stopDuel));
@@ -416,6 +417,22 @@ public final class BotModCommands {
 			source.sendFailure(Component.translatable("botmod.message.no_bot"));
 		}
 		return nearest;
+	}
+
+	/** Игрок, от имени которого выполняется команда; из консоли — первый в мире. */
+	private static ServerPlayer playerOrFirst(CommandSourceStack source) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+		ServerPlayer player = source.getPlayer();
+		if (player != null) {
+			return player;
+		}
+		if (source.getServer() != null) {
+			List<ServerPlayer> players = source.getServer().getPlayerList().getPlayers();
+			if (!players.isEmpty()) {
+				return players.get(0);
+			}
+		}
+		throw com.mojang.brigadier.exceptions.CommandSyntaxException.BUILT_IN_EXCEPTIONS
+				.dispatcherUnknownCommand().create("A player is required to run this command here");
 	}
 
 	private static java.util.concurrent.CompletableFuture<com.mojang.brigadier.suggestion.Suggestions> suggestNames(

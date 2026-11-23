@@ -80,11 +80,15 @@ jobs:
           ./gradlew -p kitmod build --no-daemon 2>&1 | tee /tmp/kitmod.log
 
       - name: Report KitMod errors as commit comment
-        if: failure()
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_SHA: ${{ github.sha }}
         run: |
+          if ! grep -q "error:" /tmp/kitmod.log 2>/dev/null; then
+            echo "KitMod: no errors"
+            exit 0
+          fi
           {
             echo "### ❌ KitMod build failed"
             echo ""
