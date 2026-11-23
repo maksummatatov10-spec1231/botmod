@@ -47,6 +47,13 @@ public final class BotModCommands {
 			(context, builder) -> suggestNames(builder, BotKit.names());
 	private static final SuggestionProvider<CommandSourceStack> ARENA_SUGGESTIONS =
 			(context, builder) -> suggestNames(builder, com.botmod.arena.ArenaStyle.ids());
+	/** Первым аргументом /bot spawn можно ввести режим или кит. */
+	private static final SuggestionProvider<CommandSourceStack> MODE_OR_KIT_SUGGESTIONS =
+			(context, builder) -> {
+				List<String> names = new java.util.ArrayList<>(BotMode.names());
+				names.addAll(BotKit.names());
+				return suggestNames(builder, names);
+			};
 
 	private BotModCommands() {
 	}
@@ -63,13 +70,20 @@ public final class BotModCommands {
 
 		root.then(Commands.literal("spawn")
 				.executes(context -> spawn(context, null, null))
-				.then(Commands.argument("mode", StringArgumentType.word())
-						.suggests(MODE_SUGGESTIONS)
-						.executes(context -> spawn(context, StringArgumentType.getString(context, "mode"), null))
+				.then(Commands.argument("first", StringArgumentType.word())
+						.suggests(MODE_OR_KIT_SUGGESTIONS)
+						.executes(context -> {
+							String first = StringArgumentType.getString(context, "first");
+							// Введено имя кита — спавним бота с этим китом (режим по умолчанию).
+							if (parseKit(first, null) != null) {
+								return spawn(context, null, first);
+							}
+							return spawn(context, first, null);
+						})
 						.then(Commands.argument("kit", StringArgumentType.word())
 								.suggests(KIT_SUGGESTIONS)
 								.executes(context -> spawn(context,
-										StringArgumentType.getString(context, "mode"),
+										StringArgumentType.getString(context, "first"),
 										StringArgumentType.getString(context, "kit"))))));
 
 		root.then(Commands.literal("mode")
