@@ -432,7 +432,7 @@ public final class BotModCommands {
 			}
 		}
 		throw com.mojang.brigadier.exceptions.CommandSyntaxException.BUILT_IN_EXCEPTIONS
-				.dispatcherUnknownCommand().create("A player is required to run this command here");
+				.dispatcherUnknownCommand().create();
 	}
 
 	private static java.util.concurrent.CompletableFuture<com.mojang.brigadier.suggestion.Suggestions> suggestNames(
