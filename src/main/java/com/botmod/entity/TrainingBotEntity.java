@@ -291,7 +291,8 @@ public class TrainingBotEntity extends PathfinderMob {
 			return;
 		}
 
-		this.attackCooldown = this.kit.attackIntervalTicks();
+		// Небольшой разброс темпа атаки — чтобы ритм не был роботным.
+		this.attackCooldown = this.kit.attackIntervalTicks() + this.getRandom().nextInt(3);
 		// 26.3: swing(InteractionHand) убран, вместо него SwingAnimation.
 		this.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
 

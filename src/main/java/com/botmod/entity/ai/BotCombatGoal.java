@@ -130,6 +130,12 @@ public class BotCombatGoal extends Goal {
 		if (this.bot.horizontalCollision && this.bot.onGround()) {
 			this.bot.getJumpControl().jump();
 		}
+
+		// Спринт-прыжок на сближении — так игроки быстро сокращают дистанцию.
+		if (this.bot.getDuelSettings().sprint() && this.bot.isSprinting()
+				&& this.bot.onGround() && this.bot.getRandom().nextFloat() < 0.08F) {
+			this.bot.getJumpControl().jump();
+		}
 	}
 
 	private void tickOrbit(LivingEntity target, double distanceSqr, double reach, BotMode mode) {
