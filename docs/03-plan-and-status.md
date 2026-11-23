@@ -74,9 +74,10 @@
 | Настоящий клиент (offscreen) | job `screenshots` | ✅ запускается, бот спавнится и дерётся |
 | Скриншоты в репозитории | job `screenshots` | ✅ 4 кадра в `docs/screenshots/` |
 | Готовый jar | job `build` → `releases/` | ✅ `botmod-0.1.0.jar` |
-| Редактор китов (KitMod) | `kitmod/` | 🔄 отдельный мод, GUI, JSON-киты |
-| Арены дуэлей | `arena/` | 🔄 6 стилей, 300×180, отдельное измерение |
-| Меню дуэли `/duel` | `duel/DuelGuis.java` | 🔄 арена, кит, сложность, 6 тумблеров |
+| Редактор китов (KitMod) | `kitmod/` | ✅ отдельный мод, GUI, JSON-киты, jar в `releases/` |
+| Арены дуэлей | `arena/` | ✅ 6 стилей, 300×180, отдельное измерение `botmod:arena` |
+| Меню дуэли `/duel` | `duel/DuelGuis.java` | ✅ арена, кит, сложность, 6 тумблеров |
+| Скриншот арены | `docs/screenshots/0004_botmod-arena.png` | ✅ игрок в измерении арены |
 
 ---
 
