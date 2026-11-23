@@ -4,11 +4,13 @@
 
 | Файл | Что это |
 |---|---|
-| `botmod-<version>.jar` | готовый мод для Minecraft 26.3 + Fabric Loader 0.20.1 |
+| `botmod-<version>.jar` | основной мод: бот, арены, `/duel` |
+| `kitmod-<version>.jar` | редактор китов с GUI (отдельный мод) |
+| `build-info.txt` | что лежало в `build/libs` при сборке |
 
 ## Как установить
 
-1. Положить jar в `.minecraft/mods/`.
+1. Положить jar в `.minecraft/mods/` (можно оба — они независимы).
 2. Нужен Fabric Loader 0.20.1+ и Fabric API 0.166.2+26.3.
 3. Запустить Minecraft 26.3.
 
