@@ -33,9 +33,9 @@ Fabric Loom: 1.19.4
 > Task :downloadAssets
 
 > Task :runProductionClientGameTest
-[00:51:24] [main/INFO]: Loading Minecraft 26.3 with Fabric Loader 0.20.1
-[00:51:24] [main/INFO]: Mappings not present!
-[00:51:25] [main/INFO]: Loading 53 mods:
+[00:57:06] [main/INFO]: Loading Minecraft 26.3 with Fabric Loader 0.20.1
+[00:57:06] [main/INFO]: Mappings not present!
+[00:57:06] [main/INFO]: Loading 53 mods:
 	- botmod 0.1.0
 	- botmod-test 1.0.0
 	- fabric-advancement-api-v1 1.0.1+38c7a2d55d
@@ -89,9 +89,9 @@ Fabric Loom: 1.19.4
 	   \-- mixinextras 0.5.5
 	- java 25
 	- minecraft 26.3
-[00:51:25] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/runner/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.17.5+mixin.0.8.7/cef8519a91129d0c21fa03bb9378f0e8ca810e5/sponge-mixin-0.17.5+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
+[00:57:07] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/home/runner/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.17.5+mixin.0.8.7/cef8519a91129d0c21fa03bb9378f0e8ca810e5/sponge-mixin-0.17.5+mixin.0.8.7.jar Service=Knot/Fabric Env=CLIENT
 WARNING: A restricted method in java.lang.System has been called
-WARNING: java.lang.System::load has been called by org.lwjgl.system.Library$$Lambda/0x000000001029f440 in an unnamed module (file:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.4.3/7ab5265a73d8a959ed62332d546536ae6be2f0d5/lwjgl-3.4.3.jar)
+WARNING: java.lang.System::load has been called by org.lwjgl.system.Library$$Lambda/0x000000002629f440 in an unnamed module (file:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.4.3/7ab5265a73d8a959ed62332d546536ae6be2f0d5/lwjgl-3.4.3.jar)
 WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
 WARNING: Restricted methods will be blocked in a future release unless native access is enabled
 
@@ -99,13 +99,14 @@ WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::objectFieldOffset has been called by org.lwjgl.system.MemoryBackendUnsafeLegacy (file:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.4.3/7ab5265a73d8a959ed62332d546536ae6be2f0d5/lwjgl-3.4.3.jar)
 WARNING: Please consider reporting this to the maintainers of class org.lwjgl.system.MemoryBackendUnsafeLegacy
 WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
-[00:51:26] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
-[00:51:27] [Datafixer Bootstrap #0/INFO]: 307 Datafixer optimizations took 416 milliseconds
-[00:51:31] [Render thread/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
-[00:51:31] [Render thread/INFO]: Setting user: Player300
-[00:51:31] [Render thread/INFO]: BotLab telemetry on http://127.0.0.1:17777
-[00:51:31] [Render thread/INFO]: BotMod 0.1.0 initialized
-[00:51:32] [Download-2/ERROR]: Failed to fetch user properties
+[00:57:08] [main/INFO]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.5).
+[00:57:09] [Datafixer Bootstrap #0/INFO]: 307 Datafixer optimizations took 562 milliseconds
+[00:57:14] [Render thread/INFO]: Environment: Environment[discoveryUrl=https://discovery.minecraftservices.com/minecraft/client, name=PROD]
+[00:57:14] [Render thread/INFO]: Setting user: Player185
+[00:57:14] [Render thread/INFO]: BotLab telemetry on http://127.0.0.1:17777
+[00:57:14] [Render thread/INFO]: BotMod 0.1.0 initialized
+[00:57:14] [Render thread/INFO]: [Indigo] Registering Indigo renderer!
+[00:57:14] [Download-2/ERROR]: Failed to fetch user properties
 com.mojang.authlib.exceptions.InvalidCredentialsException: Status: 401
 	at knot//com.mojang.authlib.exceptions.MinecraftClientHttpException.toAuthenticationException(MinecraftClientHttpException.java:70)
 	at knot//com.mojang.authlib.services.MinecraftServicesUserApiService.fetchProperties(MinecraftServicesUserApiService.java:168)
@@ -121,19 +122,18 @@ Caused by: MinecraftClientHttpException[type=HTTP_ERROR, status=401, response=Er
 	at knot//com.mojang.authlib.minecraft.client.MinecraftClient.get(MinecraftClient.java:65)
 	at knot//com.mojang.authlib.services.MinecraftServicesUserApiService.fetchProperties(MinecraftServicesUserApiService.java:118)
 	... 5 more
-[00:51:32] [Render thread/INFO]: [Indigo] Registering Indigo renderer!
-[00:51:32] [Render thread/ERROR]: Illegal option value 0 for Anisotropic Filtering
-[00:51:32] [Render thread/INFO]: Backend library: LWJGL version 3.4.3-snapshot
-[00:51:32] [Render thread/INFO]: SDL [SYSTEM]: App name: Minecraft
-[00:51:32] [Render thread/INFO]: SDL [SYSTEM]: App version: 26.3
-[00:51:32] [Render thread/INFO]: SDL [SYSTEM]: App ID: com.mojang.minecraft
-[00:51:32] [Render thread/INFO]: SDL [SYSTEM]: SDL revision: SDL-3.4.14--128-NOTFOUND
-[00:51:37] [Render thread/INFO]: Using graphics backend OpenGL, using drivers: 4.6 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.5
-[00:51:37] [Render thread/INFO]: Using graphics device: llvmpipe (LLVM 20.1.2, 256 bits) (Mesa)
-[00:51:37] [Render thread/INFO]: Using graphics device extensions: GL_ARB_multi_draw_indirect, GL_ARB_buffer_storage, GL_ARB_shader_draw_parameters, GL_ARB_base_instance, GL_KHR_debug, GL_ARB_draw_indirect, GL_ARB_clip_control, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access, GL_EXT_texture_filter_anisotropic
-[00:51:37] [Render thread/INFO]: Created window using SDL video driver: offscreen
-[00:51:37] [Render thread/WARN]: Failed to set window icon: That operation is not supported
-[00:51:38] [Render thread/ERROR]: Error while loading the narrator
+[00:57:14] [Render thread/ERROR]: Illegal option value 0 for Anisotropic Filtering
+[00:57:14] [Render thread/INFO]: Backend library: LWJGL version 3.4.3-snapshot
+[00:57:14] [Render thread/INFO]: SDL [SYSTEM]: App name: Minecraft
+[00:57:14] [Render thread/INFO]: SDL [SYSTEM]: App version: 26.3
+[00:57:14] [Render thread/INFO]: SDL [SYSTEM]: App ID: com.mojang.minecraft
+[00:57:14] [Render thread/INFO]: SDL [SYSTEM]: SDL revision: SDL-3.4.14--128-NOTFOUND
+[00:57:18] [Render thread/INFO]: Using graphics backend OpenGL, using drivers: 4.6 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.5
+[00:57:18] [Render thread/INFO]: Using graphics device: llvmpipe (LLVM 20.1.2, 256 bits) (Mesa)
+[00:57:18] [Render thread/INFO]: Using graphics device extensions: GL_ARB_multi_draw_indirect, GL_ARB_buffer_storage, GL_ARB_shader_draw_parameters, GL_ARB_base_instance, GL_KHR_debug, GL_ARB_draw_indirect, GL_ARB_clip_control, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access, GL_EXT_texture_filter_anisotropic
+[00:57:18] [Render thread/INFO]: Created window using SDL video driver: offscreen
+[00:57:18] [Render thread/WARN]: Failed to set window icon: That operation is not supported
+[00:57:19] [Render thread/ERROR]: Error while loading the narrator
 com.mojang.text2speech.Narrator$InitializeException: Failed to load library flite
 	at knot//com.mojang.text2speech.NarratorLinux$FliteLibrary.loadNative(NarratorLinux.java:82)
 	at knot//com.mojang.text2speech.NarratorLinux.<init>(NarratorLinux.java:19)
@@ -165,8 +165,9 @@ Native library (linux-x86-64/libflite.so) not found in resource path (/home/runn
 		at knot//com.sun.jna.Native.extractFromResourcePath(Native.java:1141)
 		at knot//com.sun.jna.NativeLibrary.loadLibrary(NativeLibrary.java:297)
 		... 11 more
-[00:51:38] [Download-1/INFO]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: FabricMC
-[00:51:38] [Download-1/ERROR]: Failed to fetch Realms feature flags
+[00:57:19] [Render thread/INFO]: Reloading ResourceManager: vanilla, vanilla, botmod, fabric-advancement-api-v1, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-getter-api-v2, fabric-client-gametest-api-v1, fabric-command-api-v2, fabric-content-registries-v0, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-creative-tab-api-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-debug-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-gametest-api-v1, fabric-item-api-v1, fabric-key-mapping-api-v1, fabric-lifecycle-events-v1, fabric-loot-api-v3, fabric-menu-api-v1, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-permission-api-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-rendering-fluids-v1, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-resource-loader-v1, fabric-screen-api-v1, fabric-serialization-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader
+[00:57:19] [Download-1/INFO]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: FabricMC
+[00:57:19] [Download-1/ERROR]: Failed to fetch Realms feature flags
 com.mojang.realmsclient.exception.RealmsServiceException: Realms authentication error with message 'java.lang.RuntimeException: Failed to parse into SignedJWT: FabricMC'
 	at knot//com.mojang.realmsclient.client.RealmsClient.execute(RealmsClient.java:625)
 	at knot//com.mojang.realmsclient.client.RealmsClient.fetchFeatureFlags(RealmsClient.java:204)
@@ -174,10 +175,9 @@ com.mojang.realmsclient.exception.RealmsServiceException: Realms authentication 
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
 	at java.base/java.lang.Thread.run(Thread.java:1474)
-[00:51:38] [Render thread/INFO]: Reloading ResourceManager: vanilla, vanilla, botmod, fabric-advancement-api-v1, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-getter-api-v2, fabric-client-gametest-api-v1, fabric-command-api-v2, fabric-content-registries-v0, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-creative-tab-api-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-debug-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-gametest-api-v1, fabric-item-api-v1, fabric-key-mapping-api-v1, fabric-lifecycle-events-v1, fabric-loot-api-v3, fabric-menu-api-v1, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-permission-api-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-rendering-fluids-v1, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-resource-loader-v1, fabric-screen-api-v1, fabric-serialization-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader
-[00:51:38] [Worker-Main-3/INFO]: Found unifont_all_no_pua-17.0.01.hex, loading
-[00:51:38] [Worker-Main-1/INFO]: Found unifont_pua-17.0.01.hex, loading
-[00:51:39] [Worker-Main-3/INFO]: Found unifont_jp_patch-17.0.01.hex, loading
+[00:57:19] [Worker-Main-3/INFO]: Found unifont_all_no_pua-17.0.01.hex, loading
+[00:57:19] [Worker-Main-2/INFO]: Found unifont_pua-17.0.01.hex, loading
+[00:57:19] [Worker-Main-3/INFO]: Found unifont_jp_patch-17.0.01.hex, loading
 ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
 ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_card_inum returned error: No such file or directory
 ALSA lib confmisc.c:422:(snd_func_concat) error evaluating strings
@@ -194,7 +194,7 @@ ALSA lib confmisc.c:1342:(snd_func_refer) error evaluating name
 ALSA lib conf.c:5208:(_snd_config_evaluate) function snd_func_refer returned error: No such file or directory
 ALSA lib conf.c:5731:(snd_config_expand) Evaluate error: No such file or directory
 ALSA lib pcm.c:2721:(snd_pcm_open_noupdate) Unknown PCM default
-[00:51:40] [Render thread/ERROR]: Error starting SoundSystem. Turning off sounds & music
+[00:57:21] [Render thread/ERROR]: Error starting SoundSystem. Turning off sounds & music
 java.lang.IllegalStateException: Failed to open OpenAL device
 	at knot//com.mojang.blaze3d.audio.Library.openDeviceOrFallback(Library.java:274)
 	at knot//com.mojang.blaze3d.audio.Library.init(Library.java:149)
@@ -219,20 +219,20 @@ java.lang.IllegalStateException: Failed to open OpenAL device
 	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:517)
 	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:72)
 	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
-[00:51:40] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
-[00:51:40] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/celestials.png-atlas
-[00:51:41] [Render thread/INFO]: Created: 128x128x0 minecraft:textures/atlas/decorated_pot.png-atlas
-[00:51:41] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
-[00:51:41] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
-[00:51:41] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
-[00:51:41] [Render thread/INFO]: Created: 2048x2048x4 minecraft:textures/atlas/blocks.png-atlas
-[00:51:41] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/items.png-atlas
-[00:51:41] [Render thread/INFO]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
-[00:51:41] [Render thread/INFO]: Created: 128x64x0 minecraft:textures/atlas/map_decorations.png-atlas
-[00:51:41] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/chest.png-atlas
-[00:51:41] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/shulker_boxes.png-atlas
-[00:51:41] [Download-1/INFO]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: FabricMC
-[00:51:41] [Download-1/ERROR]: Couldn't connect to realms
+[00:57:21] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/particles.png-atlas
+[00:57:21] [Render thread/INFO]: Created: 256x128x0 minecraft:textures/atlas/celestials.png-atlas
+[00:57:21] [Render thread/INFO]: Created: 128x128x0 minecraft:textures/atlas/decorated_pot.png-atlas
+[00:57:21] [Render thread/INFO]: Created: 512x256x0 minecraft:textures/atlas/paintings.png-atlas
+[00:57:21] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/shield_patterns.png-atlas
+[00:57:21] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/banner_patterns.png-atlas
+[00:57:21] [Render thread/INFO]: Created: 2048x2048x4 minecraft:textures/atlas/blocks.png-atlas
+[00:57:21] [Render thread/INFO]: Created: 1024x512x0 minecraft:textures/atlas/items.png-atlas
+[00:57:21] [Render thread/INFO]: Created: 1024x1024x0 minecraft:textures/atlas/gui.png-atlas
+[00:57:21] [Render thread/INFO]: Created: 128x64x0 minecraft:textures/atlas/map_decorations.png-atlas
+[00:57:21] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/chest.png-atlas
+[00:57:21] [Render thread/INFO]: Created: 512x512x0 minecraft:textures/atlas/shulker_boxes.png-atlas
+[00:57:22] [Download-1/INFO]: Could not authorize you against Realms server: java.lang.RuntimeException: Failed to parse into SignedJWT: FabricMC
+[00:57:22] [Download-1/ERROR]: Couldn't connect to realms
 com.mojang.realmsclient.exception.RealmsServiceException: Realms authentication error with message 'java.lang.RuntimeException: Failed to parse into SignedJWT: FabricMC'
 	at knot//com.mojang.realmsclient.client.RealmsClient.execute(RealmsClient.java:625)
 	at knot//com.mojang.realmsclient.client.RealmsClient.clientCompatible(RealmsClient.java:354)
@@ -241,93 +241,94 @@ com.mojang.realmsclient.exception.RealmsServiceException: Realms authentication 
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
 	at java.base/java.lang.Thread.run(Thread.java:1474)
-[00:51:44] [Worker-Main-2/INFO]: Loaded 1866 advancements
-[00:51:44] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.GenericMessageScreen@131f6c1c
-[00:51:44] [Render thread/INFO]: Applied 0 biome modifications to 0 of 67 new biomes in 1.104 ms
-[00:51:44] [Server thread/INFO]: Starting integrated minecraft server version 26.3
-[00:51:44] [Server thread/INFO]: Generating keypair
-[00:51:45] [Server thread/INFO]: Selecting global world spawn...
-[00:51:45] [Server thread/INFO]: Loading 0 persistent chunks...
-[00:51:45] [Server thread/INFO]: Preparing spawn area: 16%
-[00:51:45] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
-[00:51:45] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
-[00:51:45] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/botmod:arena
-[00:51:45] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
-[00:51:45] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:45] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:45] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:45] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:45] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:45] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:46] [Server thread/INFO]: Loading 48 chunks for player spawn...
-[00:51:46] [Server thread/INFO]: Preparing spawn area: 16%
-[00:51:46] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:46] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:46] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:46] [Server thread/INFO]: Preparing spawn area: 16%
-[00:51:46] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:46] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:46] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:46] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:46] [Server thread/INFO]: Time elapsed: 1274 ms
-[00:51:46] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:46] [Server thread/INFO]: Player300[local:E:59f79d64] logged in with entity id 1 at (0.5, -60.0, 0.5)
-[00:51:46] [Server thread/INFO]: System chat: Player300 joined the game
-[00:51:46] [Server thread/INFO]: Changing view distance to 5, from 10
-[00:51:46] [Server thread/INFO]: Changing simulation distance to 12, from 0
-[00:51:46] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:46] [Render thread/INFO]: Loaded 2 advancements
-[00:51:46] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:46] [Render thread/WARN]: Requested post effect does not exist: minecraft:end_of_frame
-[00:51:47] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 2 reached during a single frame. New capacity will be 4.
-[00:51:47] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:47] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 4 reached during a single frame. New capacity will be 8.
-[00:51:47] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:47] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 8 reached during a single frame. New capacity will be 16.
-[00:51:47] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:47] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:47] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 2 reached during a single frame. New capacity will be 8.
-[00:51:47] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 2 reached during a single frame. New capacity will be 8.
-[00:51:47] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:47] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:47] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:47] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:47] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:47] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:48] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@65dc1b71
-[00:51:48] [Render thread/INFO]: World loading finished: ClientLevel screen: null
-[00:51:48] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 8 reached during a single frame. New capacity will be 16.
-[00:51:48] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 8 reached during a single frame. New capacity will be 16.
-[00:51:48] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 16 reached during a single frame. New capacity will be 32.
-[00:51:48] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.
-[00:51:48] [BotLab-FrameSender/INFO]: BotLab недоступна (null): ConnectException
-[00:51:49] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.
-[00:51:49] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.
-[00:51:49] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.
-[00:51:49] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 64 reached during a single frame. New capacity will be 128.
-[00:51:49] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 16 reached during a single frame. New capacity will be 32.
-[00:51:50] [Server thread/INFO]: System chat: Spawned a Sparring bot (Training Bot)
-[00:51:51] [Server thread/INFO]: System chat: Training Bot starts fighting you. Good luck!
-[00:51:55] [Server thread/INFO]: Arena end built in 2119 ms
-[00:51:55] [Server thread/INFO]: DuelManager: teleported=true playerLevel=botmod:arena arenaLevel=botmod:arena
-[00:51:55] [Server thread/INFO]: DuelManager: botAdded=true botAlive=true botHealth=20.0 botPos=(140.5, 64.0, 0.5)
-[00:51:55] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 3483ms or 69 ticks behind
-[00:51:55] [Render thread/INFO]: [System] [CHAT] §aДуэль на арене «Энд». Противник: Обычный. Бой!
-[00:51:55] [Server thread/INFO]: DuelManager: end duel playerGone=false botGone=true playerLeft=false playerLevel=botmod:arena
-[00:51:55] [Render thread/INFO]: [System] [CHAT] §aПобеда! Бот повержен.
-[00:52:00] [Server thread/INFO]: Player300 lost connection: Disconnected
-[00:52:00] [Server thread/INFO]: System chat: Player300 left the game
-[00:52:01] [Server thread/INFO]: Stopping singleplayer server as player logged out
-[00:52:01] [Server thread/INFO]: Stopping server
-[00:52:01] [Server thread/INFO]: Saving players
-[00:52:01] [Server thread/INFO]: Saving worlds
-[00:52:01] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
-[00:52:01] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
-[00:52:01] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/botmod:arena
-[00:52:01] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
-[00:52:01] [Render thread/INFO]: Stopping!
-gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1795395039964.json
+[00:57:25] [Worker-Main-2/INFO]: Loaded 1866 advancements
+[00:57:25] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.GenericMessageScreen@7f13c67a
+[00:57:25] [Render thread/INFO]: Applied 0 biome modifications to 0 of 67 new biomes in 1.326 ms
+[00:57:25] [Server thread/INFO]: Starting integrated minecraft server version 26.3
+[00:57:25] [Server thread/INFO]: Generating keypair
+[00:57:26] [Server thread/INFO]: Selecting global world spawn...
+[00:57:26] [Server thread/INFO]: Loading 0 persistent chunks...
+[00:57:26] [Server thread/INFO]: Preparing spawn area: 16%
+[00:57:26] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[00:57:26] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[00:57:26] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/botmod:arena
+[00:57:26] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[00:57:26] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:26] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:26] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:26] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:26] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:26] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:26] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:26] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:26] [Server thread/INFO]: Loading 48 chunks for player spawn...
+[00:57:26] [Server thread/INFO]: Preparing spawn area: 16%
+[00:57:27] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:27] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:27] [Server thread/INFO]: Preparing spawn area: 16%
+[00:57:27] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:27] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:27] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:27] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:27] [Server thread/INFO]: Time elapsed: 1328 ms
+[00:57:27] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:27] [Server thread/INFO]: Player185[local:E:2d46a772] logged in with entity id 1 at (0.5, -60.0, 0.5)
+[00:57:27] [Server thread/INFO]: System chat: Player185 joined the game
+[00:57:27] [Server thread/INFO]: Changing view distance to 5, from 10
+[00:57:27] [Server thread/INFO]: Changing simulation distance to 12, from 0
+[00:57:27] [Render thread/INFO]: World loading finished: null screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:27] [Render thread/INFO]: Loaded 2 advancements
+[00:57:27] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:27] [Render thread/WARN]: Requested post effect does not exist: minecraft:end_of_frame
+[00:57:28] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 2 reached during a single frame. New capacity will be 4.
+[00:57:28] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:28] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 4 reached during a single frame. New capacity will be 8.
+[00:57:28] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:28] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 8 reached during a single frame. New capacity will be 16.
+[00:57:28] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:28] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:28] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 2 reached during a single frame. New capacity will be 8.
+[00:57:28] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 2 reached during a single frame. New capacity will be 8.
+[00:57:28] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:28] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:28] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:28] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:28] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 8 reached during a single frame. New capacity will be 16.
+[00:57:28] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 8 reached during a single frame. New capacity will be 16.
+[00:57:28] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:29] [Render thread/INFO]: World loading finished: ClientLevel screen: net.minecraft.client.gui.screens.LevelLoadingScreen@27d5c886
+[00:57:29] [Render thread/INFO]: World loading finished: ClientLevel screen: null
+[00:57:29] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 16 reached during a single frame. New capacity will be 32.
+[00:57:29] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 16 reached during a single frame. New capacity will be 32.
+[00:57:29] [BotLab-FrameSender/INFO]: BotLab недоступна (null): ConnectException
+[00:57:30] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 32 reached during a single frame. New capacity will be 64.
+[00:57:30] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 32 reached during a single frame. New capacity will be 64.
+[00:57:30] [Render thread/INFO]: Resizing Chunk Sections Command Buffer, capacity limit of 64 reached during a single frame. New capacity will be 128.
+[00:57:30] [Render thread/INFO]: Resizing Chunk Sections Instanced, capacity limit of 64 reached during a single frame. New capacity will be 128.
+[00:57:30] [Render thread/INFO]: Resizing Dynamic Transforms UBO, capacity limit of 16 reached during a single frame. New capacity will be 32.
+[00:57:30] [Server thread/INFO]: System chat: Spawned a Sparring bot (Training Bot)
+[00:57:32] [Server thread/INFO]: System chat: Training Bot starts fighting you. Good luck!
+[00:57:36] [Server thread/INFO]: Arena end built in 2178 ms
+[00:57:36] [Server thread/INFO]: DuelManager: teleported=true playerLevel=botmod:arena arenaLevel=botmod:arena
+[00:57:36] [Server thread/INFO]: DuelManager: botAdded=true botAlive=true botHealth=20.0 botPos=(140.5, 64.0, 0.5)
+[00:57:36] [Server thread/WARN]: Can't keep up! Is the server overloaded? Running 3712ms or 74 ticks behind
+[00:57:36] [Render thread/INFO]: [System] [CHAT] §aДуэль на арене «Энд». Противник: Обычный. Бой!
+[00:57:36] [Server thread/INFO]: DuelManager: end duel playerGone=false botGone=true playerLeft=false playerLevel=botmod:arena botRemoved=true botHealth=20.0 botY=64.0 botOnGround=false blockBelow=Block{minecraft:end_stone_bricks}
+[00:57:36] [Server thread/INFO]: DuelManager: bot block at feet=Block{minecraft:air} below2=Block{minecraft:purpur_block}
+[00:57:37] [Render thread/INFO]: [System] [CHAT] §aПобеда! Бот повержен.
+[00:57:42] [Server thread/INFO]: Player185 lost connection: Disconnected
+[00:57:42] [Server thread/INFO]: System chat: Player185 left the game
+[00:57:42] [Server thread/INFO]: Stopping singleplayer server as player logged out
+[00:57:42] [Server thread/INFO]: Stopping server
+[00:57:42] [Server thread/INFO]: Saving players
+[00:57:42] [Server thread/INFO]: Saving worlds
+[00:57:42] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[00:57:42] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[00:57:43] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/botmod:arena
+[00:57:43] [Server thread/INFO]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[00:57:43] [Render thread/INFO]: Stopping!
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_3-1795395384914.json
 
-BUILD SUCCESSFUL in 1m 28s
+BUILD SUCCESSFUL in 1m 25s
 10 actionable tasks: 10 executed
 Configuration cache entry stored.
