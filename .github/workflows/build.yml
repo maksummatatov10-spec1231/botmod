@@ -72,8 +72,27 @@ jobs:
           if-no-files-found: warn
 
       # Отдельный мод Kit Editor (kitmod) — тоже собираем и публикуем.
+      # continue-on-error: ошибка KitMod не должна блокировать проверку арен.
       - name: Build KitMod
-        run: ./gradlew -p kitmod build --no-daemon
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          ./gradlew -p kitmod build --no-daemon 2>&1 | tee /tmp/kitmod.log
+
+      - name: Report KitMod errors as commit comment
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          {
+            echo "### ❌ KitMod build failed"
+            echo ""
+            echo '```'
+            grep -E "error:|\.java:[0-9]+|What went wrong|Caused by:|Execution failed" /tmp/kitmod.log | sed 's/^[[:space:]]*//' | uniq | head -60
+            echo '```'
+          } > /tmp/kitmod-report.md
+          gh api "repos/${{ github.repository }}/commits/${COMMIT_SHA}/comments" -F body=@/tmp/kitmod-report.md
 
       # Готовые jar — в репозиторий, чтобы их можно было просто скачать.
       - name: Publish jar to releases/
